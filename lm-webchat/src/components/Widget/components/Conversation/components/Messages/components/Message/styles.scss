@@ -1,0 +1,42 @@
+@import "variables.scss";
+@import "common.scss";
+
+.message {
+  margin: 15px;
+  display: flex;
+  font-size: 16px;
+  font-family: $roboto;
+
+  .markdown {
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.client {
+  @include message-bubble($green-1, #000);
+  margin-left: auto;
+  overflow-wrap: break-word;
+
+  a {
+    color: $turqois-1;
+  }
+}
+
+.response {
+  @include message-bubble($white, #000);
+  overflow-wrap: break-word;
+}
+
+/* For markdown elements created with default styles */
+.message-text {
+  margin: 0;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  margin-right: 10px;
+}

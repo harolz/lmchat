@@ -1,0 +1,11 @@
+@import "variables.scss";
+@import "common.scss";
+
+.datepick {
+  @include message-bubble($grey-2, #000);
+}
+
+.client-side {
+  margin-left: auto;
+}
+

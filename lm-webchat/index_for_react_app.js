@@ -1,0 +1,47 @@
+import ConnectedWidget from './src';
+import {
+  addUserMessage,
+  addResponseMessage,
+  addLinkSnippet,
+  addDatePick,
+  addDkwComplete,
+  addVideoSnippet,
+  addImageSnippet,
+  addQuickReply,
+  renderCustomComponent,
+  isOpen,
+  addAppointmentSnippet,
+  addConsultantSnippet,
+  isVisible,
+  openChat,
+  closeChat,
+  toggleChat,
+  showChat,
+  hideChat,
+  toggleInputDisabled,
+  dropMessages
+} from './src/store/actions/dispatcher';
+
+export {
+  ConnectedWidget as Widget,
+  addUserMessage,
+  addResponseMessage,
+  addLinkSnippet,
+  addDatePick,
+  addAppointmentSnippet,
+  addConsultantSnippet,
+  addDkwComplete,
+  addVideoSnippet,
+  addImageSnippet,
+  addQuickReply,
+  renderCustomComponent,
+  isOpen,
+  isVisible,
+  openChat,
+  closeChat,
+  toggleChat,
+  showChat,
+  hideChat,
+  toggleInputDisabled,
+  dropMessages
+};

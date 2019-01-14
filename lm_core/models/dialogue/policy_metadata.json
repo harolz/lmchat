@@ -1,0 +1,87 @@
+{
+  "action_fingerprints": {
+    "action_listen": {
+      "slots": [
+        "gender_value",
+        "email",
+        "feedback_value",
+        "service_type",
+        "patient_value"
+      ]
+    },
+    "action_store_job": {
+      "slots": [
+        "job_function"
+      ]
+    },
+    "action_store_usecase": {
+      "slots": [
+        "use_case"
+      ]
+    },
+    "action_store_budget": {
+      "slots": [
+        "budget"
+      ]
+    },
+    "action_store_name": {
+      "slots": [
+        "person_name"
+      ]
+    },
+    "action_store_company": {
+      "slots": [
+        "company_name"
+      ]
+    },
+    "action_store_email": {
+      "slots": [
+        "email"
+      ]
+    },
+    "action_store_sales_info": {
+      "slots": [
+        "data_stored"
+      ]
+    },
+    "action_subscribe_newsletter": {
+      "slots": [
+        "subscribed"
+      ]
+    },
+    "utter_anything_else": {
+      "slots": []
+    },
+    "utter_ask_feedback": {
+      "slots": []
+    },
+    "utter_what_help": {
+      "slots": []
+    },
+    "suggestion_form": {
+      "slots": []
+    },
+    "utter_nohelp": {
+      "slots": []
+    },
+    "utter_bye": {
+      "slots": []
+    }
+  },
+  "rasa_core": "0.13.0a3",
+  "python": "3.6.7",
+  "max_histories": [
+    5,
+    null,
+    5,
+    2
+  ],
+  "ensemble_name": "rasa_core.policies.ensemble.SimplePolicyEnsemble",
+  "policy_names": [
+    "rasa_core.policies.keras_policy.KerasPolicy",
+    "rasa_core.policies.fallback.FallbackPolicy",
+    "rasa_core.policies.memoization.MemoizationPolicy",
+    "rasa_core.policies.form_policy.FormPolicy"
+  ],
+  "trained_at": "20190110-115909"
+}

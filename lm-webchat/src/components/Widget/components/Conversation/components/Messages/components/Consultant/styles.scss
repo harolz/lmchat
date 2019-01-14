@@ -1,0 +1,12 @@
+@import "variables.scss";
+@import "common.scss";
+@import 'font-awesome/css/font-awesome.min.css';
+@import 'bootstrap-css-only/css/bootstrap.min.css';
+@import 'mdbreact/dist/css/mdb.css';
+
+
+.client-side {
+  // margin-left: auto;
+  // display: flex;
+  @include message-bubble($grey-2, #000);
+}

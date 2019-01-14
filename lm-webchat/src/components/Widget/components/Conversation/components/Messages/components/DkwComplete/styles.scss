@@ -1,0 +1,30 @@
+@import "variables.scss";
+@import "common.scss";
+
+.dkwcomplete {
+  @include message-bubble($grey-2, #000);
+}
+
+.client-side {
+  margin-left: auto;
+}
+
+.dkwcomplete-title {
+  display: block;
+  font-size: 1.17em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+.dkwcomplete-details {
+  border-left: 2px solid $green-1;
+  margin-top: 5px;
+  padding-left: 10px;
+}
+
+.link {
+  font-family: $roboto;
+}

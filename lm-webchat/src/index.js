@@ -1,0 +1,72 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Provider } from 'react-redux';
+
+import Widget from './components/Widget';
+import { store, initStore } from '../src/store/store';
+import socket from './socket';
+
+const ConnectedWidget = (props) => {
+  const sock = socket(props.socketUrl, props.customData, props.socketPath);
+  const storage = props.params.storage == "session" ? sessionStorage : localStorage
+  initStore(
+    props.inputTextFieldHint,
+    props.connectingText,
+    sock,
+    storage
+    );
+  return (<Provider store={store}>
+    <Widget
+      socket={sock}
+      interval={props.interval}
+      initPayload={props.initPayload}
+      title={props.title}
+      subtitle={props.subtitle}
+      customData={props.customData}
+      handleNewUserMessage={props.handleNewUserMessage}
+      profileAvatar={props.profileAvatar}
+      showCloseButton={props.showCloseButton}
+      fullScreenMode={props.fullScreenMode}
+      badge={props.badge}
+      embedded={props.embedded}
+      params={props.params}
+      storage={storage}
+    />
+  </Provider>);
+};
+
+ConnectedWidget.propTypes = {
+  initPayload: PropTypes.string,
+  interval: PropTypes.number,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  socketUrl: PropTypes.string.isRequired,
+  socketPath: PropTypes.string,
+  customData: PropTypes.shape({}),
+  handleNewUserMessage: PropTypes.func,
+  profileAvatar: PropTypes.string,
+  inputTextFieldHint: PropTypes.string,
+  connectingText: PropTypes.string,
+  showCloseButton: PropTypes.bool,
+  fullScreenMode: PropTypes.bool,
+  badge: PropTypes.number,
+  embedded: PropTypes.bool,
+  params: PropTypes.object
+};
+
+ConnectedWidget.defaultProps = {
+  title: 'Welcome',
+  customData: {},
+  interval: 500,
+  inputTextFieldHint: 'Type a message...',
+  connectingText: 'Waiting for server...',
+  fullScreenMode: true,
+  socketUrl: 'http://localhost',
+  badge: 0,
+  embedded: false,
+  params: {
+    storage: 'local'
+  }
+};
+
+export default ConnectedWidget;

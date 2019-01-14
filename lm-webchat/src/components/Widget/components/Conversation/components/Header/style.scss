@@ -1,0 +1,83 @@
+@import "variables.scss";
+@import "common.scss";
+
+.conversation-container {
+  .header {
+    // background-image: url("background.gif");
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 15px 0 15px;
+    font-family: $roboto;
+  }
+
+  .title {
+    font-size: 20px;
+    color: #f7f2f2;
+    margin: 0;
+    font-family: $roboto;
+  }
+
+  .close-button {
+    display: none;
+  }
+
+  .loading {
+    background-color: $grey-3;
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 5px 0 5px;
+    font-family: $roboto;
+    font-size: 14px;
+  }
+}
+
+.full-screen {
+
+  .header {
+    @include header-fs;
+  }
+
+  .title {
+    @include title-fs;
+  }
+
+  .close-button {
+    @include close-button-fs;
+  }
+
+  .close {
+    @include close-fs;
+  }
+
+  .loading {
+    @include loading-fs;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .conversation-container {
+    .header {
+      @include header-fs;
+    }
+
+    .title {
+      @include title-fs;
+    }
+
+    .close-button {
+      @include close-button-fs;
+    }
+
+    .close {
+      @include close-fs;
+    }
+
+    .loading {
+      @include loading-fs;
+    }
+  }
+}
