@@ -1,3 +1,5 @@
+import sys
+sys.path.append('/home/ubuntu/.local/lib/python3.6/site-packages')
 import argparse
 import logging
 from flask import Flask

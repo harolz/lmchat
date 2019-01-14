@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-python ./render.py
+python3 ./render.py
 
-python -m rasa_core.run -d models/dialogue/ -u default/current \
+python3 -m rasa_core.run -d models/dialogue/ -u default/current \
        --port 5005 --credentials credentials.yml \
        --cors * --endpoints endpoints.yml
