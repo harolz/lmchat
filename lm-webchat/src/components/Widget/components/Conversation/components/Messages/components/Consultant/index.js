@@ -13,7 +13,7 @@ class Consultant extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick() {
-    const CONSULTANT = '您所预约的专家为： 陈峰浩 博士';
+    const CONSULTANT = '我所预约的专家为： 陈峰浩 博士';
     const payload = '/comfirm_lm_consultant';
     this.props.submitCONSULTANT(payload, CONSULTANT);
   }

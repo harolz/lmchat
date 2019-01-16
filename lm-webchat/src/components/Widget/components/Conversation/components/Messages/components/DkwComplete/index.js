@@ -150,11 +150,11 @@ class DkwComplete extends React.Component {
   render() {
     // const sender = this.props.message.get('sender');
     return (
-      <div className="client-side">
+      <container className="client-side">
         { this.props.isLast && <div className="dkwcomplete">
-          <div className="dkwcomplete-title">
+          {/* <div className="dkwcomplete-title">
             { this.props.message.get('title') }
-          </div>
+          </div> */}
           <div>
             <Autocomplete
               getItemValue={this.getItemValue}
@@ -163,11 +163,23 @@ class DkwComplete extends React.Component {
               value={this.state.value}
               onChange={this.onChange}
               onSelect={this.onSelect}
+              inputProps={{ placeholder: '请输入关键字选择确诊疾病' }}
+              menuStyle={{
+                borderRadius: '3px',
+                boxShadow: '0 2px 12px rgba(0, 0, 0, 0.1)',
+                background: 'rgba(255, 255, 255, 0.9)',
+                padding: '2px 0',
+                fontSize: '80%',
+                position: 'fixed',
+                overflow: 'auto',
+                maxHeight: '80%' // TODO: don't cheat, let it flow to the bottom
+              }}
             />
           </div>
+          <br />
           <input type="submit" value="提交" onClick={this.handleClick} />
         </div> }
-      </div>
+      </container>
     );
   }
 }

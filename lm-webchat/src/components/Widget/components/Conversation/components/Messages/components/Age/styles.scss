@@ -4,7 +4,11 @@
 
 .client-side {
   margin-left: auto;
-  display: inline;
+  flex-flow: row wrap;
+  justify-content: 'space-between';
+  .justify{
+    justify-content: 'space-between';
+  }
 }
 
 .age {

@@ -13,6 +13,7 @@ class Surgery extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
     if (!this.props.inputState) {
       this.props.toggleInputDisabled();
       // this.props.changeInputFieldHint(hint);
@@ -29,14 +30,17 @@ class Surgery extends Component {
     const payload = '/comfirm_past_surgery';
     this.props.submitSURGERY(payload, SURGERY);
   }
+  handleFocus(event) {
+    this.setState({ value: '' });
+  }
   render() {
     return (
       <div className="client-side">
         { this.props.isLast && <div className="surgery">
           <div className="example">
             <form>
-              <textarea value={this.state.value} onChange={this.handleChange} cols={30} rows={6} />
-              <input type="submit" value="提交" onClick={this.handleSubmit}/>
+              <textarea value={this.state.value} onChange={this.handleChange} onFocus={this.handleFocus} cols={30} rows={6} />
+              <input type="submit" value="提交" onClick={this.handleSubmit} />
             </form>
           </div>
         </div> }

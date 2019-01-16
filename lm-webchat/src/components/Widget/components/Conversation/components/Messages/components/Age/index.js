@@ -13,25 +13,44 @@ const timeOptions = [
 ];
 
 
-const customStyles = {
-  option: (provided, state) => ({
-    ...provided,
-    borderBottom: '1px dotted pink',
-    color: state.isSelected ? 'red' : 'blue',
-    padding: 0,
-    
-  }),
-  control: () => ({
-    // none of react-select's styles are passed to <Control />
-    width: 100,
-    height: 38
-  }),
-  singleValue: (provided, state) => {
-    const opacity = state.isDisabled ? 0.5 : 1;
-    const transition = 'opacity 300ms';
+const customStyles1 = {
+  // option: (provided, state) => ({
+  //   ...provided,
+  //   borderBottom: '1px dotted pink',
+  //   color: state.isSelected ? 'red' : 'blue',
+  //   padding: 10
+  // }),
+  // control: () => ({
+  //   // none of react-select's styles are passed to <Control />
+  //   width: 80,
+  //   height: 38
+  // }),
+  // singleValue: (provided, state) => {
+  //   const opacity = state.isDisabled ? 0.5 : 1;
+  //   const transition = 'opacity 300ms';
 
-    return { ...provided, opacity, transition };
-  }
+  //   return { ...provided, opacity, transition };
+  // }
+}
+
+const customStyles2 = {
+  // option: (provided, state) => ({
+  //   ...provided,
+  //   borderBottom: '1px dotted pink',
+  //   color: state.isSelected ? 'red' : 'blue',
+  //   padding: 10
+  // }),
+  // control: () => ({
+  //   // none of react-select's styles are passed to <Control />
+  //   width: 80,
+  //   height: 38
+  // }),
+  // singleValue: (provided, state) => {
+  //   const opacity = state.isDisabled ? 0.5 : 1;
+  //   const transition = 'opacity 300ms';
+
+  //   return { ...provided, opacity, transition };
+  // }
 }
 
 class Age extends Component {
@@ -71,23 +90,30 @@ class Age extends Component {
 
     return (
       <div className="client-side">
-        { this.props.isLast && <div>
-          <Select
-            value={this.state.selectedNumOption}
-            placeholder={this.state.selectedNumOption}
-            styles={customStyles}
-            onChange={this.handleChange1}
-            options={numOptions}
-          />
-          <Select
-            value={this.state.selectedTimeOption}
-            placeholder={this.state.selectedTimeOption}
-            styles={customStyles}
-            onChange={this.handleChange2}
-            options={timeOptions}
-          />
-          <br />
-          <input type="submit" value="提交" onClick={this.handleClick} />
+        { this.props.isLast && <div className="justify" style={{ float: 'right', width: '140%' }}>
+          <div>
+            <Select
+              value={this.state.selectedNumOption}
+              placeholder={this.state.selectedNumOption}
+              styles={customStyles1}
+              onChange={this.handleChange1}
+              options={numOptions}
+              selected
+            />
+          </div>
+          <div>
+            <Select
+              value={this.state.selectedTimeOption}
+              placeholder={this.state.selectedTimeOption}
+              styles={customStyles2}
+              onChange={this.handleChange2}
+              options={timeOptions}
+              selected
+            />
+          </div>
+          <div>
+            <input type="submit" value="提交" onClick={this.handleClick} />
+          </div>
           </div>}
       </div>
     );
