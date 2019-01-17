@@ -150,7 +150,7 @@ class DkwComplete extends React.Component {
   render() {
     // const sender = this.props.message.get('sender');
     return (
-      <container className="client-side">
+      <div className="client-side">
         { this.props.isLast && <div className="dkwcomplete">
           {/* <div className="dkwcomplete-title">
             { this.props.message.get('title') }
@@ -179,7 +179,7 @@ class DkwComplete extends React.Component {
           <br />
           <input type="submit" value="提交" onClick={this.handleClick} />
         </div> }
-      </container>
+      </div>
     );
   }
 }

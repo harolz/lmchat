@@ -14,9 +14,7 @@
     - form{"name": "suggestion_form"}
     - form{"name": null}
 
-
-
-## link-medicine-SMO-male
+## link-medicine-MSO-male-oneself
 * greet
     - utter_greet
     - utter_whois_patient_question
@@ -24,19 +22,19 @@
 * confirm_patient{"patient_value": "oneself"}
     - slot{"patient_value": "oneself"}
     - utter_great
-    - utter_ask_gender_question
+    - utter_ask_gender_question_2nd
     - utter_ask_gender_answer
 * confirm_gender{"gender_value": "male"}
     - slot{"gender_value": "male"}
     - utter_great
-    - utter_ask_age_question
+    - utter_ask_age_question_2nd
     - utter_ask_age_answer
 * confirm_age
     - utter_ask_service_type_question
     - utter_ask_service_type_answer
-* confirm_service_type{"service_type": "remote"}
-    - slot{"service_type": "remote"}
-    - utter_great
+* confirm_service_type{"service_type": "mso"}
+    - slot{"service_type": "mso"}
+    - utter_mso
     - utter_ask_dkw_question
     - utter_ask_dkw_answer
 * confirm_dkw
@@ -68,10 +66,63 @@
     - slot{"feedback_value": "positive"}
     - utter_great
     - utter_anything_else
-
-
-
-## link-medicine-SMO-female
+## link-medicine-MSO-male-others
+* greet
+    - utter_greet
+    - utter_whois_patient_question
+    - utter_whois_patient_answer
+* confirm_patient{"patient_value": "others"}
+    - slot{"patient_value": "others"}
+    - utter_great
+    - utter_ask_gender_question_3rd
+    - utter_ask_gender_answer
+* confirm_gender{"gender_value": "male"}
+    - slot{"gender_value": "male"}
+    - utter_awesome
+    - utter_ask_age_question_3rd
+    - utter_ask_age_answer
+* confirm_age
+    - utter_ask_service_type_question
+    - utter_ask_service_type_answer
+* confirm_service_type{"service_type": "mso"}
+    - slot{"service_type": "mso"}
+    - utter_mso
+    - utter_ask_basic_knowledge_question
+    - utter_ask_basic_knowledge_answer
+* confirm_basic_knowledge{"basic_knowledge": "basic_knowledge_yes"}
+    - utter_ask_dkw_question
+    - utter_ask_dkw_answer
+* confirm_dkw
+  - utter_ask_symptoms_question
+  - utter_ask_symptoms_answer
+* confirm_symptoms
+  - utter_ask_current_medication_question
+  - utter_ask_current_medication_answer
+* confirm_current_medication
+  - utter_ask_past_surgery_question
+  - utter_ask_past_surgery_answer
+* confirm_past_surgery
+  - utter_ask_medical_appointment
+  - utter_datepicker
+* confirm_medical_appointment
+  - utter_ask_email_question
+  - utter_ask_email_answer
+* confirm_email
+  - utter_working_on_it
+  - utter_case_created
+  - utter_ask_lm_consultant
+  - utter_lm_consultant
+* confirm_lm_consultant  
+  - utter_ask_lm_appointment
+  - utter_lm_appointment
+* confirm_lm_appointment
+  - utter_ask_feedback_question
+  - utter_ask_feedback
+* feedback{"feedback_value": "positive"}
+    - slot{"feedback_value": "positive"}
+    - utter_great
+    - utter_anything_else
+## link-medicine-MSO-female-oneself
 * greet
     - utter_greet
     - utter_whois_patient_question
@@ -79,19 +130,512 @@
 * confirm_patient{"patient_value": "oneself"}
     - slot{"patient_value": "oneself"}
     - utter_great
-    - utter_ask_gender_question
+    - utter_ask_gender_question_2nd
     - utter_ask_gender_answer
 * confirm_gender{"gender_value": "female"}
     - slot{"gender_value": "female"}
     - utter_awesome
-    - utter_ask_age_question
+    - utter_ask_age_question_2nd
     - utter_ask_age_answer
 * confirm_age
     - utter_ask_service_type_question
     - utter_ask_service_type_answer
-* confirm_service_type{"service_type": "remote"}
-    - slot{"service_type": "remote"}
-    - utter_ask_basic_knowledge
+* confirm_service_type{"service_type": "mso"}
+    - slot{"service_type": "mso"}
+    - utter_mso
+    - utter_ask_cooperation
+    - utter_ask_dkw_question
+    - utter_ask_dkw_answer
+* confirm_dkw
+  - utter_ask_symptoms_question
+  - utter_ask_symptoms_answer
+* confirm_symptoms
+  - utter_ask_current_medication_question
+  - utter_ask_current_medication_answer
+* confirm_current_medication
+  - utter_ask_past_surgery_question
+  - utter_ask_past_surgery_answer
+* confirm_past_surgery
+  - utter_ask_medical_appointment
+  - utter_datepicker
+* confirm_medical_appointment
+  - utter_ask_email_question
+  - utter_ask_email_answer
+* confirm_email
+  - utter_working_on_it
+  - utter_case_created
+  - utter_ask_lm_consultant
+  - utter_lm_consultant
+* confirm_lm_consultant  
+  - utter_ask_lm_appointment
+  - utter_lm_appointment
+* confirm_lm_appointment
+  - utter_ask_feedback_question
+  - utter_ask_feedback
+* feedback{"feedback_value": "positive"}
+    - slot{"feedback_value": "positive"}
+    - utter_great
+    - utter_anything_else
+## link-medicine-MSO-female-others
+* greet
+    - utter_greet
+    - utter_whois_patient_question
+    - utter_whois_patient_answer
+* confirm_patient{"patient_value": "others"}
+    - slot{"patient_value": "others"}
+    - utter_great
+    - utter_ask_gender_question_3rd
+    - utter_ask_gender_answer
+* confirm_gender{"gender_value": "female"}
+    - slot{"gender_value": "female"}
+    - utter_awesome
+    - utter_ask_age_question_3rd
+    - utter_ask_age_answer
+* confirm_age
+    - utter_ask_service_type_question
+    - utter_ask_service_type_answer
+* confirm_service_type{"service_type": "mso"}
+    - slot{"service_type": "mso"}
+    - utter_mso
+    - utter_ask_basic_knowledge_question
+    - utter_ask_basic_knowledge_answer
+* confirm_basic_knowledge{"basic_knowledge": "basic_knowledge_yes"}
+    - utter_ask_dkw_question
+    - utter_ask_dkw_answer
+* confirm_dkw
+  - utter_ask_symptoms_question
+  - utter_ask_symptoms_answer
+* confirm_symptoms
+  - utter_ask_current_medication_question
+  - utter_ask_current_medication_answer
+* confirm_current_medication
+  - utter_ask_past_surgery_question
+  - utter_ask_past_surgery_answer
+* confirm_past_surgery
+  - utter_ask_medical_appointment
+  - utter_datepicker
+* confirm_medical_appointment
+  - utter_ask_email_question
+  - utter_ask_email_answer
+* confirm_email
+  - utter_working_on_it
+  - utter_case_created
+  - utter_ask_lm_consultant
+  - utter_lm_consultant
+* confirm_lm_consultant  
+  - utter_ask_lm_appointment
+  - utter_lm_appointment
+* confirm_lm_appointment
+  - utter_ask_feedback_question
+  - utter_ask_feedback
+* feedback{"feedback_value": "positive"}
+    - slot{"feedback_value": "positive"}
+    - utter_great
+    - utter_anything_else
+## link-medicine-DATA-male-oneself
+* greet
+    - utter_greet
+    - utter_whois_patient_question
+    - utter_whois_patient_answer
+* confirm_patient{"patient_value": "oneself"}
+    - slot{"patient_value": "oneself"}
+    - utter_great
+    - utter_ask_gender_question_2nd
+    - utter_ask_gender_answer
+* confirm_gender{"gender_value": "male"}
+    - slot{"gender_value": "male"}
+    - utter_great
+    - utter_ask_age_question_2nd
+    - utter_ask_age_answer
+* confirm_age
+    - utter_ask_service_type_question
+    - utter_ask_service_type_answer
+* confirm_service_type{"service_type": "data"}
+    - slot{"service_type": "data"}
+    - utter_data
+    - utter_ask_dkw_question
+    - utter_ask_dkw_answer
+* confirm_dkw
+  - utter_ask_symptoms_question
+  - utter_ask_symptoms_answer
+* confirm_symptoms
+  - utter_ask_current_medication_question
+  - utter_ask_current_medication_answer
+* confirm_current_medication
+  - utter_ask_past_surgery_question
+  - utter_ask_past_surgery_answer
+* confirm_past_surgery
+  - utter_ask_medical_appointment
+  - utter_datepicker
+* confirm_medical_appointment
+  - utter_ask_email_question
+  - utter_ask_email_answer
+* confirm_email
+  - utter_working_on_it
+  - utter_ask_lm_consultant
+  - utter_lm_consultant
+* confirm_lm_consultant  
+  - utter_ask_lm_appointment
+  - utter_lm_appointment
+* confirm_lm_appointment
+  - utter_ask_feedback_question
+  - utter_ask_feedback
+* feedback{"feedback_value": "positive"}
+    - slot{"feedback_value": "positive"}
+    - utter_great
+    - utter_anything_else
+## link-medicine-DATA-male-others
+* greet
+    - utter_greet
+    - utter_whois_patient_question
+    - utter_whois_patient_answer
+* confirm_patient{"patient_value": "others"}
+    - slot{"patient_value": "others"}
+    - utter_great
+    - utter_ask_gender_question_3rd
+    - utter_ask_gender_answer
+* confirm_gender{"gender_value": "male"}
+    - slot{"gender_value": "male"}
+    - utter_awesome
+    - utter_ask_age_question_3rd
+    - utter_ask_age_answer
+* confirm_age
+    - utter_ask_service_type_question
+    - utter_ask_service_type_answer
+* confirm_service_type{"service_type": "data"}
+    - slot{"service_type": "data"}
+    - utter_data
+    - utter_ask_basic_knowledge_question
+    - utter_ask_basic_knowledge_answer
+* confirm_basic_knowledge{"basic_knowledge": "basic_knowledge_yes"}
+    - utter_ask_dkw_question
+    - utter_ask_dkw_answer
+* confirm_dkw
+  - utter_ask_symptoms_question
+  - utter_ask_symptoms_answer
+* confirm_symptoms
+  - utter_ask_current_medication_question
+  - utter_ask_current_medication_answer
+* confirm_current_medication
+  - utter_ask_past_surgery_question
+  - utter_ask_past_surgery_answer
+* confirm_past_surgery
+  - utter_ask_medical_appointment
+  - utter_datepicker
+* confirm_medical_appointment
+  - utter_ask_email_question
+  - utter_ask_email_answer
+* confirm_email
+  - utter_working_on_it
+  - utter_case_created
+  - utter_ask_lm_consultant
+  - utter_lm_consultant
+* confirm_lm_consultant  
+  - utter_ask_lm_appointment
+  - utter_lm_appointment
+* confirm_lm_appointment
+  - utter_ask_feedback_question
+  - utter_ask_feedback
+* feedback{"feedback_value": "positive"}
+    - slot{"feedback_value": "positive"}
+    - utter_great
+    - utter_anything_else
+## link-medicine-DATA-female-oneself
+* greet
+    - utter_greet
+    - utter_whois_patient_question
+    - utter_whois_patient_answer
+* confirm_patient{"patient_value": "oneself"}
+    - slot{"patient_value": "oneself"}
+    - utter_great
+    - utter_ask_gender_question_2nd
+    - utter_ask_gender_answer
+* confirm_gender{"gender_value": "female"}
+    - slot{"gender_value": "female"}
+    - utter_awesome
+    - utter_ask_age_question_2nd
+    - utter_ask_age_answer
+* confirm_age
+    - utter_ask_service_type_question
+    - utter_ask_service_type_answer
+* confirm_service_type{"service_type": "data"}
+    - slot{"service_type": "data"}
+    - utter_data
+    - utter_ask_cooperation
+    - utter_ask_dkw_question
+    - utter_ask_dkw_answer
+* confirm_dkw
+  - utter_ask_symptoms_question
+  - utter_ask_symptoms_answer
+* confirm_symptoms
+  - utter_ask_current_medication_question
+  - utter_ask_current_medication_answer
+* confirm_current_medication
+  - utter_ask_past_surgery_question
+  - utter_ask_past_surgery_answer
+* confirm_past_surgery
+  - utter_ask_medical_appointment
+  - utter_datepicker
+* confirm_medical_appointment
+  - utter_ask_email_question
+  - utter_ask_email_answer
+* confirm_email
+  - utter_working_on_it
+  - utter_case_created
+  - utter_ask_lm_consultant
+  - utter_lm_consultant
+* confirm_lm_consultant  
+  - utter_ask_lm_appointment
+  - utter_lm_appointment
+* confirm_lm_appointment
+  - utter_ask_feedback_question
+  - utter_ask_feedback
+* feedback{"feedback_value": "positive"}
+    - slot{"feedback_value": "positive"}
+    - utter_great
+    - utter_anything_else
+## link-medicine-DATA-female-others
+* greet
+    - utter_greet
+    - utter_whois_patient_question
+    - utter_whois_patient_answer
+* confirm_patient{"patient_value": "others"}
+    - slot{"patient_value": "others"}
+    - utter_great
+    - utter_ask_gender_question_3rd
+    - utter_ask_gender_answer
+* confirm_gender{"gender_value": "female"}
+    - slot{"gender_value": "female"}
+    - utter_awesome
+    - utter_ask_age_question_3rd
+    - utter_ask_age_answer
+* confirm_age
+    - utter_ask_service_type_question
+    - utter_ask_service_type_answer
+* confirm_service_type{"service_type": "data"}
+    - slot{"service_type": "data"}
+    - utter_data
+    - utter_ask_basic_knowledge_question
+    - utter_ask_basic_knowledge_answer
+* confirm_basic_knowledge{"basic_knowledge": "basic_knowledge_yes"}
+    - utter_ask_dkw_question
+    - utter_ask_dkw_answer
+* confirm_dkw
+  - utter_ask_symptoms_question
+  - utter_ask_symptoms_answer
+* confirm_symptoms
+  - utter_ask_current_medication_question
+  - utter_ask_current_medication_answer
+* confirm_current_medication
+  - utter_ask_past_surgery_question
+  - utter_ask_past_surgery_answer
+* confirm_past_surgery
+  - utter_ask_medical_appointment
+  - utter_datepicker
+* confirm_medical_appointment
+  - utter_ask_email_question
+  - utter_ask_email_answer
+* confirm_email
+  - utter_working_on_it
+  - utter_case_created
+  - utter_ask_lm_consultant
+  - utter_lm_consultant
+* confirm_lm_consultant  
+  - utter_ask_lm_appointment
+  - utter_lm_appointment
+* confirm_lm_appointment
+  - utter_ask_feedback_question
+  - utter_ask_feedback
+* feedback{"feedback_value": "positive"}
+    - slot{"feedback_value": "positive"}
+    - utter_great
+    - utter_anything_else
+## link-medicine-XBM-male-oneself
+* greet
+    - utter_greet
+    - utter_whois_patient_question
+    - utter_whois_patient_answer
+* confirm_patient{"patient_value": "oneself"}
+    - slot{"patient_value": "oneself"}
+    - utter_great
+    - utter_ask_gender_question_2nd
+    - utter_ask_gender_answer
+* confirm_gender{"gender_value": "male"}
+    - slot{"gender_value": "male"}
+    - utter_great
+    - utter_ask_age_question_2nd
+    - utter_ask_age_answer
+* confirm_age
+    - utter_ask_service_type_question
+    - utter_ask_service_type_answer
+* confirm_service_type{"service_type": "xbm"}
+    - slot{"service_type": "xbm"}
+    - utter_xbm
+    - utter_ask_dkw_question
+    - utter_ask_dkw_answer
+* confirm_dkw
+  - utter_ask_symptoms_question
+  - utter_ask_symptoms_answer
+* confirm_symptoms
+  - utter_ask_current_medication_question
+  - utter_ask_current_medication_answer
+* confirm_current_medication
+  - utter_ask_past_surgery_question
+  - utter_ask_past_surgery_answer
+* confirm_past_surgery
+  - utter_ask_medical_appointment
+  - utter_datepicker
+* confirm_medical_appointment
+  - utter_ask_email_question
+  - utter_ask_email_answer
+* confirm_email
+  - utter_working_on_it
+  - utter_ask_lm_consultant
+  - utter_lm_consultant
+* confirm_lm_consultant  
+  - utter_ask_lm_appointment
+  - utter_lm_appointment
+* confirm_lm_appointment
+  - utter_ask_feedback_question
+  - utter_ask_feedback
+* feedback{"feedback_value": "positive"}
+    - slot{"feedback_value": "positive"}
+    - utter_great
+    - utter_anything_else
+## link-medicine-XBM-male-others
+* greet
+    - utter_greet
+    - utter_whois_patient_question
+    - utter_whois_patient_answer
+* confirm_patient{"patient_value": "others"}
+    - slot{"patient_value": "others"}
+    - utter_great
+    - utter_ask_gender_question_3rd
+    - utter_ask_gender_answer
+* confirm_gender{"gender_value": "male"}
+    - slot{"gender_value": "male"}
+    - utter_awesome
+    - utter_ask_age_question_3rd
+    - utter_ask_age_answer
+* confirm_age
+    - utter_ask_service_type_question
+    - utter_ask_service_type_answer
+* confirm_service_type{"service_type": "xbm"}
+    - slot{"service_type": "xbm"}
+    - utter_xbm
+    - utter_ask_basic_knowledge_question
+    - utter_ask_basic_knowledge_answer
+* confirm_basic_knowledge{"basic_knowledge": "basic_knowledge_yes"}
+    - utter_ask_dkw_question
+    - utter_ask_dkw_answer
+* confirm_dkw
+  - utter_ask_symptoms_question
+  - utter_ask_symptoms_answer
+* confirm_symptoms
+  - utter_ask_current_medication_question
+  - utter_ask_current_medication_answer
+* confirm_current_medication
+  - utter_ask_past_surgery_question
+  - utter_ask_past_surgery_answer
+* confirm_past_surgery
+  - utter_ask_medical_appointment
+  - utter_datepicker
+* confirm_medical_appointment
+  - utter_ask_email_question
+  - utter_ask_email_answer
+* confirm_email
+  - utter_working_on_it
+  - utter_case_created
+  - utter_ask_lm_consultant
+  - utter_lm_consultant
+* confirm_lm_consultant  
+  - utter_ask_lm_appointment
+  - utter_lm_appointment
+* confirm_lm_appointment
+  - utter_ask_feedback_question
+  - utter_ask_feedback
+* feedback{"feedback_value": "positive"}
+    - slot{"feedback_value": "positive"}
+    - utter_great
+    - utter_anything_else
+## link-medicine-XBM-female-oneself
+* greet
+    - utter_greet
+    - utter_whois_patient_question
+    - utter_whois_patient_answer
+* confirm_patient{"patient_value": "oneself"}
+    - slot{"patient_value": "oneself"}
+    - utter_great
+    - utter_ask_gender_question_2nd
+    - utter_ask_gender_answer
+* confirm_gender{"gender_value": "female"}
+    - slot{"gender_value": "female"}
+    - utter_awesome
+    - utter_ask_age_question_2nd
+    - utter_ask_age_answer
+* confirm_age
+    - utter_ask_service_type_question
+    - utter_ask_service_type_answer
+* confirm_service_type{"service_type": "xbm"}
+    - slot{"service_type": "xbm"}
+    - utter_xbm
+    - utter_ask_cooperation
+    - utter_ask_dkw_question
+    - utter_ask_dkw_answer
+* confirm_dkw
+  - utter_ask_symptoms_question
+  - utter_ask_symptoms_answer
+* confirm_symptoms
+  - utter_ask_current_medication_question
+  - utter_ask_current_medication_answer
+* confirm_current_medication
+  - utter_ask_past_surgery_question
+  - utter_ask_past_surgery_answer
+* confirm_past_surgery
+  - utter_ask_medical_appointment
+  - utter_datepicker
+* confirm_medical_appointment
+  - utter_ask_email_question
+  - utter_ask_email_answer
+* confirm_email
+  - utter_working_on_it
+  - utter_case_created
+  - utter_ask_lm_consultant
+  - utter_lm_consultant
+* confirm_lm_consultant  
+  - utter_ask_lm_appointment
+  - utter_lm_appointment
+* confirm_lm_appointment
+  - utter_ask_feedback_question
+  - utter_ask_feedback
+* feedback{"feedback_value": "positive"}
+    - slot{"feedback_value": "positive"}
+    - utter_great
+    - utter_anything_else
+## link-medicine-XBM-female-others
+* greet
+    - utter_greet
+    - utter_whois_patient_question
+    - utter_whois_patient_answer
+* confirm_patient{"patient_value": "others"}
+    - slot{"patient_value": "others"}
+    - utter_great
+    - utter_ask_gender_question_3rd
+    - utter_ask_gender_answer
+* confirm_gender{"gender_value": "female"}
+    - slot{"gender_value": "female"}
+    - utter_awesome
+    - utter_ask_age_question_3rd
+    - utter_ask_age_answer
+* confirm_age
+    - utter_ask_service_type_question
+    - utter_ask_service_type_answer
+* confirm_service_type{"service_type": "xbm"}
+    - slot{"service_type": "xbm"}
+    - utter_xbm
+    - utter_ask_basic_knowledge_question
+    - utter_ask_basic_knowledge_answer
+* confirm_basic_knowledge{"basic_knowledge": "basic_knowledge_yes"}
     - utter_ask_dkw_question
     - utter_ask_dkw_answer
 * confirm_dkw

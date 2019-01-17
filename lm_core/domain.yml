@@ -13,6 +13,7 @@ entities:
   - patient_value
   - gender_value
   - service_type
+  - basic_knowledge
   - language
   - nlu_part
   - entity
@@ -122,8 +123,14 @@ slots:
     type: categorical
     values:
       - data
-      - remote
+      - mso
       - xbm
+      - undecided
+  basic_knowledge:
+    type: categorical
+    values:
+      - basic_knowledge_yes
+      - basic_knowledge_no
   current_api:
     type: categorical
     values:
@@ -215,6 +222,12 @@ templates:
     - text: "We have a guide for migrating from DialogFlow here: http://rasa.com/docs/getting-started/dialogflow/."
   utter_switch_luis:
     - text: "We have a guide for migrating from LUIS here: http://rasa.com/docs/getting-started/luis/."
+  utter_mso:
+    - text: "LINKMedicine™为已经在国内医院获得了初次诊断结果(也就是第一医疗意见)的基础上，为患者提供大数据远程国际医疗服务，由美国顶尖医院的权威专家为患者提供专业的医疗建议与治疗方案，节约时空成本，实现全球医疗。"
+  utter_data:
+    - text: "LINKMedicine™是美国LINKSciences公司旗下的医疗旗舰平台，拥有原创的全球领先细分病种专长大数据分析平台（FACT$™ Medical Expertise Analysis），为患者提供FACT$™细分病种专长分析报告，覆盖全美近5000所医院，5万多细分病种，从上亿方案中找出最佳问诊路径；该分析平台屡获殊荣，在肿瘤、复杂疾病、罕见病领域得到广泛验证，已成为新一代国际医疗医院选择金标准。"
+  utter_xbm:
+    - text: "LINKMedicine™致力于世界范围内为患者提供个性化的精准医疗服务，100%覆盖美国顶尖医疗机构，已经完成了大量国际患者高难度复杂疾病的成功案例，包括为美国国家癌症中心（NCI）迎来近年来首位中国病人，为上海某知名慈善专家48小时超快速接诊霍普金斯医院等。"
   utter_datepicker:
     - text: ""
       elements:         
@@ -224,11 +237,11 @@ templates:
               url: "http://linkmedicine.cn"
               type: "datepicker"
   utter_greet:
-    - text: "您好！欢迎来到『乐美好医』国际医疗咨询室。我是乐美助理小美，竭诚为您服务。" 
+    - text: "您好！欢迎来到『乐美好医』国际医疗咨询室。LINKMedicine™️依托获奖医疗大数据平台技术，为中国患者量身定制海外医疗服务，比较诊疗专长，科学选择医院。" 
   utter_form:
     - text: ""
       elements:         
-        - title: "请在文本框中输入您对本问题的回答。"
+        - title: ""
           buttons: 
             - title: "提交"
               url: "http://linkmedicine.cn"  
@@ -241,7 +254,9 @@ templates:
           payload: "/confirm_patient{\"patient_value\":\"oneself\"}"
         - title: "我是患者的亲人或朋友"
           payload: "/confirm_patient{\"patient_value\":\"others\"}"
-  utter_ask_gender_question:
+  utter_ask_gender_question_2nd:
+    - text: "请问您的性别？"
+  utter_ask_gender_question_3rd:
     - text: "请问患者的性别？"
   utter_ask_gender_answer:
     - text: ""
@@ -250,7 +265,9 @@ templates:
           payload: "/confirm_gender{\"gender_value\":\"male\"}"
         - title: "女"
           payload: "/confirm_gender{\"gender_value\":\"female\"}"
-  utter_ask_age_question:
+  utter_ask_age_question_3rd:
+      - text: "请问患者的年龄？(请在下拉列表中选择并提交)"
+  utter_ask_age_question_2nd:
       - text: "请问患者的年龄？(请在下拉列表中选择并提交)"
   utter_ask_age_answer:
     - text: ""
@@ -261,18 +278,31 @@ templates:
               url: "http://linkmedicine.cn"
               type: "age"
   utter_ask_service_type_question:    
-      - text: " 关于跨境医疗，请问患者的当前计划是什么？" 
+      - text: " 关于国际医疗，请问您目前最需要哪方面的帮助？" 
   utter_ask_service_type_answer:
     - text: ""
       buttons:
-        - title: "目前没有明确计划"
+        - title: "了解某项疾病在美国的治疗情况以及最好医院"
           payload: "/confirm_service_type{\"service_type\":\"data\"}"
-        - title: "想了解远程医疗"
-          payload: "/confirm_service_type{\"service_type\":\"remote\"}"
-        - title: "想了解出国看病"
+        - title: "远程获取医学诊断与治疗方案"
+          payload: "/confirm_service_type{\"service_type\":\"mso\"}"
+        - title: "我想进行出国诊治"
           payload: "/confirm_service_type{\"service_type\":\"xbm\"}"
-  utter_ask_basic_knowledge:
-    - text: "好的，我们需要采集一些患者的基本信息,请您配合一下。" 
+        - title: "我希望尽快和专家预约人工服务"
+          payload: "/confirm_service_type{\"service_type\":\"undecided\"}"
+  utter_ask_basic_knowledge_question:
+    - text: "请问您对患者的病情是否了解？" 
+  utter_ask_basic_knowledge_answer:
+    - text: ""
+      buttons:
+        - title: "了解"
+          payload: "/confirm_basic_knowledge{\"basic_knowledge\":\"basic_knowledge_yes\"}"
+        - title: "基本了解"
+          payload: "/confirm_basic_knowledge{\"basic_knowledge\":\"basic_knowledge_yes\"}"
+        - title: "不太了解"
+          payload: "/confirm_basic_knowledge{\"basic_knowledge\":\"basic_knowledge_no\"}"
+  utter_ask_cooperation:
+    - text: "好的，我们需要采集一些患者的基本信息,请您配合一下。"
   utter_ask_dkw_question:
     - text: "请问患者被诊断的疾病是什么？(请输入疾病的关键字，在下拉列表选择并提交)"
   utter_ask_dkw_answer:
@@ -322,7 +352,9 @@ templates:
   utter_ask_diagnosis:
     - text: "你有准备好患者的诊断书和最近的治疗记录么？"
   utter_ask_medical_appointment:
-    - text: "患者最近是否已经预约就医，请在日期选择器中，选择最近一次预约时间并提交。"
+    - text: "患者最近是否已经预约就医或者已经入院治疗？"
+  utter_ask_choose_med_app:
+    - text: "请在日期选择器中选择您的治疗日期。"
   utter_ask_lm_consultant:
     - text: "请从下列选项中选择需要咨询的专家："
   utter_lm_consultant:
@@ -346,7 +378,9 @@ templates:
   utter_working_on_it:
     - text: "感谢您所提供的信息，小美正在为您生成专属服务，请稍候...🔥"
   utter_case_created:
-  - text: "您的Medical Expertise $FACTS 分析报告已经完成：请前往以下页面获取"
+    - text: "LINKMedicine™已经为您创建了专属大数据国际医疗档案，请您登录邮箱验证，完善后续服务流程。"
+  utter_report_created:
+  - text: "您的Medical Expertise $FACTS 分析报告已经完成,以下为您展示报告的部分内容。"
     image: "http://harolz.com/assets/QR/LM_QR.jpg"
   utter_inform_privacypolicy:
   - text: "您的Medical Expertise $FACTS 分析报告已经完成：请前往以下页面获取"
@@ -607,16 +641,23 @@ actions:
   - utter_greet
   - utter_datepicker
   - utter_form
+  - utter_mso
+  - utter_data
+  - utter_xbm
   - utter_whois_patient_question
   - utter_whois_patient_answer
-  - utter_ask_gender_question
+  - utter_ask_gender_question_2nd
+  - utter_ask_gender_question_3rd
   - utter_ask_gender_answer
-  - utter_ask_age_question
+  - utter_ask_age_question_2nd
+  - utter_ask_age_question_3rd
   - utter_ask_age_answer
   - utter_ask_feedback_question
   - utter_ask_service_type_question
   - utter_ask_service_type_answer
-  - utter_ask_basic_knowledge
+  - utter_ask_basic_knowledge_question
+  - utter_ask_basic_knowledge_answer
+  - utter_ask_cooperation
   - utter_ask_dkw_question
   - utter_ask_dkw_answer
   - utter_ask_symptoms_question
@@ -626,6 +667,7 @@ actions:
   - utter_ask_past_surgery_question
   - utter_ask_past_surgery_answer
   - utter_ask_medical_appointment
+  - utter_ask_choose_med_app
   - utter_ask_lm_appointment
   - utter_lm_appointment
   - utter_ask_lm_consultant
@@ -634,6 +676,7 @@ actions:
   - utter_ask_email_answer
   - utter_working_on_it
   - utter_case_created  
+  - utter_report_created 
   - utter_ask_usecase
   - utter_ask_businessmail
   - utter_ask_jobfunction
