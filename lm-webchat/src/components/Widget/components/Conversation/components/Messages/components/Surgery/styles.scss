@@ -18,7 +18,10 @@
     display: flex;
     align-items: flex-start;
     margin-right: 0px;
-    * { margin-right: 10px; }
+    textarea {
+      background: #ffffff;
+    }
+    // * { margin-right: 10px; }
   } 
   h1 { font-size: 20px; font-weight: bold; }
   .preview {
