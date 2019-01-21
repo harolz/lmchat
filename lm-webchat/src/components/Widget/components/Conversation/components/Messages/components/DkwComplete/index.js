@@ -137,7 +137,8 @@ class DkwComplete extends React.Component {
      */
   handleClick() {
     const DKW = this.state.value;
-    const payload = '/comfirm_dkw';
+    // const payload = '/confirm_dkw{\"dkw\":\"Pancreatic Ducts\"}'
+    const payload = '/confirm_dkw{\"dkw\":' + '\"' + DKW + '\"}';
     this.props.submitDKW(payload, DKW);
   }
   renderItem(item, isHighlighted) {

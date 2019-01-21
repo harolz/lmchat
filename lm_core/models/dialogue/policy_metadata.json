@@ -2,12 +2,22 @@
   "action_fingerprints": {
     "action_listen": {
       "slots": [
-        "patient_value",
-        "service_type",
-        "email",
         "basic_knowledge",
+        "gender_value",
+        "email",
         "feedback_value",
-        "gender_value"
+        "patient_value",
+        "service_type"
+      ]
+    },
+    "action_store_email": {
+      "slots": [
+        "email"
+      ]
+    },
+    "action_subscribe_newsletter": {
+      "slots": [
+        "subscribed"
       ]
     },
     "action_store_job": {
@@ -35,34 +45,24 @@
         "company_name"
       ]
     },
-    "action_store_email": {
-      "slots": [
-        "email"
-      ]
-    },
     "action_store_sales_info": {
       "slots": [
         "data_stored"
       ]
     },
-    "action_subscribe_newsletter": {
-      "slots": [
-        "subscribed"
-      ]
+    "utter_anything_else": {
+      "slots": []
     },
     "utter_ask_feedback": {
       "slots": []
     },
-    "utter_anything_else": {
-      "slots": []
-    },
-    "utter_what_help": {
+    "utter_bye": {
       "slots": []
     },
     "suggestion_form": {
       "slots": []
     },
-    "utter_bye": {
+    "utter_what_help": {
       "slots": []
     },
     "utter_nohelp": {
@@ -84,5 +84,5 @@
     "rasa_core.policies.memoization.MemoizationPolicy",
     "rasa_core.policies.form_policy.FormPolicy"
   ],
-  "trained_at": "20190117-124620"
+  "trained_at": "20190120-222957"
 }
