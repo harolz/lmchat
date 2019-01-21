@@ -63,6 +63,7 @@ class Widget extends Component {
     // When session_confirm is received from the server:
     socket.on('session_confirm', (remote_id) => {
       console.log(`session_confirm:${socket.id} session_id:${remote_id}`);
+      localStorage.setItem('remote_id', `${remote_id}`);
 
       // Store the initial state to both the redux store and the storage, set connected to true
       this.props.dispatch(connectServer());

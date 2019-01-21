@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "@emotion/core": "^10.0.5",
+    "axios": "^0.18.0",
     "bootstrap-css-only": "^4.2.1",
     "cldr": "^4.13.0",
     "cldr-data": "^34.0.0",

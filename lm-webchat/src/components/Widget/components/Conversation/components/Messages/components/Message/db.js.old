@@ -1,0 +1,45 @@
+import axios from 'axios';
+
+const ajaxPost = (url, data, that) => {
+  axios({
+    method: 'POST',
+    headers: { 'Content-type': 'application/json' },
+    url: url,
+    data: data
+        // withCredentials:true
+  }).then((res) => {
+        // alert('post:'+res)
+    console.log(url);
+    console.log(res);
+      // alert('post-response:'+res);
+  }).catch((error) => {
+    alert('post失败');
+    console.log(error);
+  });
+};
+
+/*
+$.ajax( { url: "https://api.mlab.com/api/1/databases/my-db/collections/my-coll?apiKey=myAPIKey",
+		  data: JSON.stringify( [ { "x" : 1 }, { "x" : 2 }, { "x" : 3 } ] ),
+		  type: "POST",
+		  contentType: "application/json" } );
+
+*/
+
+function ajax_get(url, that, callback){
+    axios({
+        method:"GET",
+        headers:{'Content-type':'application/json',},
+        url:URL+url,
+        withCredentials:true
+    }).then(function(res){
+        console.log(url+'\tGet请求到:')
+        console.log(res);
+        //alert('get:'+this.res);
+        callback(that,res);
+
+    }).catch(function(error){
+        alert('get下载失败')
+        console.log(error);
+    });
+}
