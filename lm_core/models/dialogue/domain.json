@@ -88,6 +88,7 @@
     "entity_entity",
     "slot_basic_knowledge_0",
     "slot_basic_knowledge_1",
+    "slot_basic_stats_0",
     "slot_budget_0",
     "slot_can_use_spacy_0",
     "slot_can_use_spacy_1",
@@ -312,7 +313,9 @@
     "prev_action_store_problem_description",
     "prev_action_greet_user",
     "prev_action_report_hospitals",
+    "prev_action_report_stats",
     "prev_utter_report_hospitals",
+    "prev_utter_report_stats",
     "prev_suggestion_form",
     "active_form_suggestion_form"
   ]

@@ -39,6 +39,8 @@
     - utter_ask_dkw_answer
 * confirm_dkw
   - utter_echo_dkw
+  - action_report_stats
+  - utter_report_stats
   - action_report_hospitals
   - utter_report_hospitals
   - utter_ask_symptoms_question

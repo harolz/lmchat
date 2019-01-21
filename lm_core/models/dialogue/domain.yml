@@ -179,7 +179,9 @@ actions:
 - action_store_problem_description
 - action_greet_user
 - action_report_hospitals
+- action_report_stats
 - utter_report_hospitals
+- utter_report_stats
 config:
   store_entities_as_slots: true
 entities:
@@ -347,6 +349,10 @@ slots:
     values:
     - basic_knowledge_yes
     - basic_knowledge_no
+  basic_stats:
+    auto_fill: true
+    initial_value: null
+    type: rasa_core.slots.TextSlot
   budget:
     auto_fill: true
     initial_value: null
@@ -935,6 +941,8 @@ templates:
     text: 您的Medical Expertise $FACTS 分析报告已经完成,以下为您展示报告的部分内容。
   utter_report_hospitals:
   - text: '{hospitals}'
+  utter_report_stats:
+  - text: '{basic_stats}'
   utter_sales_contact:
   - text: Thanks, now I need to know how we can reach you.
   utter_search_bar:

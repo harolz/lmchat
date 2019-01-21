@@ -178,8 +178,12 @@ slots:
     type: unfeaturized
   hospitals:
     type: text
+  basic_stats:
+    type: text
 
 templates:
+  utter_report_stats:
+    - text: "{basic_stats}"
   utter_report_hospitals:
     - text: "{hospitals}"
   utter_echo_dkw:
@@ -825,7 +829,9 @@ actions:
   - action_store_problem_description
   - action_greet_user
   - action_report_hospitals
+  - action_report_stats
   - utter_report_hospitals
+  - utter_report_stats
 
 forms:
   - suggestion_form
