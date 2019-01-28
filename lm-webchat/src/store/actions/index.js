@@ -137,6 +137,13 @@ export function addDkwCompleteSnippet(DkwComplete) {
   };
 }
 
+export function addHospitalMapSnippet(HospitalMap) {
+  return {
+    type: actions.ADD_HOSPITALMAP,
+    HospitalMap
+  };
+}
+
 export function addDatePickSnippet(DatePick) {
   return {
     type: actions.ADD_DATEPICK,

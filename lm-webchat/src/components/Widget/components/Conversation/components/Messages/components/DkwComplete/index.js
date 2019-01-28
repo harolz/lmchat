@@ -5,6 +5,7 @@ import { debounce } from 'throttle-debounce';
 import React from 'react';
 import { connect } from 'react-redux';
 import { emitUserMessage, toggleInputDisabled, addUserMessage } from 'actions';
+import axios from 'axios';
 import './styles.scss';
 
 
@@ -137,8 +138,16 @@ class DkwComplete extends React.Component {
      */
   handleClick() {
     const DKW = this.state.value;
+    localStorage.setItem('diagnosis_key_word', `${DKW}`);
     // const payload = '/confirm_dkw{\"dkw\":\"Pancreatic Ducts\"}'
     const payload = '/confirm_dkw{\"dkw\":' + '\"' + DKW + '\"}';
+    axios
+    .get('https://www.linksciences.com/getTopHospitals.do?dkw=' + DKW)
+    .then((response) => {
+      localStorage.setItem('TIMESTAMP', response.data.timestamp);
+    })
+    .catch((error) => { console.log(error); });
+    // alert(localStorage.getItem("TIMESTAMPE"));
     this.props.submitDKW(payload, DKW);
   }
   renderItem(item, isHighlighted) {

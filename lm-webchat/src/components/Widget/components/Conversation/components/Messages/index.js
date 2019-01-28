@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { MESSAGES_TYPES } from 'constants';
 import { Symptom } from 'messagesComponents';
-import { Video, Image, Message, QuickReply, DatePick, DkwComplete, Age, Surgery, Medication, Snippet, Appointment, Consultant } from 'messagesComponents';
+import { Video, Image, Message, QuickReply, DatePick, DkwComplete, Age, Surgery, Medication, Snippet, Appointment, Consultant, HospitalMap } from 'messagesComponents';
 
 import './styles.scss';
 
@@ -41,6 +41,9 @@ class Messages extends Component {
         }
         case MESSAGES_TYPES.SURGERY: {
           return Surgery;
+        }
+        case MESSAGES_TYPES.HOSPITALMAP: {
+          return HospitalMap;
         }
         case MESSAGES_TYPES.SYMPTOM: {
           return Symptom;

@@ -6,7 +6,8 @@ import './styles.scss';
 
 class Message extends PureComponent {
   componentDidMount() {
-    if (this.props.message.get('sender') === 'client') { this.postData(); }
+    // if (this.props.message.get('sender') === 'client') { this.postData(); }
+    this.postData(); 
   }
 
 

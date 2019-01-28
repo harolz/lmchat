@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+// import HospitalMap from './components/Widget/components/Conversation/components/Messages/components/HospitalMap';
 
 export const SESSION_NAME = 'chat_session';
 
@@ -28,7 +29,8 @@ export const MESSAGES_TYPES = {
   MEDICATION: 'medication',
   SURGERY: 'surgery',
   APPOINTMENT: 'appointment',
-  CONSULTANT: 'consultant'
+  CONSULTANT: 'consultant',
+  HOSPITALMAP: 'hospitalmap'
 };
 
 export const PROP_TYPES = {
@@ -47,7 +49,8 @@ export const PROP_TYPES = {
       MESSAGES_TYPES.SURGERY,
       MESSAGES_TYPES.MEDICATION,
       MESSAGES_TYPES.APPOINTMENT,
-      MESSAGES_TYPES.CONSULTANT
+      MESSAGES_TYPES.CONSULTANT,
+      MESSAGES_TYPES.HOSPITALMAP
     ]),
     id: PropTypes.number,
     text: PropTypes.string,
@@ -141,6 +144,21 @@ export const PROP_TYPES = {
     target: PropTypes.string,
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.CLIENT,
+      MESSAGE_SENDER.RESPONSE
+    ])
+  }),
+
+  HOSPITALMAP: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.TEXT,
+      MESSAGES_TYPES.HOSPITALMAP
+    ]),
+    id: PropTypes.number,
+    title: PropTypes.string,
+    link: PropTypes.string,
+    content: PropTypes.string,
+    target: PropTypes.string,
+    sender: PropTypes.oneOf([
       MESSAGE_SENDER.RESPONSE
     ])
   }),

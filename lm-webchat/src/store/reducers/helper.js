@@ -1,7 +1,7 @@
 import { Map, List } from 'immutable';
 import { MESSAGES_TYPES, MESSAGE_SENDER, SESSION_NAME } from 'constants';
 
-import { Video, Image, Message, Snippet, QuickReply, DatePick, DkwComplete, Age, Symptom, Medication, Surgery, Appointment, Consultant } from 'messagesComponents';
+import { Video, Image, Message, Snippet, QuickReply, DatePick, DkwComplete, Age, Symptom, Medication, Surgery, Appointment, Consultant, HospitalMap } from 'messagesComponents';
 
 
 export function createNewMessage(text, sender) {
@@ -50,6 +50,19 @@ export function createSymptomSnippet(symptom, sender) {
     target: symptom.target || '_blank',
     sender,
     showAvatar: false
+  });
+}
+
+export function createHospitalMapSnippet(hospitalmap, sender) {
+  return Map({
+    type: MESSAGES_TYPES.HOSPITALMAP,
+    component: HospitalMap,
+    title: hospitalmap.title,
+    link: hospitalmap.link,
+    content: hospitalmap.content,
+    target: hospitalmap.target || '_blank',
+    sender,
+    showAvatar: true
   });
 }
 

@@ -54,7 +54,7 @@ class MessageProcessor(object):
                  tracker_store: TrackerStore,
                  generator: NaturalLanguageGenerator,
                  action_endpoint: Optional[EndpointConfig] = None,
-                 max_number_of_predictions: int = 10,
+                 max_number_of_predictions: int = 10000,
                  message_preprocessor: Optional[LambdaType] = None,
                  on_circuit_break: Optional[LambdaType] = None
                  ):

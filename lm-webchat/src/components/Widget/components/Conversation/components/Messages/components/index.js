@@ -11,6 +11,7 @@ import Symptom from './Symptom';
 import Surgery from './Surgery';
 import Appointment from './Appointment';
 import Consultant from './Consultant';
+import HospitalMap from './HospitalMap';
 
 export {
     Video,
@@ -25,6 +26,7 @@ export {
     Surgery,
     Symptom,
     Appointment,
-    Consultant
+    Consultant,
+    HospitalMap
 };
 

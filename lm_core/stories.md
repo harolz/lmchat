@@ -43,6 +43,9 @@
   - utter_report_stats
   - action_report_hospitals
   - utter_report_hospitals
+  - action_report_city
+  - utter_report_city_data
+  - utter_show_map
   - utter_ask_symptoms_question
   - utter_ask_symptoms_answer
 * confirm_symptoms

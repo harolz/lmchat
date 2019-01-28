@@ -2,6 +2,7 @@
 ---
 actions:
 - utter_echo_dkw
+- utter_show_map
 - utter_greet
 - utter_datepicker
 - utter_form
@@ -180,8 +181,11 @@ actions:
 - action_greet_user
 - action_report_hospitals
 - action_report_stats
+- action_reply_email
+- action_report_city
 - utter_report_hospitals
 - utter_report_stats
+- utter_report_city_data
 config:
   store_entities_as_slots: true
 entities:
@@ -361,6 +365,10 @@ slots:
     auto_fill: true
     initial_value: null
     type: rasa_core.slots.BooleanSlot
+  city_data:
+    auto_fill: true
+    initial_value: null
+    type: rasa_core.slots.TextSlot
   company_name:
     auto_fill: true
     initial_value: null
@@ -807,7 +815,7 @@ templates:
   - text: 'Duckling is a rule-based entity recognition library from Facebook. Here
       is the link to its documentation: https://duckling.wit.ai/'
   utter_echo_dkw:
-  - text: '{dkw}'
+  - text: 小美正在为您查询针对{dkw}的相关数据，请您稍候。
   utter_encourage_building_bot:
   - text: Cool, then good luck with building your first "I'm the Rasa bot 🤖!
   utter_explain_core:
@@ -936,6 +944,8 @@ templates:
       \ . You don't have to install anything to try it out."
   utter_rasa_cost:
   - text: Rasa is free
+  utter_report_city_data:
+  - text: '{city_data}'
   utter_report_created:
   - image: http://harolz.com/assets/QR/LM_QR.jpg
     text: 您的Medical Expertise $FACTS 分析报告已经完成,以下为您展示报告的部分内容。
@@ -947,6 +957,15 @@ templates:
   - text: Thanks, now I need to know how we can reach you.
   utter_search_bar:
   - text: Try using the search bar above for now.
+  utter_show_map:
+  - elements:
+    - buttons:
+      - title: ''
+        type: hospitalmap
+        url: http://linkmedicine.cn
+      title:
+        dkw: null
+    text: '{city_data}'
   utter_source_code:
   - text: You can find my source code [here](https://github.com/RasaHQ/rasa-demo/)
   utter_spacy:

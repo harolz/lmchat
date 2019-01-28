@@ -16,6 +16,7 @@ import {
     createDkwCompleteSnippet,
     createImageSnippet,
     createComponentMessage,
+    createHospitalMapSnippet,
     storeMessageTo,
     getLocalSession
 } from './helper';
@@ -50,6 +51,9 @@ export default function (storage) {
       }
       case actionTypes.ADD_DKWCOMPLETE: {
         return storeMessage(state.push(createDkwCompleteSnippet(action.DkwComplete, MESSAGE_SENDER.CLIENT)));
+      }
+      case actionTypes.ADD_HOSPITALMAP: {
+        return storeMessage(state.push(createHospitalMapSnippet(action.HospitalMap, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_SYMPTOM: {
         return storeMessage(state.push(createSymptomSnippet(action.Symptom, MESSAGE_SENDER.CLIENT)));

@@ -9,7 +9,7 @@ from requests import (
     Timeout
 )
 
-from api import get_hospital_by_dkw, get_city, get_basicStats_by_dkw
+from api import get_hospital_by_dkw, get_city_by_dkw, get_basicStats_by_dkw, send_email
 
 
 class ActionReplyHospitals(FormAction):
@@ -29,7 +29,6 @@ class ActionReplyHospitals(FormAction):
         # type: (Dispatcher, DialogueStateTracker, Domain) -> List[Event]
         dkw = tracker.get_slot('dkw')
         hospital_data = get_best_hospital_text(dkw)
-        print(hospital_data)
         return [SlotSet("hospitals", "{}".format(hospital_data))]
         # return [SlotSet("hospitals", "test")]
 
@@ -51,7 +50,46 @@ class ActionReplyStats(FormAction):
         dkw = tracker.get_slot('dkw')
         stats_data = get_basic_Stats_text(dkw)
         return [SlotSet("basic_stats", "{}".format(stats_data))]
+
+class ActionReplyEmail(FormAction):
+    RANDOMIZE = True
+
+    @staticmethod
+    def required_slots(tracker):
+        return [
+            "email"
+        ]
+
+    def name(self):
+        # type: () -> Text
+        return "action_reply_email"
+
+    def submit(self, dispatcher, tracker, domain):
+        # type: (Dispatcher, DialogueStateTracker, Domain) -> List[Event]
+        email = tracker.get_slot('email')
+        stats_data = send_email('email')
+        return True
      
+
+class ActionReplyCity(FormAction):
+    RANDOMIZE = True
+
+    @staticmethod
+    def required_slots(tracker):
+        return [
+            "dkw"
+        ]
+
+    def name(self):
+        # type: () -> Text
+        return "action_report_city"
+
+    def submit(self, dispatcher, tracker, domain):
+        # type: (Dispatcher, DialogueStateTracker, Domain) -> List[Event]
+        dkw = tracker.get_slot('dkw')
+        stats_data = get_city_by_dkw(dkw)
+        print(stats_data)
+        return [SlotSet("city_data", "{}".format(dkw))]
 
 def get_best_hospital_text(dkw):
     try:
@@ -59,16 +97,16 @@ def get_best_hospital_text(dkw):
     except (ConnectionError, HTTPError, TooManyRedirects, Timeout) as e:
         text_messages = "{}".format(e)
     else:
-        text_messages = []
+        text_messages = ''
         for item in result:
             text_message_tpl = """
-                {} 在美国治疗最好的医院为：{}, 总分：{}；
+                {} 在美国治疗最好的医院为{} 总分为{}
             """
-            text_messages.append(text_message_tpl.format(
+            text_messages+=text_message_tpl.format(
                 dkw,
                 item[0],
                 item[1]
-            ))
+            ).strip()
 
     return text_messages
 
@@ -93,8 +131,9 @@ def get_basic_Stats_text(dkw):
             result[-3]
         )
 
-    return text_message
+    return text_message.strip()
 
 if __name__ == '__main__':
-    default_dkw = "Down syndrome"
+    default_dkw = "Pancreatic Ducts"
     print(get_basic_Stats_text(default_dkw))
+    print(get_best_hospital_text(default_dkw))

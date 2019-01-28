@@ -180,14 +180,25 @@ slots:
     type: text
   basic_stats:
     type: text
-
+  city_data:
+    type: text
 templates:
   utter_report_stats:
     - text: "{basic_stats}"
+  utter_report_city_data:
+    - text: "{city_data}"
+  utter_show_map:
+    - text: "{city_data}"
+      elements:         
+        - title: {dkw}
+          buttons: 
+            - title: ""
+              url: "http://linkmedicine.cn"
+              type: "hospitalmap"
   utter_report_hospitals:
     - text: "{hospitals}"
   utter_echo_dkw:
-    - text: "{dkw}"
+    - text: "小美正在为您查询针对{dkw}的相关数据，请您稍候。"
   utter_ask_budget:
     - text: "What's your annual budget for conversational AI? 💸"
   utter_ask_businessmail:
@@ -447,7 +458,6 @@ templates:
     - text: "I'm happy to help."
   utter_bye:
     - text: "再见!"
-    - text: "Bye-Bye!"
     - text: "感谢此次与您的对话!"
     - text: "再见，欢迎保持联系。"
   utter_default:
@@ -652,6 +662,7 @@ templates:
 
 actions:
   - utter_echo_dkw
+  - utter_show_map
   - utter_greet
   - utter_datepicker
   - utter_form
@@ -830,8 +841,11 @@ actions:
   - action_greet_user
   - action_report_hospitals
   - action_report_stats
+  - action_reply_email
+  - action_report_city
   - utter_report_hospitals
   - utter_report_stats
+  - utter_report_city_data
 
 forms:
   - suggestion_form

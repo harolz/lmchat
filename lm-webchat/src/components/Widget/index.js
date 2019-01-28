@@ -10,6 +10,7 @@ import {
   emitUserMessage,
   addResponseMessage,
   addDkwCompleteSnippet,
+  addHospitalMapSnippet,
   addDatePickSnippet,
   addAgeSnippet,
   addSurgerySnippet,
@@ -27,7 +28,7 @@ import {
   pullSession
 } from 'actions';
 
-import { isDatepicker, isDkwComplete, isVideo, isImage, isQR, isText, isSurgery, isMedication, isSymptom, isSnippet, isAge, isAppointment, isConsultant } from './msgProcessor';
+import { isDatepicker, isDkwComplete, isVideo, isImage, isQR, isText, isSurgery, isMedication, isSymptom, isSnippet, isAge, isAppointment, isConsultant, isHospitalMap } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
 import { SESSION_NAME } from 'constants';
@@ -46,6 +47,8 @@ class Widget extends Component {
 
   componentDidMount() {
     const { socket, storage } = this.props;
+    localStorage.clear();
+    sessionStorage.clear();
 
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
@@ -157,6 +160,15 @@ class Widget extends Component {
     } else if (isDatepicker(message)) {
       const element = message.attachment.payload.elements[0];
       this.props.dispatch(addDatePickSnippet({
+        title: element.title,
+        content: element.buttons[0].title,
+        link: element.buttons[0].url,
+        target: '_blank'
+      }));
+    } else if (isHospitalMap(message)) {
+      console.log('here')
+      const element = message.attachment.payload.elements[0];
+      this.props.dispatch(addHospitalMapSnippet({
         title: element.title,
         content: element.buttons[0].title,
         link: element.buttons[0].url,

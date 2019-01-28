@@ -67,7 +67,7 @@ class Appointment extends React.Component {
             localizer={localizer}
             defaultView={BigCalendar.Views.WEEK}
             onSelectEvent={event => alert(event.title)}
-            allDayAccessor={false}
+            // allDayAccessor={false}
             onSelectSlot={this.handleSelect}
             timeslots={2}
             events={this.state.events}

@@ -92,6 +92,7 @@
     "slot_budget_0",
     "slot_can_use_spacy_0",
     "slot_can_use_spacy_1",
+    "slot_city_data_0",
     "slot_company_name_0",
     "slot_current_api_0",
     "slot_current_api_1",
@@ -136,6 +137,7 @@
     "prev_action_default_ask_affirmation",
     "prev_action_default_ask_rephrase",
     "prev_utter_echo_dkw",
+    "prev_utter_show_map",
     "prev_utter_greet",
     "prev_utter_datepicker",
     "prev_utter_form",
@@ -314,8 +316,11 @@
     "prev_action_greet_user",
     "prev_action_report_hospitals",
     "prev_action_report_stats",
+    "prev_action_reply_email",
+    "prev_action_report_city",
     "prev_utter_report_hospitals",
     "prev_utter_report_stats",
+    "prev_utter_report_city_data",
     "prev_suggestion_form",
     "active_form_suggestion_form"
   ]

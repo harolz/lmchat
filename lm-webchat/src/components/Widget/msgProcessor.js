@@ -31,6 +31,17 @@ export function isAppointment(message) {
     && message.attachment.payload.elements[0].buttons[0].type === 'appointment';
 }
 
+export function isHospitalMap(message) {
+  return Object.keys(message).includes('attachment')
+    && Object.keys(message.attachment).includes('type')
+    && message.attachment.type === 'template'
+    && Object.keys(message.attachment).includes('payload')
+    && Object.keys(message.attachment.payload).indexOf('template_type') >= 0
+    && message.attachment.payload.template_type === 'generic'
+    && Object.keys(message.attachment.payload).indexOf('elements') >= 0
+    && message.attachment.payload.elements[0].buttons[0].type === 'hospitalmap';
+}
+
 export function isAge(message) {
   return Object.keys(message).includes('attachment')
     && Object.keys(message.attachment).includes('type')

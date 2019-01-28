@@ -29,6 +29,10 @@ export function addSurgerySnippet(Surgery) {
   store.dispatch(actions.addSurgerySnippet(Surgery));
 }
 
+export function addHospitalMapSnippet(HospitalMap) {
+  store.dispatch(actions.addHospitalMapSnippet(HospitalMap));
+}
+
 export function addMedicationSnippet(Medication) {
   store.dispatch(actions.addMedicationSnippet(Medication));
 }
