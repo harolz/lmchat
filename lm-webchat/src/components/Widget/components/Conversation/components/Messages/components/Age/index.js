@@ -3,14 +3,19 @@ import { PROP_TYPES } from 'constants';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import { emitUserMessage, toggleInputDisabled, addUserMessage } from 'actions';
+import Button from '../Medication/components/Button';
 import { numOptions } from './docs/data';
 import './styles.scss';
 
 const timeOptions = [
-  { value: 'year', label: '岁' },
-  { value: 'month', label: '周' },
-  { value: 'day', label: '天' }
+  { value: 'year', label: 'years old' },
+  { value: 'month', label: 'months old' },
+  { value: 'week', label: 'weeks old' }
 ];
+
+const buttonStyle = {
+  margin: '8px 8px 8px 8px'
+};
 
 
 const customStyles1 = {
@@ -63,17 +68,17 @@ class Age extends Component {
     }
   }
   state = {
-    selectedNumOption: numOptions[35],
+    selectedNumOption: numOptions[25],
     selectedTimeOption: timeOptions[0]
 
   }
   handleChange1 = (selectedNumOption) => {
     this.setState({ selectedNumOption });
-    console.log(`Option selected:`, selectedNumOption);
+    // console.log(`Option selected:`, selectedNumOption);
   }
   handleChange2 = (selectedTimeOption) => {
     this.setState({ selectedTimeOption });
-    console.log(`Option selected:`, selectedTimeOption);
+    // console.log(`Option selected:`, selectedTimeOption);
   }
 
   handleClick() {
@@ -90,29 +95,34 @@ class Age extends Component {
 
     return (
       <div className="client-side">
-        { this.props.isLast && <div className="justify" style={{ float: 'right', width: '140%' }}>
-          <div>
-            <Select
-              value={this.state.selectedNumOption}
-              placeholder={this.state.selectedNumOption}
-              styles={customStyles1}
-              onChange={this.handleChange1}
-              options={numOptions}
-              selected
+        { this.props.isLast && <div className="justify" style={{ float: 'right', width: '100%' }}>
+          <div className="age">
+            <div>
+              <Select
+                value={this.state.selectedNumOption}
+                placeholder={this.state.selectedNumOption}
+                styles={customStyles1}
+                onChange={this.handleChange1}
+                options={numOptions}
+                selected
+              />
+            </div>
+            <div>
+              <Select
+                value={this.state.selectedTimeOption}
+                placeholder={this.state.selectedTimeOption}
+                styles={customStyles2}
+                onChange={this.handleChange2}
+                options={timeOptions}
+                selected
+              />
+            </div>
+            <Button
+              action={this.handleClick}
+              type={'primary'}
+              title={'Submit'}
+              style={buttonStyle}
             />
-          </div>
-          <div>
-            <Select
-              value={this.state.selectedTimeOption}
-              placeholder={this.state.selectedTimeOption}
-              styles={customStyles2}
-              onChange={this.handleChange2}
-              options={timeOptions}
-              selected
-            />
-          </div>
-          <div>
-            <input type="submit" value="提交" onClick={this.handleClick} />
           </div>
           </div>}
       </div>

@@ -14,9 +14,11 @@ import {
     createSurgerySnippet,
     createSymptomSnippet,
     createDkwCompleteSnippet,
+    createDataReportSnippet,
     createImageSnippet,
     createComponentMessage,
     createHospitalMapSnippet,
+    createRankChartSnippet,
     storeMessageTo,
     getLocalSession
 } from './helper';
@@ -54,6 +56,12 @@ export default function (storage) {
       }
       case actionTypes.ADD_HOSPITALMAP: {
         return storeMessage(state.push(createHospitalMapSnippet(action.HospitalMap, MESSAGE_SENDER.RESPONSE)));
+      }
+      case actionTypes.ADD_DATAREPORT: {
+        return storeMessage(state.push(createDataReportSnippet(action.DataReport, MESSAGE_SENDER.RESPONSE)));
+      }
+      case actionTypes.ADD_RANKCHART: {
+        return storeMessage(state.push(createRankChartSnippet(action.RankChart, MESSAGE_SENDER.RESPONSE)));
       }
       case actionTypes.ADD_SYMPTOM: {
         return storeMessage(state.push(createSymptomSnippet(action.Symptom, MESSAGE_SENDER.CLIENT)));

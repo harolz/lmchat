@@ -12,6 +12,8 @@ import Surgery from './Surgery';
 import Appointment from './Appointment';
 import Consultant from './Consultant';
 import HospitalMap from './HospitalMap';
+import RankChart from './RankChart';
+import DataReport from './DataReport';
 
 export {
     Video,
@@ -27,6 +29,8 @@ export {
     Symptom,
     Appointment,
     Consultant,
-    HospitalMap
+    HospitalMap,
+    RankChart,
+    DataReport
 };
 

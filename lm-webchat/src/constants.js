@@ -30,7 +30,9 @@ export const MESSAGES_TYPES = {
   SURGERY: 'surgery',
   APPOINTMENT: 'appointment',
   CONSULTANT: 'consultant',
-  HOSPITALMAP: 'hospitalmap'
+  HOSPITALMAP: 'hospitalmap',
+  RANKCHART: 'rankchart',
+  DATAREPORT: 'datareport'
 };
 
 export const PROP_TYPES = {
@@ -50,7 +52,9 @@ export const PROP_TYPES = {
       MESSAGES_TYPES.MEDICATION,
       MESSAGES_TYPES.APPOINTMENT,
       MESSAGES_TYPES.CONSULTANT,
-      MESSAGES_TYPES.HOSPITALMAP
+      MESSAGES_TYPES.HOSPITALMAP,
+      MESSAGES_TYPES.RANKCHART,
+      MESSAGES_TYPES.DATAREPORT
     ]),
     id: PropTypes.number,
     text: PropTypes.string,
@@ -152,6 +156,36 @@ export const PROP_TYPES = {
     type: PropTypes.oneOf([
       MESSAGES_TYPES.TEXT,
       MESSAGES_TYPES.HOSPITALMAP
+    ]),
+    id: PropTypes.number,
+    title: PropTypes.string,
+    link: PropTypes.string,
+    content: PropTypes.string,
+    target: PropTypes.string,
+    sender: PropTypes.oneOf([
+      MESSAGE_SENDER.RESPONSE
+    ])
+  }),
+
+  RANKCHART: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.TEXT,
+      MESSAGES_TYPES.RANKCHART
+    ]),
+    id: PropTypes.number,
+    title: PropTypes.string,
+    link: PropTypes.string,
+    content: PropTypes.string,
+    target: PropTypes.string,
+    sender: PropTypes.oneOf([
+      MESSAGE_SENDER.RESPONSE
+    ])
+  }),
+
+  DATAREPORT: ImmutablePropTypes.contains({
+    type: PropTypes.oneOf([
+      MESSAGES_TYPES.TEXT,
+      MESSAGES_TYPES.DATAREPORT
     ]),
     id: PropTypes.number,
     title: PropTypes.string,

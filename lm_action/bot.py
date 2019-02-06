@@ -119,7 +119,7 @@ def get_basic_Stats_text(dkw):
         #Down syndrome hit 23 institutions, 247 experts, 16 clinical trials, 915 research projects, $336,507,365 funding. 
         #About 1 in 700 babies are born with the birth defect known as Down Syndrome. Learn about the different Down Syndrome types and related health issues.
         stats_message_tpl = """
-            {} 命中{}所医疗机构，{}名专家，{}个医疗实验，{}个研究项目，总计${}科研经费。 {}
+            {} hits {} institutions，{} experts，{} clinical trials，{} research projects，a total of ${} funding. {}
         """
         text_message = stats_message_tpl.format(
             dkw,

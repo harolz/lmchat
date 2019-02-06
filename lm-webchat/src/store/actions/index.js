@@ -144,6 +144,20 @@ export function addHospitalMapSnippet(HospitalMap) {
   };
 }
 
+export function addRankChartSnippet(RankChart) {
+  return {
+    type: actions.ADD_RANKCHART,
+    RankChart
+  };
+}
+
+export function addDataReportSnippet(DataReport) {
+  return {
+    type: actions.ADD_DATAREPORT,
+    DataReport
+  };
+}
+
 export function addDatePickSnippet(DatePick) {
   return {
     type: actions.ADD_DATEPICK,

@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { SESSION_NAME } from 'constants';
 import {
   toggleChat,
   openChat,
@@ -11,10 +12,12 @@ import {
   addResponseMessage,
   addDkwCompleteSnippet,
   addHospitalMapSnippet,
+  addRankChartSnippet,
   addDatePickSnippet,
   addAgeSnippet,
   addSurgerySnippet,
   addMedicationSnippet,
+  addDataReportSnippet,
   addSymptomSnippet,
   addVideoSnippet,
   addLinkSnippet,
@@ -28,10 +31,10 @@ import {
   pullSession
 } from 'actions';
 
-import { isDatepicker, isDkwComplete, isVideo, isImage, isQR, isText, isSurgery, isMedication, isSymptom, isSnippet, isAge, isAppointment, isConsultant, isHospitalMap } from './msgProcessor';
+import { isDatepicker, isDkwComplete, isVideo, isImage, isQR, isText, isSurgery, isMedication, isSymptom, isSnippet, isAge, isAppointment, isConsultant, isHospitalMap, isRankChart, isDataReport } from './msgProcessor';
 import WidgetLayout from './layout';
 import { storeLocalSession, getLocalSession } from '../../store/reducers/helper';
-import { SESSION_NAME } from 'constants';
+
 
 class Widget extends Component {
 
@@ -166,9 +169,24 @@ class Widget extends Component {
         target: '_blank'
       }));
     } else if (isHospitalMap(message)) {
-      console.log('here')
       const element = message.attachment.payload.elements[0];
       this.props.dispatch(addHospitalMapSnippet({
+        title: element.title,
+        content: element.buttons[0].title,
+        link: element.buttons[0].url,
+        target: '_blank'
+      }));
+    } else if (isDataReport(message)) {
+      const element = message.attachment.payload.elements[0];
+      this.props.dispatch(addDataReportSnippet({
+        title: element.title,
+        content: element.buttons[0].title,
+        link: element.buttons[0].url,
+        target: '_blank'
+      }));
+    } else if (isRankChart(message)) {
+      const element = message.attachment.payload.elements[0];
+      this.props.dispatch(addRankChartSnippet({
         title: element.title,
         content: element.buttons[0].title,
         link: element.buttons[0].url,

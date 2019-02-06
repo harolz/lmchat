@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { MESSAGES_TYPES } from 'constants';
 import { Symptom } from 'messagesComponents';
-import { Video, Image, Message, QuickReply, DatePick, DkwComplete, Age, Surgery, Medication, Snippet, Appointment, Consultant, HospitalMap } from 'messagesComponents';
+import { Video, Image, Message, QuickReply, DatePick, DkwComplete, Age, Surgery, Medication, Snippet, Appointment, Consultant, HospitalMap, RankChart, DataReport } from 'messagesComponents';
 
 import './styles.scss';
 
@@ -45,6 +45,9 @@ class Messages extends Component {
         case MESSAGES_TYPES.HOSPITALMAP: {
           return HospitalMap;
         }
+        case MESSAGES_TYPES.RANKCHART: {
+          return RankChart;
+        }
         case MESSAGES_TYPES.SYMPTOM: {
           return Symptom;
         }
@@ -59,6 +62,9 @@ class Messages extends Component {
         }
         case MESSAGES_TYPES.APPOINTMENT: {
           return Appointment;
+        }
+        case MESSAGES_TYPES.DATAREPORT: {
+          return DataReport;
         }
         case MESSAGES_TYPES.CONSULTANT: {
           return Consultant;

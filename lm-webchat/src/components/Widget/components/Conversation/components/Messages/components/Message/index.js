@@ -15,7 +15,7 @@ class Message extends PureComponent {
     axios
       .post('https://api.mlab.com/api/1/databases/lm_chat/collections/' + JSON.stringify(localStorage.getItem('remote_id')) + '?apiKey=fhemEKGEOg9M_Corn-LAUfvysMqPRL3a', { data: JSON.stringify({ text: this.props.message.get('sender') + ': ' + this.props.message.get('text') }) })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
       })
       .catch((error) => { console.log(error); });
   }

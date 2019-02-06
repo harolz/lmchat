@@ -3,7 +3,8 @@ import { FormProvider } from 'react-advanced-form';
 import React, { Component } from 'react';
 import { emitUserMessage, toggleInputDisabled, addUserMessage} from 'actions';
 import { connect } from 'react-redux';
-import { Input, Button, Select } from 'react-advanced-form-addons';
+import { Input, Select } from 'react-advanced-form-addons';
+import Button from '../Medication/components/Button';
 import { Text, Radio, RadioGroup, TextArea, Checkbox } from 'react-form';
 import rules from './validation-rules';
 import messages from './validation-messages';
@@ -14,7 +15,9 @@ import './styles.scss';
 const blacklistedEmails = ['xxx@xxx.com'];
 const blacklistedPhones = ['999,911'];
 const blacklistedNames = ['xxx'];
-
+const buttonStyle = {
+  margin: '8px 8px 8px 8px'
+};
 class Snippet extends Component {
 
   constructor(props) {
@@ -22,7 +25,7 @@ class Snippet extends Component {
     this.state = {
       EMAIL: '',
       FAMILY_NAME: '',
-      GIVEN_NAME: '',
+      GIVEN_NAME: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -95,21 +98,21 @@ class Snippet extends Component {
     });
   }
 
-  updateInputEMAIL(event) {
+  updateInputEMAIL(email) {
     this.setState({
-      EMAIL: event.target.value
+      EMAIL: email
     });
   }
 
-  updateInputFAMILYNAME(event) {
+  updateInputFAMILYNAME(FamilyName) {
     this.setState({
-      FAMILY_NAME: event.target.value
+      FAMILY_NAME: FamilyName
     });
   }
 
-  updateInputGIVENNAME(event) {
+  updateInputGIVENNAME(GivenName) {
     this.setState({
-      GIVEN_NAME: event.target.value
+      GIVEN_NAME: GivenName
     });
   }
 
@@ -145,9 +148,14 @@ class Snippet extends Component {
                 onChange={event => this.updateInputEMAIL(event)}
                 required
               />
-              <Button primary onClick={this.handleSubmit}>提交</Button>
             </Form>
           </FormProvider>
+          <Button
+            action={this.handleSubmit}
+            type={'primary'}
+            title={'Submit'}
+            style={buttonStyle}
+          />{ /* Submit */ }
         </div> }
       </div>
     );

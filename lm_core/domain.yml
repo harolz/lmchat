@@ -185,8 +185,6 @@ slots:
 templates:
   utter_report_stats:
     - text: "{basic_stats}"
-  utter_report_city_data:
-    - text: "{city_data}"
   utter_show_map:
     - text: "{city_data}"
       elements:         
@@ -195,8 +193,22 @@ templates:
             - title: ""
               url: "http://linkmedicine.cn"
               type: "hospitalmap"
-  utter_report_hospitals:
-    - text: "{hospitals}"
+  utter_show_rankchart:
+    - text: ""
+      elements:         
+        - title: {dkw}
+          buttons: 
+            - title: ""
+              url: "http://linkmedicine.cn"
+              type: "rankchart"
+  utter_show_datareport:
+    - text: ""
+      elements:         
+        - title: {dkw}
+          buttons: 
+            - title: ""
+              url: "http://linkmedicine.cn"
+              type: "datareport"
   utter_echo_dkw:
     - text: "小美正在为您查询针对{dkw}的相关数据，请您稍候。"
   utter_ask_budget:
@@ -206,10 +218,9 @@ templates:
   utter_ask_company:
     - text: "What company do you work for?"
   utter_great:
-    - text: "感谢您的回复！👍"
-    - text: "收到！ "
-    - text: "了解。"
-    - text: "感谢您的配合。"
+    - text: "Great! 👍"
+    - text: "That's great! 🙌"
+    - text: "Awesome! 🎉"
   utter_ask_email_question:
     - text: "请问您的邮箱地址是什么？"  
   utter_ask_email_answer:
@@ -221,8 +232,8 @@ templates:
               url: "http://linkmedicine.cn"
               type: "register"  
   utter_awesome:
-    - text: "收到, 感谢! 👍"
-    - text: "了解, 感谢! 😄"
+    - text: "Got it, thank you! 👍"
+    - text: "Got it! 😄"
   utter_ask_goal:
     - text: "Do you want more Rasa in your life? You can subscribe to our newsletter or you can talk to our nice sales team 🧞‍"
   utter_ask_jobfunction:
@@ -231,8 +242,6 @@ templates:
     - text: "What kind of bot do you want to build with Rasa?"
   utter_confirm_salesrequest:
     - text: "Thanks a bunch, we'll be in touch soon! ✉️"
-  utter_confirmationemail:
-    - text: "We sent a confirmation email to {email}."
   utter_docu:
     - text: "If you want some more awesome Rasa content, check out our forum:
       https://forum.rasa.com/"
@@ -246,22 +255,16 @@ templates:
     - text: "We have a guide for migrating from DialogFlow here: http://rasa.com/docs/getting-started/dialogflow/."
   utter_switch_luis:
     - text: "We have a guide for migrating from LUIS here: http://rasa.com/docs/getting-started/luis/."
+  utter_need_expertise:
+    - text: "It is a trying moment when seeking overseas medical assistance, especially when choosing the best hospital by expertise. "  
   utter_mso:
-    - text: "LINKMedicine™为已经在国内医院获得了初次诊断结果(也就是第一医疗意见)的基础上，为患者提供大数据远程国际医疗服务，由美国顶尖医院的权威专家为患者提供专业的医疗建议与治疗方案，节约时空成本，实现全球医疗。"
+    - text: "LINKMedicine™ connects international patients with top hospitals in the U.S. on merit of their expertise. A remote medical second opinion is a valuable resource when patients are faced with difficult health circumstances or choices regarding their treatment options."
   utter_data:
-    - text: "LINKMedicine™是美国LINKSciences公司旗下的医疗旗舰平台，拥有原创的全球领先细分病种专长大数据分析平台（FACT$™ Medical Expertise Analysis），为患者提供FACT$™细分病种专长分析报告，覆盖全美近5000所医院，5万多细分病种，从上亿方案中找出最佳问诊路径；该分析平台屡获殊荣，在肿瘤、复杂疾病、罕见病领域得到广泛验证，已成为新一代国际医疗医院选择金标准。"
+    - text: "LINKMedicine™ endeavors to keep all patients informed of the best expertise each hospital has to provide. The moment you receive a serious medical diagnosis, the focus of life changes. LINKMedicine™ is here to find you the best hospital for your particular disease."
   utter_xbm:
-    - text: "LINKMedicine™致力于世界范围内为患者提供个性化的精准医疗服务，100%覆盖美国顶尖医疗机构，已经完成了大量国际患者高难度复杂疾病的成功案例，包括为美国国家癌症中心（NCI）迎来近年来首位中国病人，为上海某知名慈善专家48小时超快速接诊霍普金斯医院等。"
-  utter_datepicker:
-    - text: ""
-      elements:         
-        - title: "请在日期选择器中选择您下一次appointment的日期:"
-          buttons: 
-            - title: "提交"
-              url: "http://linkmedicine.cn"
-              type: "datepicker"
+    - text: "LINKMedicine™ enpowers patients worldwide to recieve the best medical care that is both personalized and professional. International patients seek treatment in the United States to access medical services with high success rates and good outcomes for surgeries and procedures that are not available in their country of origin "
   utter_greet:
-    - text: "您好！欢迎来到『乐美好医』国际医疗咨询室。LINKMedicine™️依托获奖医疗大数据平台技术，为中国患者量身定制海外医疗服务，比较诊疗专长，科学选择医院。" 
+    - text: "Hello, welcome to LINKMedicine's International Medicine Consualtation Room." 
   utter_form:
     - text: ""
       elements:         
@@ -270,76 +273,87 @@ templates:
             - title: "提交"
               url: "http://linkmedicine.cn"  
   utter_whois_patient_question:
-    - text: "请问您是患者本人还是患者的亲属？"  
+    - text: "Are you answering for yourself or someone else?"  
   utter_whois_patient_answer:
     - text: ""
       buttons:
-        - title: "我是患者本人"
+        - title: "Me"
           payload: "/confirm_patient{\"patient_value\":\"oneself\"}"
-        - title: "我是患者的亲人或朋友"
+        - title: "Someone Else"
           payload: "/confirm_patient{\"patient_value\":\"others\"}"
-  utter_ask_gender_question_2nd:
-    - text: "请问您的性别？"
-  utter_ask_gender_question_3rd:
-    - text: "请问患者的性别？"
+  utter_ask_gender_question_me:
+    - text: "Are you male or female?"
+  utter_ask_gender_question_someone_else:
+    - text: "Is the patient male or female?"
   utter_ask_gender_answer:
     - text: ""
       buttons:
-        - title: "男"
+        - title: "Male"
           payload: "/confirm_gender{\"gender_value\":\"male\"}"
-        - title: "女"
+        - title: "Female"
           payload: "/confirm_gender{\"gender_value\":\"female\"}"
-  utter_ask_age_question_3rd:
-      - text: "请问患者的年龄？(请在下拉列表中选择并提交)"
-  utter_ask_age_question_2nd:
-      - text: "请问患者的年龄？(请在下拉列表中选择并提交)"
+  utter_ask_age_question_me:
+    - text: "How old are you?"
+  utter_ask_age_question_male:
+    - text: "How old is he?"
+  utter_ask_age_question_female:
+    - text: "How old is she?"
   utter_ask_age_answer:
     - text: ""
       elements:         
         - title: ""
           buttons: 
-            - title: "提交"
+            - title: ""
               url: "http://linkmedicine.cn"
               type: "age"
   utter_ask_service_type_question:    
-      - text: " 关于国际医疗，请问您目前最需要哪方面的帮助？" 
+      - text: " About the plan for overseas medicine, please choose among the following options:" 
   utter_ask_service_type_answer:
     - text: ""
       buttons:
-        - title: "了解某项疾病在美国的治疗情况以及最好医院"
+        - title: "Find the best hospital with best expertise for my disease"
           payload: "/confirm_service_type{\"service_type\":\"data\"}"
-        - title: "远程获取医学诊断与治疗方案"
+        - title: "Obtain remote medical second opinion"
           payload: "/confirm_service_type{\"service_type\":\"mso\"}"
-        - title: "我想进行出国诊治"
+        - title: "Seek cross-border medication"
           payload: "/confirm_service_type{\"service_type\":\"xbm\"}"
-        - title: "我希望尽快和专家预约人工服务"
+        - title: "Unclear, plese help me schedule direct appointment"
           payload: "/confirm_service_type{\"service_type\":\"undecided\"}"
   utter_ask_basic_knowledge_question:
-    - text: "请问您对患者的病情是否了解？" 
+    - text: "Do you have knowledge of the patient's condition？" 
   utter_ask_basic_knowledge_answer:
     - text: ""
       buttons:
-        - title: "了解"
+        - title: "Yes"
           payload: "/confirm_basic_knowledge{\"basic_knowledge\":\"basic_knowledge_yes\"}"
-        - title: "基本了解"
+        - title: "Bascially"
           payload: "/confirm_basic_knowledge{\"basic_knowledge\":\"basic_knowledge_yes\"}"
-        - title: "不太了解"
+        - title: "Not so much"
           payload: "/confirm_basic_knowledge{\"basic_knowledge\":\"basic_knowledge_no\"}"
   utter_ask_cooperation:
-    - text: "好的，我们需要采集一些患者的基本信息,请您配合一下。"
-  utter_ask_dkw_question:
-    - text: "请问患者被诊断的疾病是什么？(请输入疾病的关键字，在下拉列表选择并提交)"
+    - text: "Please answer following question to the best of your knowledge."
+  utter_ask_dkw_question_me:
+    - text: "What is your diagnosis?"
+  utter_ask_dkw_question_male:
+    - text: "What is his diagnosis?"
+  utter_ask_dkw_question_female:
+    - text: "What is her diagnosis?"
   utter_ask_dkw_answer:
     - text: ""
       elements:         
         - title: ""
           buttons: 
-            - title: "提交"
+            - title: ""
               url: "http://linkmedicine.cn"
               type: "dkwcomplete"
-  utter_ask_symptoms_question:
-    - text: "患者的疾病什么时候开始的？有什么症状？ 请按照时间顺序提供
-            (年/月/日，症状描述) 当您完成输入后，请点击提交。"
+  utter_ask_symptoms_question_me:
+    - text: "When did your symptoms first start?"
+  utter_ask_symptoms_question_male:
+    - text: "When did his symptoms first start?"
+  utter_ask_symptoms_question_female:
+    - text: "When did her symptoms first start?"  
+  utter_ask_symptoms_question_instruction:
+    - text: "Tab \"Finish\" when you are finished with the description for symptoms; click \"Unclear\" if you don't know the patient medical information"
   utter_ask_symptoms_answer:
     - text: "" 
       elements:         
@@ -348,12 +362,14 @@ templates:
             - title: "提交"
               url: "http://linkmedicine.cn"
               type: "symptom"
-  utter_ask_prognosis:
-    - text: "请按病程的发展描述患者的预诊病史。请按照时间顺序提供
-            (年/月/日，就诊历史) 当您完成输入后，请点击提交。"
-  utter_ask_current_medication_question:
-    - text: "请描述患者目前所有正在服用的药物，包含中/西医, 以及处方/OTC。
-            (药物，剂量，频次，时间) 当您完成输入后，请点击提交。"
+  utter_ask_current_medication_question_me:
+    - text: "Please briefly describe your current medication or the plan for treatment."
+  utter_ask_current_medication_question_male:
+    - text: "Please briefly describe his current medication or the plan for treatment."
+  utter_ask_current_medication_question_female:
+    - text: "Please briefly describe her current medication or the plan for treatment."
+  utter_ask_current_medication_question_instruction:
+    - text: "Tab \"Finish\" when you are finished with the description for medication and treatment; click \"Unclear\" if you don't have this information."
   utter_ask_current_medication_answer:
     - text: ""
       elements:         
@@ -362,21 +378,24 @@ templates:
             - title: "提交"
               url: "http://linkmedicine.cn"
               type: "medication"
-  utter_ask_past_surgery_question:
-    - text: "请描述患者以往手术史，包含活体组织检查史。
-            (手术/检查类型，接受时间) 当您完成输入后，请点击提交。"
-  utter_ask_past_surgery_answer:
+  utter_ask_diagnosis:
+    - text: "你有准备好患者的诊断书和最近的治疗记录么？"
+  utter_ask_medical_appointment_question_me:
+    - text: "Do you have any upcoming appointments or procedures? If yes, please indicate the date."
+  utter_ask_medical_appointment_question_male:
+    - text: "Does he have any upcoming appointments or procedures? If yes, please indicate the date."
+  utter_ask_medical_appointment_question_female:
+    - text: "Does she have any upcoming appointments or procedures? If yes, please indicate the date."
+  utter_ask_medical_appointment_answer:
     - text: ""
       elements:         
-        - title: ""
+        - title: "请在日期选择器中选择您下一次appointment的日期:"
           buttons: 
             - title: "提交"
               url: "http://linkmedicine.cn"
-              type: "surgery"
-  utter_ask_diagnosis:
-    - text: "你有准备好患者的诊断书和最近的治疗记录么？"
-  utter_ask_medical_appointment:
-    - text: "患者最近是否已经预约就医或者已经入院治疗？"
+              type: "datepicker"
+  utter_ask_medical_appointment_question_instruction:
+    - text: "Again, please tab \"Finish\" after you select the date of your medical appointment in the datepicker; click \"Unclear\" if currently you don't have an active medical appointment. "
   utter_ask_choose_med_app:
     - text: "请在日期选择器中选择您的治疗日期。"
   utter_ask_lm_consultant:
@@ -390,22 +409,25 @@ templates:
               url: "http://linkmedicine.cn"
               type: "consultant"   
   utter_ask_lm_appointment:
-    - text: "请根据乐美好医专家的预约情况，在日期选择器中，选择预约时间并提交。"
-  utter_lm_appointment:
+    - text: "LINKMedicine™ provided consultants to better serve patients' interest. Please indicate your availbility for an appointment and your contact info."
+  utter_lm_app:
     - text: ""
       elements:         
         - title: ""
           buttons: 
             - title: "提交"
               url: "http://linkmedicine.cn"
-              type: "appointment"  
+              type: "appointment" 
   utter_working_on_it:
-    - text: "感谢您所提供的信息，小美正在为您生成专属服务，请稍候...🔥"
-  utter_case_created:
-    - text: "LINKMedicine™已经为您创建了专属大数据国际医疗档案，请您登录邮箱验证，完善后续服务流程。"
+    - text: "Thank you for the information you provided. Your personalized service is being created.Please wait for a moment...🔥"
+  utter_medical_record_created:
+    - text: "The medicial record has been created by LINKMedicine™. Please resgister by typing in your name and email. You should soon receive an email to confirm your registration."
   utter_report_created:
-  - text: "您的Medical Expertise $FACTS 分析报告已经完成,以下为您展示报告的部分内容。"
-    image: "http://harolz.com/assets/QR/LM_QR.jpg"
+  - text: "For {dkw}, here are the information about the hospitals that provided the best expertise."
+  utter_sent_app_confirmation:
+    - text: "We've sent a confirmation email of the appointment to ✉️{email}.Thanks a bunch, we'll be in touch soon!"
+  utter_confirmation_email:
+    - text: "Thanks a bunch, we'll be in touch soon!"
   utter_inform_privacypolicy:
   - text: "您的Medical Expertise $FACTS 分析报告已经完成：请前往以下页面获取"
     image: "http://harolz.com/assets/QR/LM_QR.jpg"
@@ -457,24 +479,25 @@ templates:
     - text: "You're welcome!"
     - text: "I'm happy to help."
   utter_bye:
-    - text: "再见!"
-    - text: "感谢此次与您的对话!"
-    - text: "再见，欢迎保持联系。"
+    - text: "Goodbye!"
+    - text: "Bye!"
+    - text: "Ciao!"
+    - text: "Bye, was nice talking to you!"
   utter_default:
-    - text: "抱歉，我没听明白。 🤷🏻‍ 麻烦您能再说一遍吗?"
-    - text: "抱歉，请您再说一遍，可以吗？"
-    - text: "抱歉，我没听懂。你能把刚才的话再说一遍吗"
-    - text: "我似乎没听懂您的话. 您能再说一遍吗?"
-    - text: "我没听懂, 您能再说一遍么?"
-    - text: "麻烦您能再说一遍吗? 我没听懂，抱歉."
+    - text: "Sorry, I didn't get that 🤷🏻‍. Could you please rephrase?"
+    - text: "I didn't understand, could you rephrase that?"
+    - text: "I'm sorry, but I didn't understand you. Could you please rephrase what you just said?"
+    - text: "I'm afraid I didn't get what you just said. Could you rephrase that?"
+    - text: "I didn't quite get that, could you rephrase your message?"
+    - text: "Could you rephrase your message? I didn't get it, I'm sorry."
   utter_ask_feedback_question:
-    - text: "您对本次沟通过程，满意吗"
+    - text: "How is this conversation going?"
   utter_ask_feedback:
     - text: ""
       buttons:
-        - title: "满意😉"
+        - title: "Like😉"
           payload: "/feedback{\"feedback_value\":\"positive\"}"
-        - title: "不满意🤷🏻‍"
+        - title: "Dislike🤷🏻‍"
           payload: "/feedback{\"feedback_value\":\"negative\"}"
   utter_thank_usecase:
     - text: "Cool, thank you!"
@@ -497,7 +520,7 @@ templates:
   utter_built_bot_before:
     - text: "Alright, have you built a bot before?"
   utter_anything_else:
-    - text: "很高兴为您服务，期待与您再次对话，再见！"
+    - text: "It's been a pleasure to chat with you. Hope you've found a solution to your problem."
   utter_encourage_building_bot:
     - text: Cool, then good luck with building your first "I'm the Rasa bot 🤖!
   utter_chatbot_tutorial:
@@ -663,19 +686,22 @@ templates:
 actions:
   - utter_echo_dkw
   - utter_show_map
+  - utter_show_rankchart
+  - utter_show_datareport
   - utter_greet
-  - utter_datepicker
   - utter_form
   - utter_mso
+  - utter_need_expertise
   - utter_data
   - utter_xbm
   - utter_whois_patient_question
   - utter_whois_patient_answer
-  - utter_ask_gender_question_2nd
-  - utter_ask_gender_question_3rd
+  - utter_ask_gender_question_me
+  - utter_ask_gender_question_someone_else
   - utter_ask_gender_answer
-  - utter_ask_age_question_2nd
-  - utter_ask_age_question_3rd
+  - utter_ask_age_question_me
+  - utter_ask_age_question_male
+  - utter_ask_age_question_female
   - utter_ask_age_answer
   - utter_ask_feedback_question
   - utter_ask_service_type_question
@@ -683,24 +709,34 @@ actions:
   - utter_ask_basic_knowledge_question
   - utter_ask_basic_knowledge_answer
   - utter_ask_cooperation
-  - utter_ask_dkw_question
+  - utter_ask_dkw_question_me
+  - utter_ask_dkw_question_male
+  - utter_ask_dkw_question_female
   - utter_ask_dkw_answer
-  - utter_ask_symptoms_question
+  - utter_ask_symptoms_question_me
+  - utter_ask_symptoms_question_male
+  - utter_ask_symptoms_question_female
+  - utter_ask_symptoms_question_instruction
   - utter_ask_symptoms_answer
-  - utter_ask_current_medication_question
+  - utter_ask_current_medication_question_me
+  - utter_ask_current_medication_question_male
+  - utter_ask_current_medication_question_female
+  - utter_ask_current_medication_question_instruction
   - utter_ask_current_medication_answer
-  - utter_ask_past_surgery_question
-  - utter_ask_past_surgery_answer
-  - utter_ask_medical_appointment
+  - utter_ask_medical_appointment_question_me
+  - utter_ask_medical_appointment_question_male
+  - utter_ask_medical_appointment_question_female
+  - utter_ask_medical_appointment_question_instruction
+  - utter_ask_medical_appointment_answer
   - utter_ask_choose_med_app
   - utter_ask_lm_appointment
-  - utter_lm_appointment
+  - utter_lm_app
   - utter_ask_lm_consultant
   - utter_lm_consultant
   - utter_ask_email_question
   - utter_ask_email_answer
   - utter_working_on_it
-  - utter_case_created  
+  - utter_medical_record_created  
   - utter_report_created 
   - utter_ask_usecase
   - utter_ask_businessmail
@@ -712,7 +748,7 @@ actions:
   - utter_moreinformation
   - utter_confirm_salesrequest
   - utter_docu
-  - utter_confirmationemail
+  - utter_confirmation_email
   - utter_sales_contact
   - utter_already_subscribed
   - utter_contact_email
@@ -842,10 +878,10 @@ actions:
   - action_report_hospitals
   - action_report_stats
   - action_reply_email
+  - utter_sent_app_confirmation
   - action_report_city
-  - utter_report_hospitals
   - utter_report_stats
-  - utter_report_city_data
+
 
 forms:
   - suggestion_form

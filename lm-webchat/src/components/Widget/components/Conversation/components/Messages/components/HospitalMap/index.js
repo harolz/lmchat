@@ -35,6 +35,7 @@ class HospitalMap extends Component {
       .then((response) => {
         // data.push(['Baltimore MD', 94]);
         // console.log(response['cityCountList'])
+        // alert(localStorage.getItem('TIMESTAMP'));
         for (let i = 0; i < response["data"]["cityCountList"].length; i++) {
           // loop through your data
           data.push([response["data"]["cityCountList"][i]["geoCity"], response["data"]["cityCountList"][i]["rankCount"]]);

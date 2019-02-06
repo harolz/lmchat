@@ -1,0 +1,59 @@
+import '../src/less/input-moment.less';
+import './styles.less';
+import moment from 'moment';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import InputMoment from '../src/input-moment';
+import packageJson from '../package.json';
+
+class Appointment extends Component {
+  state = {
+    m: moment()
+  };
+
+  handleChange = m => {
+    this.setState({ m });
+  };
+
+  handleSave = () => {
+    console.log('saved', this.state.m.format('llll'));
+  };
+
+  render() {
+    return (
+      <div className="app">
+        <h1>
+          {packageJson.name}: {packageJson.version}
+        </h1>
+        <h2>{packageJson.description}</h2>
+        <form>
+          <div className="input">
+            <input type="text" value={this.state.m.format('llll')} readOnly />
+          </div>
+          <InputMoment
+            moment={this.state.m}
+            onChange={this.handleChange}
+            minStep={5}
+            onSave={this.handleSave}
+          />
+        </form>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  inputState: state.behavior.get('disabledInput')
+});
+const mapDispatchToProps = dispatch => ({
+      // toggleInputDisabled: _ => dispatch(toggleInputDisabled()),
+  submitAPPOINTMENT: (payload, APPOINTMENT) => {
+    dispatch(emitUserMessage(payload));
+    dispatch(addUserMessage(APPOINTMENT));
+      // dispatch(toggleInputDisabled());
+  }
+});
+Appointment.propTypes = {
+  message: PROP_TYPES.APPOINTMENT
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Appointment);

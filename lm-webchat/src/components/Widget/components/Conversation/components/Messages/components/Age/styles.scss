@@ -6,6 +6,12 @@
   margin-left: auto;
   flex-flow: row wrap;
   justify-content: 'space-between';
+  age1{
+    align-self: flex-start;
+  }
+  age2{
+    align-self: flex-end;
+  }
   .justify{
     justify-content: 'space-between';
   }
@@ -13,6 +19,7 @@
 
 .age {
   @include message-bubble($grey-2, #000);
+  flex-direction: row
 }
 
 .age-title {

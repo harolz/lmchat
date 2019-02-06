@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import { registerLocale, setDefaultLocale } from 'react-datepicker';
 import zh_cn from 'date-fns/esm/locale/zh-CN';
+import Button from '../Medication/components/Button';
 import { PROP_TYPES } from 'constants';
 import { connect } from 'react-redux';
 import { emitUserMessage, toggleInputDisabled, addUserMessage } from 'actions';
@@ -11,6 +12,10 @@ import './styles.scss';
 
 
 registerLocale('zh_cn', zh_cn);
+
+const buttonStyle = {
+  margin: '8px 8px 8px 8px'
+};
 
 class DatePick extends Component {
   constructor(props) {
@@ -41,14 +46,27 @@ class DatePick extends Component {
         { this.props.isLast && <div className="datepick">
           <DatePicker
             inline
-            showTimeSelect
+            showTimeSelect={false}
             timeCaption="时间"
             selected={this.state.startDate}
             onChange={this.handleChange}
             dateFormat="MMMM d, yyyy h:mm aa"
-            locale="zh_cn"
           />
-          <input type="submit" value="提交" onClick={this.handleClick} />
+          {/* locale="zh_cn" */}
+          <div>
+            <Button
+              action={this.handleClick}
+              type={'primary'}
+              title={'Finish'}
+              style={buttonStyle}
+            />
+            <Button
+              action={this.handleSkip}
+              type={'secondary'}
+              title={'Unclear'}
+              style={buttonStyle}
+            />
+          </div>
         </div> }
       </div>
     );

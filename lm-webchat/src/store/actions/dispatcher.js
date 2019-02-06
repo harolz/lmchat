@@ -33,6 +33,14 @@ export function addHospitalMapSnippet(HospitalMap) {
   store.dispatch(actions.addHospitalMapSnippet(HospitalMap));
 }
 
+export function addDataReportSnippet(DataReport) {
+  store.dispatch(actions.addDataReportSnippet(DataReport));
+}
+
+export function addRankChartSnippet(RankChart) {
+  store.dispatch(actions.addRankChartSnippet(RankChart));
+}
+
 export function addMedicationSnippet(Medication) {
   store.dispatch(actions.addMedicationSnippet(Medication));
 }

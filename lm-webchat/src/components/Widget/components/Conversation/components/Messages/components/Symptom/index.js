@@ -1,49 +1,166 @@
 import { emitUserMessage, toggleInputDisabled, addUserMessage } from 'actions';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { Input, Button, Select } from 'react-advanced-form-addons';
-import { Text, Radio, RadioGroup, TextArea, Checkbox } from 'react-form';
-import rules from './validation-rules';
-import messages from './validation-messages';
 import { PROP_TYPES } from 'constants';
+import DatePicker from 'react-datepicker';
+import Input from '../Medication/components/Input';
+import TextArea from '../Medication/components/TextArea';
+import Button from '../Medication/components/Button';
 import './styles.scss';
+
+const buttonStyle = {
+  margin: '8px 8px 8px 8px'
+};
 
 class Symptom extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '请在此完善症状描述，完成后请点击“提交”。'
+      newUser: {
+        name: '',
+        selecteddate: '',
+        gender: '',
+        skills: [],
+        about: ''
+      },
+      genderOptions: ['Male', 'Female', 'Others'],
+      skillOptions: ['Self-identified', 'Stage 0', 'Stage 1', 'Stage 2']
     };
-
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    if (!this.props.inputState) {
-      this.props.toggleInputDisabled();
-      // this.props.changeInputFieldHint(hint);
+    this.handleSkip = this.handleSkip.bind(this);
+    this.handleTextArea = this.handleTextArea.bind(this);
+    this.handleDate = this.handleDate.bind(this);
+    this.handleFullName = this.handleFullName.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleClearForm = this.handleClearForm.bind(this);
+    this.handleCheckBox = this.handleCheckBox.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+  }
+  handleFullName(e) {
+    let value = e.target.value;
+    this.setState(prevState => ({ newUser:
+    { ...prevState.newUser, name: value
     }
+    }), () => console.log(this.state.newUser));
   }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleDate(date) {
+    this.setState(prevState => ({ newUser:
+    { ...prevState.newUser, selecteddate: date
+    }
+    }), () => console.log(this.state.newUser));
   }
-
+  handleInput(e) {
+    let value = e.target.value;
+    let name = e.target.name;
+    this.setState(prevState => ({ newUser:
+    { ...prevState.newUser, [name]: value
+    }
+    }), () => console.log(this.state.newUser));
+  }
+  handleTextArea(e) {
+    console.log("Inside handleTextArea");
+    let value = e.target.value;
+    this.setState(prevState => ({
+      newUser: {
+        ...prevState.newUser, about: value
+      }
+    }), () => console.log(this.state.newUser));
+  }
+  handleCheckBox(e) {
+    const newSelection = e.target.value;
+    let newSelectionArray;
+    if (this.state.newUser.skills.indexOf(newSelection) > -1) {
+      newSelectionArray = this.state.newUser.skills.filter(s => s !== newSelection);
+    } else {
+      newSelectionArray = [...this.state.newUser.skills, newSelection];
+    }
+    this.setState(prevState => ({ newUser:
+        { ...prevState.newUser, skills: newSelectionArray }
+    })
+      );
+  }
+  handleFormSubmit(e) {
+    e.preventDefault();
+    let userData = this.state.newUser;
+    fetch('http://example.com',{
+         method: "POST",
+         body: JSON.stringify(userData),
+         headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'application/json'
+         },
+       }).then(response => {
+         response.json().then(data =>{
+           console.log("Successful" + data);
+         })
+     })
+   }   
+  handleClearForm(e) {
+    e.preventDefault();
+    this.setState({
+      newUser: {
+        name: '',
+        date: '',
+        gender: '',
+        skills: [],
+        about: ''
+      }
+    });
+  }
   handleSubmit(event) {
     event.preventDefault();
-    // console.log('An essay was submitted: ' + this.state.value);
-    const SYMPTOM = this.state.value;
-    const payload = '/comfirm_symptom';
+    const SYMPTOM = 'Your reply has been successfully submitted.';
+    const payload = '/comfirm_symptoms';
+    this.props.submitSYMPTOM(payload, SYMPTOM);
+  }
+  handleSkip(event) {
+    event.preventDefault();
+    const SYMPTOM = 'You have chosen to skip this question.';
+    const payload = '/comfirm_current_symptoms';
     this.props.submitSYMPTOM(payload, SYMPTOM);
   }
   render() {
     return (
       <div className="client-side">
         { this.props.isLast && <div className="symptom">
-          <div className="example">
-            <form>
-              <textarea value={this.state.value} onChange={this.handleChange} cols={30} rows={6} />
-              <input type="submit" value="提交" onClick={this.handleSubmit}/>
-            </form>
-          </div>
+          <form className="container-fluid" onSubmit={this.handleSubmit}>
+            <Input
+              inputType={'month'}
+              title={'Symptom Start Time'}
+              name={'name'}
+              value={this.state.newUser.name}
+              placeholder={'Type in when the symptoms start.'}
+              handleChange={this.handleInput}
+            /> {/* Name of the user */}
+            {/* <div className="form-group">
+              <label htmlFor={'selecteddate'} className="form-label">{'Start Date: '}
+              </label>
+              <DatePicker
+                selected={this.state.newUser.selecteddate}
+                onChange={this.handleDate}
+              />
+            </div> */}
+            <TextArea
+              title={'Description'}
+              rows={10}
+              value={this.state.newUser.about}
+              name={'currentPetInfo'}
+              handleChange={this.handleTextArea}
+              placeholder={'Please describe your symptoms in greater details here.'}
+            />{/* Description */}
+            <Button
+              action={this.handleSubmit}
+              type={'primary'}
+              title={'Finish'}
+              style={buttonStyle}
+            />{ /* Submit */ }
+            <Button
+              action={this.handleSkip}
+              type={'secondary'}
+              title={'Unclear'}
+              style={buttonStyle}
+            /> {/* Clear the form */}
+          </form>
         </div> }
       </div>
     );
