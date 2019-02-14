@@ -10,7 +10,8 @@ class QuickReply extends PureComponent {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-
+    console.log(JSON.stringify(this.props.message));
+    //{"type":"quickreply","text":"","hint":"Select an option...","quick_replies":[{"content_type":"text","title":"Me","payload":"/confirm_patient{\"patient_value\":\"oneself\"}"},{"content_type":"text","title":"Someone Else","payload":"/confirm_patient{\"patient_value\":\"others\"}"}],"sender":"response","showAvatar":false,"chosenReply":null}
     const hint = this.props.message.get('hint');
     const chosenReply = this.props.getChosenReply(this.props.id);
     if (!chosenReply && !this.props.inputState) {

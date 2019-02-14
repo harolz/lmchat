@@ -5,6 +5,7 @@ import { PROP_TYPES } from 'constants';
 import { emitUserMessage, toggleInputDisabled, addUserMessage } from 'actions';
 import { connect } from 'react-redux';
 import Button from '../Medication/components/Button';
+import ReactDOM from 'react-dom';
 import './styles.scss';
 
 
@@ -19,11 +20,6 @@ const buttonStyle = {
   margin: '8px 8px 8px 8px'
 };
 
-const scrollToBottom = () => {
-  const messagesDiv = document.getElementById('messages');
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
-};
-
 class DkwComplete extends Component {
 
   constructor(props, context) {
@@ -33,6 +29,14 @@ class DkwComplete extends Component {
       selectedTitle: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
   searchTitles = movieTitle => {
@@ -83,23 +87,29 @@ class DkwComplete extends Component {
   }
   render() {
     return (
-      <div className="client-side">
+      <div className="client-side" id="dkwc">
         { this.props.isLast && <div className="dkwcomplete" style={{ float: 'right', width: '100%' }}>
-          <AsyncSelect
-            cacheOptions
-            defaultOptions
-            value={this.state.selectedTitle}
-            loadOptions={this.searchTitles}
-            onChange={(property, value) => {
-              this.setState({ selectedTitle: property });
-              scrollToBottom();
-            }}
-            onFocus={() => { scrollToBottom(); }}
-          />
+          <div className="form-group">
+            <label htmlFor={'selectedTitle'} className="form-label">{'Diagnosis: '}</label>
+            <AsyncSelect
+              cacheOptions
+              defaultOptions
+              onMenuScrollToBottom
+              autoFocus
+              value={this.state.selectedTitle}
+              loadOptions={this.searchTitles}
+              menuShouldScrollIntoView
+              onChange={(property, value) => {
+                this.setState({ selectedTitle: property });
+                // this.scrollToBottom();
+              }}
+              // onFocus={() => { this.scrollToBottom(); }}
+            />
+          </div>
           <Button
             action={this.handleSubmit}
             type={'primary'}
-            title={'Finish'}
+            title={'Submit'}
             style={buttonStyle}
           />
           <Button

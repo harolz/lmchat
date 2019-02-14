@@ -126,10 +126,10 @@ class Symptom extends Component {
           <form className="container-fluid" onSubmit={this.handleSubmit}>
             <Input
               inputType={'month'}
-              title={'Symptom Start Time'}
+              title={'Symptom start since'}
               name={'name'}
               value={this.state.newUser.name}
-              placeholder={'Type in when the symptoms start.'}
+              placeholder={'MM-YYYY'}
               handleChange={this.handleInput}
             /> {/* Name of the user */}
             {/* <div className="form-group">
@@ -151,7 +151,7 @@ class Symptom extends Component {
             <Button
               action={this.handleSubmit}
               type={'primary'}
-              title={'Finish'}
+              title={'Submit'}
               style={buttonStyle}
             />{ /* Submit */ }
             <Button

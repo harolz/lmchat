@@ -429,7 +429,7 @@ slots:
   hospitals:
     auto_fill: true
     initial_value: null
-    type: rasa_core.slots.TextSlot
+    type: rasa_core.slots.UnfeaturizedSlot
   job_function:
     auto_fill: true
     initial_value: null
@@ -574,7 +574,7 @@ templates:
   utter_ask_current_medication_question_female:
   - text: Please briefly describe her current medication or the plan for treatment.
   utter_ask_current_medication_question_instruction:
-  - text: Tab "Finish" when you are finished with the description for medication and
+  - text: Tab "Submit" when you are finished with the description for medication and
       treatment; click "Unclear" if you don't have this information.
   utter_ask_current_medication_question_male:
   - text: Please briefly describe his current medication or the plan for treatment.
@@ -682,8 +682,10 @@ templates:
       I can answer you in.
   - text: I am in the process of learning, but at the moment I can only speak English.
   utter_ask_lm_appointment:
-  - text: LINKMedicine™ provided consultants to better serve patients' interest. Please
-      indicate your availbility for an appointment and your contact info.
+  - text: To keep you better informed of US hospitals by expertise, LINKMedicine™
+      offers data science consultants to help interpret data regarding your diagnosis.
+      Please indicate your availbility for an appointment for such service and your
+      contact info.
   utter_ask_lm_consultant:
   - text: 请从下列选项中选择需要咨询的专家：
   utter_ask_medical_appointment_answer:
@@ -698,7 +700,7 @@ templates:
   - text: Does she have any upcoming appointments or procedures? If yes, please indicate
       the date.
   utter_ask_medical_appointment_question_instruction:
-  - text: "Again, please tab \"Finish\" after you select the date of your medical\
+  - text: "Again, please tab \"Submit\" after you select the date of your medical\
       \ appointment in the datepicker; click \"Unclear\" if currently you don't have\
       \ an active medical appointment. "
   utter_ask_medical_appointment_question_male:
@@ -722,13 +724,15 @@ templates:
   utter_ask_service_type_answer:
   - buttons:
     - payload: /confirm_service_type{"service_type":"data"}
-      title: Find the best hospital with best expertise for my disease
+      title: Help choose hospitals with best expertise for my diseases
     - payload: /confirm_service_type{"service_type":"mso"}
-      title: Obtain remote medical second opinion
-    - payload: /confirm_service_type{"service_type":"xbm"}
-      title: Seek cross-border medication
+      title: Seek remote second opinion from expertise hospitals
     - payload: /confirm_service_type{"service_type":"undecided"}
-      title: Unclear, plese help me schedule direct appointment
+      title: Make direct referal to expertise hospitals
+    - payload: /confirm_service_type{"service_type":"xbm"}
+      title: I am an international patient seeking medical care
+    - payload: /confirm_service_type{"service_type":"undecided"}
+      title: Unclear, I need your expertise advice
     text: ''
   utter_ask_service_type_question:
   - text: ' About the plan for overseas medicine, please choose among the following
@@ -744,7 +748,7 @@ templates:
   utter_ask_symptoms_question_female:
   - text: When did her symptoms first start?
   utter_ask_symptoms_question_instruction:
-  - text: Tab "Finish" when you are finished with the description for symptoms; click
+  - text: Tab "Submit" when you are finished with the description for symptoms; click
       "Unclear" if you don't know the patient medical information
   utter_ask_symptoms_question_male:
   - text: When did his symptoms first start?
@@ -893,7 +897,8 @@ templates:
   - text: That's great! 🙌
   - text: Awesome! 🎉
   utter_greet:
-  - text: Hello, welcome to LINKMedicine's International Medicine Consualtation Room.
+  - text: Hello, welcome to LINKMedicine™. Let's harness the power of data for your
+      health. Talk to AI and plan your best care now.
   utter_handleinsult:
   - text: That’s not very nice 😢
   utter_have_you_used_rasa_before:
@@ -913,7 +918,7 @@ templates:
   utter_lm_app:
   - elements:
     - buttons:
-      - title: 提交
+      - title: ''
         type: appointment
         url: http://linkmedicine.cn
       title: ''
@@ -921,7 +926,7 @@ templates:
   utter_lm_consultant:
   - elements:
     - buttons:
-      - title: 提交
+      - title: ''
         type: consultant
         url: http://linkmedicine.cn
       title: ''
@@ -940,8 +945,9 @@ templates:
   utter_must_accept:
   - text: We can't speak until you accept.
   utter_need_expertise:
-  - text: 'It is a trying moment when seeking overseas medical assistance, especially
-      when choosing the best hospital by expertise. '
+  - text: It is a trying moment when seeking overseas medical assistance, especially
+      when choosing the best hospital by expertise. But do not worry, LINKMedicine™
+      is here to help you with that.
   utter_nicetomeeyou:
   - text: Thank you. It is a pleasure to meet you as well!
   - text: It is nice to meet you too!
@@ -1017,15 +1023,15 @@ templates:
         url: http://linkmedicine.cn
       title:
         dkw: null
-    text: '{city_data}'
+    text: ''
   utter_show_rankchart:
   - elements:
     - buttons:
-      - title: ''
+      - hospitals:
+          hospitals: null
+        title: '{dkw}'
         type: rankchart
-        url: http://linkmedicine.cn
-      title:
-        dkw: null
+      title: ''
     text: ''
   utter_source_code:
   - text: You can find my source code [here](https://github.com/RasaHQ/rasa-demo/)
@@ -1078,8 +1084,8 @@ templates:
   - text: Thank you for the information you provided. Your personalized service is
       being created.Please wait for a moment...🔥
   utter_xbm:
-  - text: 'LINKMedicine™ enpowers patients worldwide to recieve the best medical care
+  - text: LINKMedicine™ enpowers patients worldwide to recieve the best medical care
       that is both personalized and professional. International patients seek treatment
       in the United States to access medical services with high success rates and
       good outcomes for surgeries and procedures that are not available in their country
-      of origin '
+      of origin.

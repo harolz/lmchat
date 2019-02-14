@@ -1,161 +1,116 @@
-import { Form } from 'react-advanced-form';
-import { FormProvider } from 'react-advanced-form';
-import React, { Component } from 'react';
-import { emitUserMessage, toggleInputDisabled, addUserMessage} from 'actions';
+import { emitUserMessage, toggleInputDisabled, addUserMessage } from 'actions';
 import { connect } from 'react-redux';
-import { Input, Select } from 'react-advanced-form-addons';
-import Button from '../Medication/components/Button';
-import { Text, Radio, RadioGroup, TextArea, Checkbox } from 'react-form';
-import rules from './validation-rules';
-import messages from './validation-messages';
+import React, { Component } from 'react';
 import { PROP_TYPES } from 'constants';
+import Input from '../Medication/components/Input';
+import Select from '../Medication/components/Select';
+import Button from '../Medication/components/Button';
 import axios from 'axios';
 import './styles.scss';
 
-const blacklistedEmails = ['xxx@xxx.com'];
-const blacklistedPhones = ['999,911'];
-const blacklistedNames = ['xxx'];
 const buttonStyle = {
-  margin: '8px 8px 8px 8px'
+  margin: '10px 10px 10px 10px'
 };
-class Snippet extends Component {
 
+class Snippet extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      EMAIL: '',
-      FAMILY_NAME: '',
-      GIVEN_NAME: ''
+      newUser: {
+        email: '',
+        firstname: '',
+        lastname: ''
+      }
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
-    if (!this.props.inputState) {
-      this.props.toggleInputDisabled();
-      // this.props.changeInputFieldHint(hint);
+    this.handleSkip = this.handleSkip.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+  }
+  handleInput(e) {
+    const value = e.target.value;
+    const name = e.target.name;
+    this.setState(prevState => ({ newUser:
+    { ...prevState.newnewUser, [name]: value
     }
+    }), () => console.log(this.state.newUser));
   }
-
-  registerUser = ({ serialized, fields, form }) => {
-    alert(JSON.stringify(serialized, null, 2));
-
-    /* Perform async request with the serialized data */
-    return new Promise(resolve => resolve());
-  }
+//   handleFormSubmit(e) {
+//     e.preventDefault();
+//     let userData = this.state.newUser;
+//     fetch('http://app.linkmedicine.cn/chat-case-create?email=' + EMAIL + '&diagnosis=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&firstname=' + FIRSTNAME + '&lastname=' + LASTNAME + '&type=MSO', {
+//       method: 'GET',
+//       headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json'
+//       } }).then(response => {
+//          response.json().then(console.log("Successful")
+//          })
+//      })
+//    }   
 
   handleSubmit(event) {
-    var MSG;
     event.preventDefault();
-    const EMAIL = this.state.EMAIL;
-    const FIRSTNAME = this.state.GIVEN_NAME;
-    const LASTNAME = this.state.FAMILY_NAME;
+    const EMAIL = this.state.newUser.email;
+    const FIRSTNAME = this.state.newUser.firstname;
+    const LASTNAME = this.state.newUser.lastname;
     const payload = '/confirm_email{\"email\":' + '\"' + EMAIL + '\"}';
     //http://app.linkmedicine.cn/chat-case-create?email=xxxx@gmail.com&diagnosis=yyyy&firstname=aaaa&lastname=bbbbb&type=MSO
     axios
     .get('http://app.linkmedicine.cn/chat-case-create?email=' + EMAIL + '&diagnosis=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&firstname=' + FIRSTNAME + '&lastname=' + LASTNAME + '&type=MSO')
     .then((response) => {
-      console.log(response);
-      MSG = response;
+        this.props.submitEMAIL(payload, JSON.stringify(response.data));
     })
     .catch((error) => { console.log(error); });
-    this.props.submitEMAIL(payload, MSG);
   }
 
-  validateEmail = ({ value, fieldProps, fields, form }) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const isValidEmail = !blacklistedEmails.includes(value);
-
-        resolve({
-          /* "valid" is reserved property stating that the field is valid */
-          valid: isValidEmail,
-
-          /**
-           * You can pass any extra properties to be accessible in the
-           * validation message resolver.
-           */
-          reason: 'Blacklisted!'
-        });
-      }, 2000);
-    });
+  handleSkip(event) {
+    event.preventDefault();
+    const APPOINTMENT = 'You have chosen to skip this question.';
+    const payload = '/comfirm_lm_appointment';
+    this.props.submitAPPOINTMENT(payload, APPOINTMENT);
   }
-
-  validateName = ({ value, fieldProps, fields, form }) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const isValidName = !blacklistedNames.includes(value);
-
-        resolve({
-          /* "valid" is reserved property stating that the field is valid */
-          valid: isValidName,
-
-          /**
-           * You can pass any extra properties to be accessible in the
-           * validation message resolver.
-           */
-          reason: 'Blacklisted!'
-        });
-      }, 2000);
-    });
-  }
-
-  updateInputEMAIL(email) {
-    this.setState({
-      EMAIL: email
-    });
-  }
-
-  updateInputFAMILYNAME(FamilyName) {
-    this.setState({
-      FAMILY_NAME: FamilyName
-    });
-  }
-
-  updateInputGIVENNAME(GivenName) {
-    this.setState({
-      GIVEN_NAME: GivenName
-    });
-  }
-
   render() {
-    // const sender = this.props.message.get('sender');
     return (
       <div className="client-side">
-        { this.props.isLast && <div className="snippet">
-          <FormProvider rules={rules} messages={messages}>
-            <Form action={this.registerUser}>
-              <h3>{ this.props.message.get('title') }</h3>
-              <Input
-                name="FamilyName"
-                type="Name"
-                label="姓"
-                asyncRule={this.validateName}
-                onChange={event => this.updateInputFAMILYNAME(event)}
-                required
-              />
-              <Input
-                name="GivenName"
-                type="Name"
-                label="名"
-                asyncRule={this.validateName}
-                onChange={event => this.updateInputGIVENNAME(event)}
-                required
-              />
-              <Input
-                name="userEmail"
-                type="email"
-                label="邮箱"
-                asyncRule={this.validateEmail}
-                onChange={event => this.updateInputEMAIL(event)}
-                required
-              />
-            </Form>
-          </FormProvider>
-          <Button
-            action={this.handleSubmit}
-            type={'primary'}
-            title={'Submit'}
-            style={buttonStyle}
-          />{ /* Submit */ }
+        { this.props.isLast && <div className="appointment">
+          <form className="container-fluid" onSubmit={this.handleSubmit}>
+            <Input
+              inputType={'text'}
+              title={'First Name'}
+              name={'firstname'}
+              value={this.state.newUser.firstname}
+              placeholder={''}
+              handleChange={this.handleInput}
+            />
+            <Input
+              inputType={'text'}
+              title={'Last Name'}
+              name={'lastname'}
+              value={this.state.newUser.lastname}
+              placeholder={''}
+              handleChange={this.handleInput}
+            />
+            <Input
+              inputType={'email'}
+              title={'Email'}
+              name={'email'}
+              value={this.state.newUser.email}
+              placeholder={''}
+              handleChange={this.handleInput}
+            />
+            <Button
+              action={this.handleSubmit}
+              type={'primary'}
+              title={'Submit'}
+              style={buttonStyle}
+            />{ /* Submit */ }
+            <Button
+              action={this.handleSkip}
+              type={'primary'}
+              title={'Unclear'}
+              style={buttonStyle}
+            /> {/* Clear the form */}
+          </form>
         </div> }
       </div>
     );
@@ -167,13 +122,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleInputDisabled: _ => dispatch(toggleInputDisabled()),
-  submitEMAIL: (payload, EMAIL) => {
-    dispatch(emitUserMessage(payload));
-    dispatch(addUserMessage(EMAIL));
-
-  }
-});
+    toggleInputDisabled: _ => dispatch(toggleInputDisabled()),
+    submitEMAIL: (payload, EMAIL) => {
+      dispatch(emitUserMessage(payload));
+      dispatch(addUserMessage(EMAIL));
+    }
+  });
 
 Snippet.propTypes = {
   message: PROP_TYPES.SNIPPET

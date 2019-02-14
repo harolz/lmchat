@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { MESSAGES_TYPES } from 'constants';
 import { Symptom } from 'messagesComponents';
 import { Video, Image, Message, QuickReply, DatePick, DkwComplete, Age, Surgery, Medication, Snippet, Appointment, Consultant, HospitalMap, RankChart, DataReport } from 'messagesComponents';
-
 import './styles.scss';
 
 const scrollToBottom = () => {
@@ -22,6 +21,7 @@ class Messages extends Component {
   componentDidUpdate() {
     scrollToBottom();
   }
+
 
   getComponentToRender = (message, index, isLast) => {
     const { params } = this.props;
@@ -96,7 +96,6 @@ class Messages extends Component {
                 <img src={this.props.profileAvatar} className="avatar" alt="profile" />
               }
               {
-
                 this.getComponentToRender(message, index, index === this.props.messages.size - 1)
               }
             </div>

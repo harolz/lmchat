@@ -5,49 +5,22 @@
     @include message-bubble($grey-2, #000);
   }
   
-  .display_type{
-    text-align: center;
-    background-color: $grey-2;
-    width: 500px;
-    /* height: 150px; */
-    // padding: 20px;
-    color: $blue-2;
+  .tab-list {
+    border-bottom: 1px solid #ccc;
+    padding-left: 0;
   }
   
-  .App-title {
-    font-size: 1.5em;
+  .tab-list-item {
+    display: inline-block;
+    list-style: none;
+    margin-bottom: -1px;
+    padding: 0.5rem 0.75rem;
   }
   
-  .App-intro {
-    font-size: large;
-  }
-  
-  .link:focus {
-    border: 1px solid $blue-2;
-    color: $blue-2;
-    padding: 4px;
-    border-radius: 5%;
-    margin: 4px;
-    text-transform: uppercase;
-    text-decoration: none;
-  }
-  
-  .link1{
-    color: $blue-2;
-    padding: 4px;
-    border-radius: 5%;
-    margin: 4px;
-    text-transform: uppercase;
-    text-decoration: none;
-  }
-
-  .link2{
-    color: $blue-2;
-    padding: 4px;
-    border-radius: 5%;
-    margin: 4px;
-    text-transform: uppercase;
-    text-decoration: none;
+  .tab-list-active {
+    background-color: white;
+    border: solid #ccc;
+    border-width: 1px 1px 0 1px;
   }
 
   .avatar {

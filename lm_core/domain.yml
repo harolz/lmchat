@@ -177,7 +177,7 @@ slots:
   shown_privacy:
     type: unfeaturized
   hospitals:
-    type: text
+    type: unfeaturized
   basic_stats:
     type: text
   city_data:
@@ -186,7 +186,7 @@ templates:
   utter_report_stats:
     - text: "{basic_stats}"
   utter_show_map:
-    - text: "{city_data}"
+    - text: ""
       elements:         
         - title: {dkw}
           buttons: 
@@ -196,10 +196,10 @@ templates:
   utter_show_rankchart:
     - text: ""
       elements:         
-        - title: {dkw}
+        - title: ""
           buttons: 
-            - title: ""
-              url: "http://linkmedicine.cn"
+            - title: "{dkw}"
+              hospitals: {hospitals}
               type: "rankchart"
   utter_show_datareport:
     - text: ""
@@ -256,15 +256,15 @@ templates:
   utter_switch_luis:
     - text: "We have a guide for migrating from LUIS here: http://rasa.com/docs/getting-started/luis/."
   utter_need_expertise:
-    - text: "It is a trying moment when seeking overseas medical assistance, especially when choosing the best hospital by expertise. "  
+    - text: "It is a trying moment when seeking overseas medical assistance, especially when choosing the best hospital by expertise. But do not worry, LINKMedicine™ is here to help you with that."  
   utter_mso:
     - text: "LINKMedicine™ connects international patients with top hospitals in the U.S. on merit of their expertise. A remote medical second opinion is a valuable resource when patients are faced with difficult health circumstances or choices regarding their treatment options."
   utter_data:
     - text: "LINKMedicine™ endeavors to keep all patients informed of the best expertise each hospital has to provide. The moment you receive a serious medical diagnosis, the focus of life changes. LINKMedicine™ is here to find you the best hospital for your particular disease."
   utter_xbm:
-    - text: "LINKMedicine™ enpowers patients worldwide to recieve the best medical care that is both personalized and professional. International patients seek treatment in the United States to access medical services with high success rates and good outcomes for surgeries and procedures that are not available in their country of origin "
+    - text: "LINKMedicine™ enpowers patients worldwide to recieve the best medical care that is both personalized and professional. International patients seek treatment in the United States to access medical services with high success rates and good outcomes for surgeries and procedures that are not available in their country of origin."
   utter_greet:
-    - text: "Hello, welcome to LINKMedicine's International Medicine Consualtation Room." 
+    - text: "Hello, welcome to LINKMedicine™. Let's harness the power of data for your health. Talk to AI and plan your best care now." 
   utter_form:
     - text: ""
       elements:         
@@ -311,13 +311,15 @@ templates:
   utter_ask_service_type_answer:
     - text: ""
       buttons:
-        - title: "Find the best hospital with best expertise for my disease"
+        - title: "Help choose hospitals with best expertise for my diseases"
           payload: "/confirm_service_type{\"service_type\":\"data\"}"
-        - title: "Obtain remote medical second opinion"
+        - title: "Seek remote second opinion from expertise hospitals"
           payload: "/confirm_service_type{\"service_type\":\"mso\"}"
-        - title: "Seek cross-border medication"
+        - title: "Make direct referal to expertise hospitals"
+          payload: "/confirm_service_type{\"service_type\":\"undecided\"}"
+        - title: "I am an international patient seeking medical care"
           payload: "/confirm_service_type{\"service_type\":\"xbm\"}"
-        - title: "Unclear, plese help me schedule direct appointment"
+        - title: "Unclear, I need your expertise advice"
           payload: "/confirm_service_type{\"service_type\":\"undecided\"}"
   utter_ask_basic_knowledge_question:
     - text: "Do you have knowledge of the patient's condition？" 
@@ -353,7 +355,7 @@ templates:
   utter_ask_symptoms_question_female:
     - text: "When did her symptoms first start?"  
   utter_ask_symptoms_question_instruction:
-    - text: "Tab \"Finish\" when you are finished with the description for symptoms; click \"Unclear\" if you don't know the patient medical information"
+    - text: "Tab \"Submit\" when you are finished with the description for symptoms; click \"Unclear\" if you don't know the patient medical information"
   utter_ask_symptoms_answer:
     - text: "" 
       elements:         
@@ -369,7 +371,7 @@ templates:
   utter_ask_current_medication_question_female:
     - text: "Please briefly describe her current medication or the plan for treatment."
   utter_ask_current_medication_question_instruction:
-    - text: "Tab \"Finish\" when you are finished with the description for medication and treatment; click \"Unclear\" if you don't have this information."
+    - text: "Tab \"Submit\" when you are finished with the description for medication and treatment; click \"Unclear\" if you don't have this information."
   utter_ask_current_medication_answer:
     - text: ""
       elements:         
@@ -395,7 +397,7 @@ templates:
               url: "http://linkmedicine.cn"
               type: "datepicker"
   utter_ask_medical_appointment_question_instruction:
-    - text: "Again, please tab \"Finish\" after you select the date of your medical appointment in the datepicker; click \"Unclear\" if currently you don't have an active medical appointment. "
+    - text: "Again, please tab \"Submit\" after you select the date of your medical appointment in the datepicker; click \"Unclear\" if currently you don't have an active medical appointment. "
   utter_ask_choose_med_app:
     - text: "请在日期选择器中选择您的治疗日期。"
   utter_ask_lm_consultant:
@@ -405,17 +407,17 @@ templates:
       elements:         
         - title: ""
           buttons: 
-            - title: "提交"
+            - title: ""
               url: "http://linkmedicine.cn"
               type: "consultant"   
   utter_ask_lm_appointment:
-    - text: "LINKMedicine™ provided consultants to better serve patients' interest. Please indicate your availbility for an appointment and your contact info."
+    - text: "To keep you better informed of US hospitals by expertise, LINKMedicine™ offers data science consultants to help interpret data regarding your diagnosis. Please indicate your availbility for an appointment for such service and your contact info."
   utter_lm_app:
     - text: ""
       elements:         
         - title: ""
           buttons: 
-            - title: "提交"
+            - title: ""
               url: "http://linkmedicine.cn"
               type: "appointment" 
   utter_working_on_it:

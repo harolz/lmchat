@@ -178,6 +178,7 @@ class Widget extends Component {
       }));
     } else if (isDataReport(message)) {
       const element = message.attachment.payload.elements[0];
+      console.log(JSON.stringify(element));
       this.props.dispatch(addDataReportSnippet({
         title: element.title,
         content: element.buttons[0].title,

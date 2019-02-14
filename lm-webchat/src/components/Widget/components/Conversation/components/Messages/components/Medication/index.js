@@ -168,7 +168,7 @@ class Medication extends Component {
             <Button
               action={this.handleSubmit}
               type={'primary'}
-              title={'Finish'}
+              title={'Submit'}
               style={buttonStyle}
             />{ /* Submit */ }
             <Button

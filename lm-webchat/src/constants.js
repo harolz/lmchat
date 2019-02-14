@@ -173,9 +173,9 @@ export const PROP_TYPES = {
       MESSAGES_TYPES.RANKCHART
     ]),
     id: PropTypes.number,
-    title: PropTypes.string,
+    dkw: PropTypes.string,
     link: PropTypes.string,
-    content: PropTypes.string,
+    hospitals: PropTypes.arrayOf(PropTypes.shape({ hospitalName: PropTypes.string.isRequired, totalcount: PropTypes.number.isRequired })).isRequired,
     target: PropTypes.string,
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.RESPONSE

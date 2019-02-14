@@ -1,7 +1,7 @@
 from typing import List
-
 from rasa_core_sdk.forms import FormAction, REQUESTED_SLOT
 from rasa_core_sdk.events import SlotSet
+
 from requests import (
     ConnectionError,
     HTTPError,
@@ -28,8 +28,8 @@ class ActionReplyHospitals(FormAction):
     def submit(self, dispatcher, tracker, domain):
         # type: (Dispatcher, DialogueStateTracker, Domain) -> List[Event]
         dkw = tracker.get_slot('dkw')
-        hospital_data = get_best_hospital_text(dkw)
-        return [SlotSet("hospitals", "{}".format(hospital_data))]
+        hospital_data = get_hospital_by_dkw(dkw)
+        return [SlotSet("hospitals", hospital_data)]
         # return [SlotSet("hospitals", "test")]
 
 class ActionReplyStats(FormAction):

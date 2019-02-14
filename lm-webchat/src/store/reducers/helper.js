@@ -70,9 +70,9 @@ export function createDataReportSnippet(datareport, sender) {
   return Map({
     type: MESSAGES_TYPES.DATAREPORT,
     component: DataReport,
-    title: datareport.title,
+    dkw: datareport.dkw || 'Down Syndrome',
     link: datareport.link,
-    content: datareport.content,
+    hospitals: datareport.hospitals,
     target: datareport.target || '_blank',
     sender,
     showAvatar: true
@@ -83,9 +83,9 @@ export function createRankChartSnippet(rankchart, sender) {
   return Map({
     type: MESSAGES_TYPES.RANKCHART,
     component: RankChart,
-    title: rankchart.title,
+    dkw: rankchart.dkw,
     link: rankchart.link,
-    content: rankchart.content,
+    hospitals: rankchart.hospitals,
     target: rankchart.target || '_blank',
     sender,
     showAvatar: true

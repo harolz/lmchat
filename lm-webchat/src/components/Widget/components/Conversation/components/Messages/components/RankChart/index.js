@@ -6,18 +6,21 @@ import './styles.scss';
 // Ref : https://developers.google.com/chart/interactive/docs/gallery/histogram
 
 const data = [
-  ['Rank', 'Hospital', 'Location', 'Specialty']
+  ['Rank', 'Hospital', 'Location', 'Expertise']
 ];
 const options = {
   title: 'Company Performance',
   curveType: 'function',
   legend: { position: 'bottom' },
-  pageSize: 10
+  pageSize: 7,
+  width: 455,
+  height: 485
 };
 class RankChart extends React.Component {
 
   componentDidMount() {
     // if (this.props.message.get('sender') === 'client') { this.postData(); }
+    console.log(JSON.stringify(this.props.message));
     this.getData();
   }
   // this.props.message.get('')
@@ -32,12 +35,14 @@ class RankChart extends React.Component {
       .catch((error) => { console.log(error); });
   }
   render() {
+    // const data = this.props.hospitals;
+    // const dkw = this.props.message.get('dkw');
     return (
       <div className="rankchart">
         <Chart
           chartType="Table"
-          width="100%"
-          height="550px"
+          width="455px"
+          height="485px"
           data={data}
           options={options}
         />

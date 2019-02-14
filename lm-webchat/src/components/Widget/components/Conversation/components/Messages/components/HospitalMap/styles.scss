@@ -2,7 +2,6 @@
 @import "common.scss";
 
 .hospitalmap {
-  background-image: url("grid.png");
   @include message-bubble($grey-2, #000);
 }
 

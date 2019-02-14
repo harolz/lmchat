@@ -94,34 +94,25 @@ class Appointment extends Component {
         { this.props.isLast && <div className="appointment">
           <form className="container-fluid" onSubmit={this.handleSubmit}>
             <Input
+              inputType={'datetime-local'}
+              title={'Schedule Your Appointment'}
+              name={'selected_date_time'}
+              value={this.state.newAppointment.selected_date_time}
+              placeholder={'MM-DD-YYYY'}
+              handleChange={this.handleInput}
+            />
+            <Input
               inputType={'tel'}
               title={'Phone'}
               name={'Phone'}
               value={this.state.newAppointment.phone}
-              placeholder={'Type in your phone number to contact.'}
-              handleChange={this.handlePhone}
-            />
-            <Input
-              inputType={'time'}
-              title={'Schedule Your Appointment'}
-              name={'selected_date_time'}
-              value={this.state.newAppointment.selected_date_time}
-              placeholder={'Type in when you want your appointment.'}
-              handleChange={this.handleInput}
-              size={35}
-            />
-            <Select
-              title={'Duration'}
-              name={'duration'}
-              options={this.state.durationOptions}
-              value={this.state.newAppointment.duration}
               placeholder={''}
-              handleChange={this.handleInput}
+              handleChange={this.handlePhone}
             />
             <Button
               action={this.handleSubmit}
               type={'primary'}
-              title={'Finish'}
+              title={'Submit'}
               style={buttonStyle}
             />{ /* Submit */ }
             <Button

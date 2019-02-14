@@ -101,7 +101,7 @@ class Age extends Component {
               <Select
                 value={this.state.selectedNumOption}
                 placeholder={this.state.selectedNumOption}
-                styles={customStyles1}
+                style={{ display: 'flex' }}
                 onChange={this.handleChange1}
                 options={numOptions}
                 selected
@@ -111,7 +111,7 @@ class Age extends Component {
               <Select
                 value={this.state.selectedTimeOption}
                 placeholder={this.state.selectedTimeOption}
-                styles={customStyles2}
+                style={{ display: 'flex' }}
                 onChange={this.handleChange2}
                 options={timeOptions}
                 selected

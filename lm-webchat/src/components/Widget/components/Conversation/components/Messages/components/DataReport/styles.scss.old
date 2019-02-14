@@ -1,0 +1,58 @@
+@import "variables.scss";
+@import "common.scss";
+
+.datareport {
+    @include message-bubble($grey-2, #000);
+  }
+  
+  .display_type{
+    text-align: center;
+    background-color: $grey-2;
+    width: 500px;
+    /* height: 150px; */
+    // padding: 20px;
+    color: $blue-2;
+  }
+  
+  .App-title {
+    font-size: 1.5em;
+  }
+  
+  .App-intro {
+    font-size: large;
+  }
+  
+  .link:focus {
+    border: 1px solid $blue-2;
+    color: $blue-2;
+    padding: 4px;
+    border-radius: 5%;
+    margin: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  
+  .link1{
+    color: $blue-2;
+    padding: 4px;
+    border-radius: 5%;
+    margin: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .link2{
+    color: $blue-2;
+    padding: 4px;
+    border-radius: 5%;
+    margin: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin-right: 10px;
+  }

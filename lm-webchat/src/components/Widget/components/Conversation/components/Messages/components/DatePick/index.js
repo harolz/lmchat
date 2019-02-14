@@ -44,20 +44,25 @@ class DatePick extends Component {
     return (
       <div className={'client-side'}>
         { this.props.isLast && <div className="datepick">
-          <DatePicker
-            inline
-            showTimeSelect={false}
-            timeCaption="时间"
-            selected={this.state.startDate}
-            onChange={this.handleChange}
-            dateFormat="MMMM d, yyyy h:mm aa"
-          />
-          {/* locale="zh_cn" */}
+          <div className="form-group">
+              <label htmlFor={'selectedTitle'} className="form-label">{ " Your Doctor's Appointment: "}</label>
+              <div>
+                <DatePicker
+                  inline
+                  showTimeSelect={false}
+                  timeCaption="时间"
+                  selected={this.state.startDate}
+                  onChange={this.handleChange}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                />
+              </div>
+            {/* locale="zh_cn" */}
+          </div>
           <div>
             <Button
               action={this.handleClick}
               type={'primary'}
-              title={'Finish'}
+              title={'Submit'}
               style={buttonStyle}
             />
             <Button

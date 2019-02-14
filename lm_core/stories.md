@@ -196,6 +196,12 @@
 * confirm_service_type{"service_type": "undecided"}
     - slot{"service_type": "undecided"}
     - utter_need_expertise
+    - utter_ask_dkw_question_me
+    - utter_ask_dkw_answer
+* confirm_dkw
+    - utter_medical_record_created
+    - utter_ask_email_answer
+* confirm_email  
     - utter_ask_lm_appointment
     - utter_lm_app
 * confirm_lm_appointment
@@ -389,6 +395,12 @@
 * confirm_service_type{"service_type": "undecided"}
     - slot{"service_type": "undecided"}
     - utter_need_expertise
+    - utter_ask_dkw_question_me
+    - utter_ask_dkw_answer
+* confirm_dkw
+    - utter_medical_record_created
+    - utter_ask_email_answer
+* confirm_email  
     - utter_ask_lm_appointment
     - utter_lm_app
 * confirm_lm_appointment
@@ -681,6 +693,12 @@
 * confirm_service_type{"service_type": "undecided"}
     - slot{"service_type": "undecided"}
     - utter_need_expertise
+    - utter_ask_dkw_question_male
+    - utter_ask_dkw_answer
+* confirm_dkw
+    - utter_medical_record_created
+    - utter_ask_email_answer
+* confirm_email  
     - utter_ask_lm_appointment
     - utter_lm_app
 * confirm_lm_appointment
@@ -833,6 +851,7 @@
     - utter_ask_dkw_question_female
     - utter_ask_dkw_answer
 * confirm_dkw
+    - action_report_hospitals
     - action_report_stats
     - utter_report_stats
     - utter_ask_symptoms_question_female
@@ -862,7 +881,7 @@
     - slot{"feedback_value": "positive"}
     - utter_great
     - utter_anything_else
-## link-medicine-someone-male-undecided
+## link-medicine-someone-female-undecided
 * greet
     - utter_greet
     - utter_whois_patient_question
@@ -883,6 +902,12 @@
 * confirm_service_type{"service_type": "undecided"}
     - slot{"service_type": "undecided"}
     - utter_need_expertise
+    - utter_ask_dkw_question_female
+    - utter_ask_dkw_answer
+* confirm_dkw
+    - utter_medical_record_created
+    - utter_ask_email_answer
+* confirm_email  
     - utter_ask_lm_appointment
     - utter_lm_app
 * confirm_lm_appointment
