@@ -36,8 +36,10 @@ class DkwComplete extends Component {
   }
 
   scrollToBottom() {
-    window.scrollTo(0, document.body.scrollHeight);
+    const messagesDiv = document.getElementById('messages');
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
   }
+
 
   searchTitles = movieTitle => {
     console.log('searching for', movieTitle)

@@ -5,11 +5,34 @@ import axios from 'axios';
 import './styles.scss';
 
 class Message extends PureComponent {
-  componentDidMount() {
-    // if (this.props.message.get('sender') === 'client') { this.postData(); }
-    this.postData(); 
+
+  constructor(props) {
+    super(props);
+    this.state = { visible: true };
   }
 
+  componentDidMount() {
+    this.setTimer();
+    // if (this.props.message.get('sender') === 'client') { this.postData(); }
+    this.postData();
+  }
+
+  setTimer() {
+    // clear any existing timer
+    if (this._timer != null) {
+      clearTimeout(this._timer)
+    }
+
+    // hide after `delay` milliseconds
+    this._timer = setTimeout(function(){
+      this.setState({visible: false});
+      this._timer = null;
+    }.bind(this), 800);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._timer);
+  }
 
   postData() {
     axios
@@ -24,15 +47,21 @@ class Message extends PureComponent {
     const sender = this.props.message.get('sender');
     const text = this.props.message.get('text');
     return (
-      <div className={sender}>
-        <div className="message-text" >
-          {sender === 'response' ? (
-            <ReactMarkdown className={'markdown'} source={text} linkTarget={(url) => { if (!url.startsWith('mailto')) return '_blank'; }} />
-          ) : (
-            text
-          )}
+       this.state.visible ? this.props.message.get('showAvatar') && <div className="pre-typing-indicator"><div className="typing-indicator">
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-      </div>
+        </div> : 
+       <div className={sender}>
+       <div className="message-text" >
+         {sender === 'response' ? (
+           <ReactMarkdown className={'markdown'} source={text} linkTarget={(url) => { if (!url.startsWith('mailto')) return '_blank'; }} />
+         ) : (
+           text
+         )}
+       </div>
+       </div>
     );
   }
 }

@@ -14,14 +14,50 @@ const scrollToBottom = () => {
 };
 
 class Messages extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { visible: false };
+  }
+
   componentDidMount() {
+    this.setTimer();
     scrollToBottom();
   }
+
+  // componentWillReceiveProps() {
+  //   this.setTimer();
+  //   this.setState({ visible: true });
+  // }
 
   componentDidUpdate() {
     scrollToBottom();
   }
 
+  setTimer() {
+    // clear any existing timer
+    if (this._timer != null) {
+      clearTimeout(this._timer)
+    }
+
+    // hide after `delay` milliseconds
+    this._timer = setTimeout(function(){
+      this.setState({visible: false});
+      this._timer = null;
+    }.bind(this), 1500);
+  }
+
+  getbottyping() {
+    return (<div className="typing-indicator">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this._timer);
+  }
 
   getComponentToRender = (message, index, isLast) => {
     const { params } = this.props;
@@ -93,11 +129,16 @@ class Messages extends Component {
               {
                 this.props.profileAvatar &&
                 message.get('showAvatar') &&
-                <img src={this.props.profileAvatar} className="avatar" alt="profile" />
+                <img src={this.props.profileAvatar} className="avatar" alt="profile" /> 
               }
-              {
-                this.getComponentToRender(message, index, index === this.props.messages.size - 1)
-              }
+              { this.state.visible ? message.get('showAvatar') &&
+                <div className="typing-indicator">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                    : this.getComponentToRender(message, index, index === this.props.messages.size - 1)
+                }
             </div>
           )
         }

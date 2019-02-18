@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { PROP_TYPES } from 'constants';
 import Input from '../Medication/components/Input';
-import Select from '../Medication/components/Select';
+import axios from 'axios';
 import Button from '../Medication/components/Button';
 import './styles.scss';
 
@@ -17,10 +17,8 @@ class Appointment extends Component {
     this.state = {
       newAppointment: {
         phone: '',
-        selected_date_time: '',
-        duration: ''
-      },
-      durationOptions: ['15 Min', '30 Min', '60 Min']
+        selected_date_time: ''
+      }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSkip = this.handleSkip.bind(this);
@@ -76,11 +74,18 @@ class Appointment extends Component {
       }
     });
   }
+  //http://app.linkmedicine.com/chatbot-appoint-email?email=FFFFssssss@gmail.com&firstname=rh&lastname=z&diagnosis=xxxxx&appointTime=201902151530
   handleSubmit(event) {
     event.preventDefault();
     const APPOINTMENT = 'I have successfully made an appointment with LINKMedicine™ at' + this.state.newAppointment.selected_date_time;
     const payload = '/comfirm_lm_appointment';
-    this.props.submitAPPOINTMENT(payload, APPOINTMENT);
+    alert('https://app.linkmedicine.com/chatbot-appoint-email?email=' + JSON.stringify(localStorage.getItem('EMAIL')) + '&firstname=' + JSON.stringify(localStorage.getItem('FIRSTNAME')) + '&lastname=' + JSON.stringify(localStorage.getItem('LASTNAME')) + '&diagnosis=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&appointTime=' + this.state.newAppointment.selected_date_time);
+    axios
+    .get('https://app.linkmedicine.com/chatbot-appoint-email?email=' + JSON.stringify(localStorage.getItem('EMAIL')) + '&firstname=' + JSON.stringify(localStorage.getItem('FIRSTNAME')) + '&lastname=' + JSON.stringify(localStorage.getItem('LASTNAME')) + '&diagnosis=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&appointTime=' + this.state.newAppointment.selected_date_time)
+    .then((response) => {
+      this.props.submitAPPOINTMENT(payload, JSON.stringify(response));
+    })
+    .catch((error) => { console.log(error); });
   }
   handleSkip(event) {
     event.preventDefault();

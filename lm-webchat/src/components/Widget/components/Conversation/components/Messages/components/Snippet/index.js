@@ -54,9 +54,12 @@ class Snippet extends Component {
     const FIRSTNAME = this.state.newUser.firstname;
     const LASTNAME = this.state.newUser.lastname;
     const payload = '/confirm_email{\"email\":' + '\"' + EMAIL + '\"}';
+    localStorage.setItem('EMAIL', EMAIL);
+    localStorage.setItem('FIRSTNAME', FIRSTNAME);
+    localStorage.setItem('LASTNAME', LASTNAME);
     //http://app.linkmedicine.cn/chat-case-create?email=xxxx@gmail.com&diagnosis=yyyy&firstname=aaaa&lastname=bbbbb&type=MSO
     axios
-    .get('http://app.linkmedicine.cn/chat-case-create?email=' + EMAIL + '&diagnosis=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&firstname=' + FIRSTNAME + '&lastname=' + LASTNAME + '&type=MSO')
+    .get('https://app.linkmedicine.cn/chat-case-create?email=' + EMAIL + '&diagnosis=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&firstname=' + FIRSTNAME + '&lastname=' + LASTNAME + '&type=MSO')
     .then((response) => {
         this.props.submitEMAIL(payload, JSON.stringify(response.data));
     })
