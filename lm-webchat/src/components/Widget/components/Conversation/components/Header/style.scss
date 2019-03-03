@@ -4,7 +4,7 @@
 .conversation-container {
   .header {
     // background-image: url("background.gif");
-    color: $white;
+    color: $blue-1;
     display: none;
     flex-direction: column;
     text-align: center;
@@ -25,7 +25,7 @@
 
   .loading {
     background-color: $grey-3;
-    color: $white;
+    color: transparent;
     display: flex;
     flex-direction: column;
     text-align: center;

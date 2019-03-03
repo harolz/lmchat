@@ -18,6 +18,14 @@ export default function (inputFieldTextHint, connectingText, storage) {
     const storeParams = storeParamsTo(storage);
     switch (action.type) {
       // Each change to the redux store's behavior Map gets recorded to storage
+      case actionTypes.UPDATE_DKW: {
+        const DKW = action.dkw;
+        return storeParams(state.set('DKW', DKW));
+      }
+      case actionTypes.UPDATE_HOSPITAL_COUNT: {
+        const HOSPITALCOUNT = action.HospitalCount;
+        return storeParams(state.set('HOSPITALCOUNT', HOSPITALCOUNT));
+      }
       case actionTypes.SHOW_CHAT: {
         return storeParams(state.update('isChatVisible', isChatVisible => true));
       }

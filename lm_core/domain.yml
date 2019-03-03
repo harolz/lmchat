@@ -1,6 +1,7 @@
 
 entities:
   - jobfunction
+  - diagnosis
   - company
   - email
   - name
@@ -14,6 +15,7 @@ entities:
   - gender_value
   - service_type
   - basic_knowledge
+  - lm_appointment
   - language
   - dkw
   - hospitals
@@ -135,6 +137,11 @@ slots:
     values:
       - basic_knowledge_yes
       - basic_knowledge_no
+  lm_appointment:
+    type: categorical
+    values:
+      - lm_appointment_yes
+      - lm_appointment_no
   current_api:
     type: categorical
     values:
@@ -206,7 +213,7 @@ templates:
       elements:         
         - title: {dkw}
           buttons: 
-            - title: ""
+            - title: "{dkw}"
               url: "http://linkmedicine.cn"
               type: "datareport"
   utter_echo_dkw:
@@ -256,15 +263,15 @@ templates:
   utter_switch_luis:
     - text: "We have a guide for migrating from LUIS here: http://rasa.com/docs/getting-started/luis/."
   utter_need_expertise:
-    - text: "It is a trying moment when seeking overseas medical assistance, especially when choosing the best hospital by expertise. But do not worry, LINKMedicine™ is here to help you with that."  
+    - text: "It is a trying moment seeking best medical assistance in each individual case, especially when choosing the best hospital by expertise. But do not worry, LINKMedicine™ is here to help you with that."  
   utter_mso:
     - text: "LINKMedicine™ connects international patients with top hospitals in the U.S. on merit of their expertise. A remote medical second opinion is a valuable resource when patients are faced with difficult health circumstances or choices regarding their treatment options."
   utter_data:
-    - text: "LINKMedicine™ endeavors to keep all patients informed of the best expertise each hospital has to provide. The moment you receive a serious medical diagnosis, the focus of life changes. LINKMedicine™ is here to find you the best hospital for your particular disease."
+    - text: "LINKMedicine™ strives to keep all patients informed of the best expertise each hospital has to provide. The moment you receive a serious medical diagnosis, the focus of life changes. LINKMedicine™ is here to find you the best hospital for your particular disease."
   utter_xbm:
     - text: "LINKMedicine™ enpowers patients worldwide to recieve the best medical care that is both personalized and professional. International patients seek treatment in the United States to access medical services with high success rates and good outcomes for surgeries and procedures that are not available in their country of origin."
   utter_greet:
-    - text: "Hello, welcome to LINKMedicine™. Let's harness the power of data for your health. Talk to AI and plan your best care now." 
+    - text: "Hello, welcome to LINKMedicine™. Let's harness the power of data for your health. Talk to out contextual AI assistant now and plan for your best care now." 
   utter_form:
     - text: ""
       elements:         
@@ -307,7 +314,7 @@ templates:
               url: "http://linkmedicine.cn"
               type: "age"
   utter_ask_service_type_question:    
-      - text: " About the plan for overseas medicine, please choose among the following options:" 
+      - text: " Please choose among the following options that best describes your medical needs:" 
   utter_ask_service_type_answer:
     - text: ""
       buttons:
@@ -328,7 +335,7 @@ templates:
       buttons:
         - title: "Yes"
           payload: "/confirm_basic_knowledge{\"basic_knowledge\":\"basic_knowledge_yes\"}"
-        - title: "Bascially"
+        - title: "Basically"
           payload: "/confirm_basic_knowledge{\"basic_knowledge\":\"basic_knowledge_yes\"}"
         - title: "Not so much"
           payload: "/confirm_basic_knowledge{\"basic_knowledge\":\"basic_knowledge_no\"}"
@@ -402,6 +409,8 @@ templates:
     - text: "请在日期选择器中选择您的治疗日期。"
   utter_ask_lm_consultant:
     - text: "请从下列选项中选择需要咨询的专家："
+  utter_lm_app_instruction:
+    - text: "Please indicate when you would like to shcedule your appointment and your phone number."
   utter_lm_consultant:
     - text: ""
       elements:         
@@ -411,7 +420,14 @@ templates:
               url: "http://linkmedicine.cn"
               type: "consultant"   
   utter_ask_lm_appointment:
-    - text: "To keep you better informed of US hospitals by expertise, LINKMedicine™ offers data science consultants to help interpret data regarding your diagnosis. Please indicate your availbility for an appointment for such service and your contact info."
+    - text: "To keep you better informed of US hospitals by expertise, LINKMedicine™ offers data science consultants to help interpret data regarding your diagnosis. Would you like to make an appointment for such service?"
+  utter_ask_lm_appointment_answer:
+    - text: ""
+      buttons:
+        - title: "Yes, please."
+          payload: "/confirm_lm_appointment{\"lm_appointment\":\"lm_appointment_yes\"}"
+        - title: "No, thanks."
+          payload: "/confirm_lm_appointment{\"lm_appointment\":\"lm_appointment_no\"}"
   utter_lm_app:
     - text: ""
       elements:         
@@ -710,6 +726,8 @@ actions:
   - utter_ask_service_type_answer
   - utter_ask_basic_knowledge_question
   - utter_ask_basic_knowledge_answer
+  - utter_ask_lm_appointment_answer
+  - utter_lm_app_instruction
   - utter_ask_cooperation
   - utter_ask_dkw_question_me
   - utter_ask_dkw_question_male
@@ -848,6 +866,7 @@ actions:
   - action_faqs
   - action_store_name
   - action_store_company
+  - action_store_dkw
   - action_store_job
   - action_store_email
   - action_pause

@@ -28,7 +28,7 @@ class RankChart extends React.Component {
     axios
       .get('https://www.linksciences.com/getHospitalsMap.do?dkw=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&mapDataSelected=Overall%20Score&mapDataScaleSelected=Top%20Hospitals&timpstamp=' + localStorage.getItem('TIMESTAMP'))
       .then((response) => {
-        for (let i = 1; i < 11; i++) {
+        for (let i = 1; i < 8; i++) {
           data.push([i, response["data"]["cityCountList"][i-1]["rankString"], response["data"]["cityCountList"][i-1]["geoCity"], response["data"]["cityCountList"][i-1]["rankCount"]]);
         }
       })
@@ -39,6 +39,7 @@ class RankChart extends React.Component {
     // const dkw = this.props.message.get('dkw');
     return (
       <div className="rankchart">
+        <p> Below is the rank for best hospitals of <b>{JSON.stringify(localStorage.getItem('diagnosis_key_word'))}</b> </p>
         <Chart
           chartType="Table"
           width="455px"

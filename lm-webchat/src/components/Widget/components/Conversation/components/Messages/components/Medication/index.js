@@ -111,13 +111,13 @@ class Medication extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    const MEDICATION = 'Your reply has been successfully submitted.';
+    const MEDICATION = 'My reply has been successfully submitted.';
     const payload = '/comfirm_current_medication';
     this.props.submitMEDICATION(payload, MEDICATION);
   }
   handleSkip(event) {
     event.preventDefault();
-    const MEDICATION = 'You have chosen to skip this question.';
+    const MEDICATION = 'I have chosen to skip this question.';
     const payload = '/comfirm_current_medication';
     this.props.submitMEDICATION(payload, MEDICATION);
   }

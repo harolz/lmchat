@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { SESSION_NAME } from 'constants';
+
 import {
   toggleChat,
   openChat,
@@ -288,21 +289,21 @@ class Widget extends Component {
 
   render() {
     return (
-      <WidgetLayout
-        toggleChat={this.toggleConversation}
-        onSendMessage={this.handleMessageSubmit}
-        title={this.props.title}
-        subtitle={this.props.subtitle}
-        customData={this.props.customData}
-        profileAvatar={this.props.profileAvatar}
-        showCloseButton={this.props.showCloseButton}
-        fullScreenMode={this.props.fullScreenMode}
-        isChatOpen={this.props.isChatOpen}
-        isChatVisible={this.props.isChatVisible}
-        badge={this.props.badge}
-        embedded={this.props.embedded}
-        params={this.props.params}
-      />
+        <WidgetLayout
+          toggleChat={this.toggleConversation}
+          onSendMessage={this.handleMessageSubmit}
+          title={this.props.title}
+          subtitle={this.props.subtitle}
+          customData={this.props.customData}
+          profileAvatar={this.props.profileAvatar}
+          showCloseButton={this.props.showCloseButton}
+          fullScreenMode={this.props.fullScreenMode}
+          isChatOpen={this.props.isChatOpen}
+          isChatVisible={this.props.isChatVisible}
+          badge={this.props.badge}
+          embedded={this.props.embedded}
+          params={this.props.params}
+        />
     );
   }
 }

@@ -66,24 +66,26 @@ def get_city_by_dkw(DKW):
 def get_basicStats_by_dkw(DKW):
     results = fetch_top_hospitals(DKW)
     basicStats = []
-    for item in [results["timestamp"], results["nctCount"], results["expertCount"], results["projectCount"], results["dkwDescription"], results["instCount"], results["fundingTotal"]]:
-        if item:
-            basicStats.append(item)
+    if results["dkwDescription"] != '':
+        for item in [results["timestamp"], results["nctCount"], results["expertCount"], results["projectCount"], results["dkwDescription"], results["instCount"], results["fundingTotal"]]:
+                basicStats.append(item)
+    else:
+         basicStats=None
     return basicStats
 
 if __name__ == '__main__':
-    default_dkw = "Down syndrome"
-    hospital_map_result = fetch_hospital_map(default_dkw)
-    top_hospitals_result = fetch_top_hospitals(default_dkw)
-    print(top_hospitals_result)
-    print("*****************************************")
-    print(hospital_map_result)
-    print("*****************************************")
-    send_email('ai.linksciences.com')
+    default_dkw = "Down Syndrome"
+    # hospital_map_result = fetch_hospital_map(default_dkw)
+    # top_hospitals_result = fetch_top_hospitals(default_dkw)
+    # print(top_hospitals_result)
+    # print("*****************************************")
+    # print(hospital_map_result)
+    # print("*****************************************")
+    # send_email('ai.linksciences.com')
     # for result in [hospital_map_result,top_hospitals_result]:
     #     print(json.dumps(result, ensure_ascii=False))
-    # print(get_basicStats_by_dkw(default_dkw))
+    print(get_basicStats_by_dkw(default_dkw))
     # print(gets_hospital_by_dkw(default_dkw))
-    print(get_hospital_by_dkw(default_dkw))
+    # print(get_hospital_by_dkw(default_dkw))
     # print(hospital_map_result)
     # print("{}".format(get_hospital_by_dkw(default_dkw)))

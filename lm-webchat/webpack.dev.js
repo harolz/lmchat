@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const pathToBourbon = require('node-bourbon').includePaths;
 
 module.exports = {
   entry: ['babel-polyfill', './index.js'],
@@ -42,7 +43,7 @@ module.exports = {
           loader: 'sass-loader',
           options: {
             includePaths: [path.resolve(__dirname, 'src/scss/'),
-              path.resolve(__dirname, 'path/to/imported/file/dir')]
+              path.resolve(__dirname, 'path/to/imported/file/dir'), [pathToBourbon]]
           }
         }
       ]

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { PROP_TYPES } from 'constants';
 import DatePicker from 'react-datepicker';
+import MonthPicker from 'react-month-picker-input';
+import 'react-month-picker-input/dist/react-month-picker-input.css';
 import Input from '../Medication/components/Input';
 import TextArea from '../Medication/components/TextArea';
 import Button from '../Medication/components/Button';
@@ -109,13 +111,14 @@ class Symptom extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    const SYMPTOM = 'Your reply has been successfully submitted.';
+    const SYMPTOM = 'My reply has been successfully submitted.';
+    // alert(this.state.newUser.date);
     const payload = '/comfirm_symptoms';
     this.props.submitSYMPTOM(payload, SYMPTOM);
   }
   handleSkip(event) {
     event.preventDefault();
-    const SYMPTOM = 'You have chosen to skip this question.';
+    const SYMPTOM = 'I have chosen to skip this question.';
     const payload = '/comfirm_current_symptoms';
     this.props.submitSYMPTOM(payload, SYMPTOM);
   }
@@ -124,22 +127,16 @@ class Symptom extends Component {
       <div className="client-side">
         { this.props.isLast && <div className="symptom">
           <form className="container-fluid" onSubmit={this.handleSubmit}>
-            <Input
-              inputType={'month'}
-              title={'Symptom start since'}
-              name={'name'}
-              value={this.state.newUser.name}
-              placeholder={'MM-YYYY'}
-              handleChange={this.handleInput}
-            /> {/* Name of the user */}
-            {/* <div className="form-group">
-              <label htmlFor={'selecteddate'} className="form-label">{'Start Date: '}
-              </label>
-              <DatePicker
-                selected={this.state.newUser.selecteddate}
-                onChange={this.handleDate}
+            <div className="form-group">
+              <label htmlFor={'selecteddate'} className="form-label">{'Approximately When:'}</label>
+              <MonthPicker
+                closeOnSelect
+                onChange={function (maskedValue, selectedYear, selectedMonth) {
+                  console.log(maskedValue, selectedYear, selectedMonth);
+                  this.setState(prevState => ({ newUser:
+                  { ...prevState.newUser, date: selectedYear } })); }}
               />
-            </div> */}
+            </div>
             <TextArea
               title={'Description'}
               rows={10}

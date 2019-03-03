@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import AsyncSelect from 'react-select/lib/Async';
+import AsyncSelect from './select';
 import axios from 'axios';
 import { PROP_TYPES } from 'constants';
-import { emitUserMessage, toggleInputDisabled, addUserMessage } from 'actions';
+import { emitUserMessage, toggleInputDisabled, addUserMessage, updateDkw } from 'actions';
 import { connect } from 'react-redux';
 import Button from '../Medication/components/Button';
 import ReactDOM from 'react-dom';
@@ -11,7 +11,7 @@ import './styles.scss';
 
 const SEARCH_URL = 'https://www.linksciences.com/getAutoCompleteDkws.do?';
 const QUERY = 'dkw=';
-
+const debounce = require('debounce-promise');
 // Trying to fix according to answer
 
 // from the docs
@@ -26,7 +26,7 @@ class DkwComplete extends Component {
     super(props, context);
     // Set initial State
     this.state = {
-      selectedTitle: ''
+      selectedTitle: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -41,7 +41,7 @@ class DkwComplete extends Component {
   }
 
 
-  searchTitles = movieTitle => {
+   searchTitles = movieTitle => {
     console.log('searching for', movieTitle)
     let searchTerm = movieTitle
 
@@ -50,8 +50,9 @@ class DkwComplete extends Component {
     // starts searching. When set to true, the results for
     // loadOptions('') will be autoloaded.
 
-    if (!movieTitle || movieTitle === ' ') {
-      searchTerm = 'alien'
+    if (!movieTitle || movieTitle.length <= 3) {
+      // searchTerm = 'alien'
+      return;
     }
 
     const urlRequest = `${SEARCH_URL}${QUERY}${searchTerm}`
@@ -59,20 +60,26 @@ class DkwComplete extends Component {
 
     if (newRequest) {
       // new promise: pending
-      console.log(newRequest);
+      // console.log(newRequest);
+      this.scrollToBottom();
       return newRequest.then(response => {
         // promise resolved : now I have the data, do a filter
         const compare = response.data.filter(i =>
           i.toLowerCase()
         );
         // reurning the label for react-select baed on the title
+        this.scrollToBottom();
         return compare.map(film => ({
           label: film,
           value: 0
         }))
       })
     }
-  }
+   }
+
+  debouncedsearchTitles=debounce(this.searchTitles, 500)
+
+
   handleSubmit() {
     const DKW = this.state.selectedTitle.label;
     localStorage.setItem('diagnosis_key_word', `${DKW}`);
@@ -99,13 +106,13 @@ class DkwComplete extends Component {
               onMenuScrollToBottom
               autoFocus
               value={this.state.selectedTitle}
-              loadOptions={this.searchTitles}
+              loadOptions={this.debouncedsearchTitles}
               menuShouldScrollIntoView
+              placeholder="Type in your diagnosis"
               onChange={(property, value) => {
                 this.setState({ selectedTitle: property });
-                // this.scrollToBottom();
               }}
-              // onFocus={() => { this.scrollToBottom(); }}
+              onFocus={() => { this.scrollToBottom(); }}
             />
           </div>
           <Button
@@ -127,19 +134,21 @@ class DkwComplete extends Component {
 }
 
 const mapStateToProps = state => ({
-    inputState: state.behavior.get('disabledInput')
-  });
+  // inputState: state.behavior.get('disabledInput'),
+  DKW: state.behavior.get('DKW')
+});
   
 const mapDispatchToProps = dispatch => ({
     toggleInputDisabled: _ => dispatch(toggleInputDisabled()),
     submitDKW: (payload, DKW) => {
       dispatch(emitUserMessage(payload));
       dispatch(addUserMessage(DKW));
+      dispatch(updateDkw(DKW));
     }
-  });
-  
+});
+
 DkwComplete.propTypes = {
   message: PROP_TYPES.DKWCOMPLETE
   };
-  
+
 export default connect(mapStateToProps, mapDispatchToProps)(DkwComplete);

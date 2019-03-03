@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { PROP_TYPES } from 'constants';
 import Input from '../Medication/components/Input';
-import Select from '../Medication/components/Select';
 import Button from '../Medication/components/Button';
 import axios from 'axios';
 import './styles.scss';
+import validation_msg from './validation-messages';
+import validation_rules from './validation-rules';
 
 const buttonStyle = {
   margin: '10px 10px 10px 10px'
@@ -30,7 +31,7 @@ class Snippet extends Component {
     const value = e.target.value;
     const name = e.target.name;
     this.setState(prevState => ({ newUser:
-    { ...prevState.newnewUser, [name]: value
+    { ...prevState.newUser, [name]: value
     }
     }), () => console.log(this.state.newUser));
   }
@@ -53,24 +54,27 @@ class Snippet extends Component {
     const EMAIL = this.state.newUser.email;
     const FIRSTNAME = this.state.newUser.firstname;
     const LASTNAME = this.state.newUser.lastname;
+    const CASE = 'I have successfully create a case with LINKMedicine™.';
+
     const payload = '/confirm_email{\"email\":' + '\"' + EMAIL + '\"}';
     localStorage.setItem('EMAIL', EMAIL);
     localStorage.setItem('FIRSTNAME', FIRSTNAME);
     localStorage.setItem('LASTNAME', LASTNAME);
-    //http://app.linkmedicine.cn/chat-case-create?email=xxxx@gmail.com&diagnosis=yyyy&firstname=aaaa&lastname=bbbbb&type=MSO
+    //http://app.linkmedicine.com/chat-case-create?email=xxxx@gmail.com&diagnosis=yyyy&firstname=aaaa&lastname=bbbbb&type=MSO
+    this.props.submitCASE(payload, CASE);
     axios
-    .get('https://app.linkmedicine.cn/chat-case-create?email=' + EMAIL + '&diagnosis=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&firstname=' + FIRSTNAME + '&lastname=' + LASTNAME + '&type=MSO')
+    .get('https://app.linkmedicine.com/chat-case-create?email=' + EMAIL + '&diagnosis=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&firstname=' + FIRSTNAME + '&lastname=' + LASTNAME + '&type=MSO')
     .then((response) => {
-        this.props.submitEMAIL(payload, JSON.stringify(response.data));
     })
     .catch((error) => { console.log(error); });
   }
 
+
   handleSkip(event) {
     event.preventDefault();
-    const APPOINTMENT = 'You have chosen to skip this question.';
+    const CASE = 'You have chosen to skip this question.';
     const payload = '/comfirm_lm_appointment';
-    this.props.submitAPPOINTMENT(payload, APPOINTMENT);
+    this.props.submitCASE(payload, CASE);
   }
   render() {
     return (
@@ -81,6 +85,7 @@ class Snippet extends Component {
               inputType={'text'}
               title={'First Name'}
               name={'firstname'}
+              asyncRule
               value={this.state.newUser.firstname}
               placeholder={''}
               handleChange={this.handleInput}
@@ -94,7 +99,7 @@ class Snippet extends Component {
               handleChange={this.handleInput}
             />
             <Input
-              inputType={'email'}
+              type={'email'}
               title={'Email'}
               name={'email'}
               value={this.state.newUser.email}
@@ -109,7 +114,7 @@ class Snippet extends Component {
             />{ /* Submit */ }
             <Button
               action={this.handleSkip}
-              type={'primary'}
+              type={'secondary'}
               title={'Unclear'}
               style={buttonStyle}
             /> {/* Clear the form */}
@@ -126,9 +131,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     toggleInputDisabled: _ => dispatch(toggleInputDisabled()),
-    submitEMAIL: (payload, EMAIL) => {
+    submitCASE: (payload, CASE) => {
       dispatch(emitUserMessage(payload));
-      dispatch(addUserMessage(EMAIL));
+      dispatch(addUserMessage(CASE));
     }
   });
 

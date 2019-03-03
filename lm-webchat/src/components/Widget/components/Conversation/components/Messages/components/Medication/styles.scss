@@ -6,6 +6,8 @@
   margin-left: auto;
 }
 
+
+
 .medication {
   @include message-bubble($grey-2, #000);
 }

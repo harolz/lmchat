@@ -1,16 +1,36 @@
-from typing import List
+from sys import path
+path.append(r'../lm_core')
+from typing import List, Text, Optional, Dict, Any
+
+
 from rasa_core_sdk.forms import FormAction, REQUESTED_SLOT
 from rasa_core_sdk.events import SlotSet
-
+from rasa_core_sdk import Action, Tracker
 from requests import (
     ConnectionError,
     HTTPError,
     TooManyRedirects,
     Timeout
 )
-
+from rasa_core.actions.action import ActionDefaultFallback 
 from api import get_hospital_by_dkw, get_city_by_dkw, get_basicStats_by_dkw, send_email
 
+class ActionStoreDKW(Action):
+    """Stores DKW in a slot"""
+
+    def name(self):
+        return "action_store_dkw"
+
+    def run(self, dispatcher, tracker, domain):
+        DKW = next(tracker.get_latest_entity_values('dkw'), None)
+
+        # if no company entity was extracted, use the whole user utterance
+        # in future this will be stored in a `company_unconfirmed` slot and
+        # the user will be asked to confirm their company name
+        if not DKW:
+            DKW = tracker.latest_message.get('text')
+
+        return [SlotSet('dkw', DKW)]
 
 class ActionReplyHospitals(FormAction):
     RANDOMIZE = True
@@ -28,11 +48,25 @@ class ActionReplyHospitals(FormAction):
     def submit(self, dispatcher, tracker, domain):
         # type: (Dispatcher, DialogueStateTracker, Domain) -> List[Event]
         dkw = tracker.get_slot('dkw')
-        hospital_data = get_hospital_by_dkw(dkw)
-        return [SlotSet("hospitals", hospital_data)]
+        hospital_data = get_best_hospital_text(dkw)
+        return [SlotSet("hospitals", "{}".format(hospital_data))]
         # return [SlotSet("hospitals", "test")]
 
-class ActionReplyStats(FormAction):
+class ActionDefaultFback(Action):
+    """Executes the fallback action and goes back to the previous state
+    of the dialogue"""
+
+    def name(self) -> Text:
+        return "action_default_fallback"
+
+    def run(self, dispatcher, tracker, domain):
+        from rasa_core.events import UserUtteranceReverted
+
+        dispatcher.utter_template("utter_default", tracker,
+                                  silent_fail=True)
+
+        return [UserUtteranceReverted()]
+class ActionReplyStats(FormAction, Action):
     RANDOMIZE = True
 
     @staticmethod
@@ -49,7 +83,11 @@ class ActionReplyStats(FormAction):
         # type: (Dispatcher, DialogueStateTracker, Domain) -> List[Event]
         dkw = tracker.get_slot('dkw')
         stats_data = get_basic_Stats_text(dkw)
-        return [SlotSet("basic_stats", "{}".format(stats_data))]
+        if stats_data:
+            return [SlotSet("basic_stats", "{}".format(stats_data))]
+        else:
+            ActionDefaultFback.run(self, dispatcher, tracker, domain)
+
 
 class ActionReplyEmail(FormAction):
     RANDOMIZE = True
@@ -118,22 +156,23 @@ def get_basic_Stats_text(dkw):
     else:
         #Down syndrome hit 23 institutions, 247 experts, 16 clinical trials, 915 research projects, $336,507,365 funding. 
         #About 1 in 700 babies are born with the birth defect known as Down Syndrome. Learn about the different Down Syndrome types and related health issues.
-        stats_message_tpl = """
-            {} hits {} institutions，{} experts，{} clinical trials，{} research projects，a total of ${} funding. {}
-        """
-        text_message = stats_message_tpl.format(
-            dkw,
-            result[-2],
-            result[2],
-            result[1],
-            result[3],
-            result[-1],
-            result[-3]
-        )
+        if result:
+            stats_message_tpl = """
+            {} According to our data records, {} hits {} medical institutions, {} experts, {} clinical trials, {} research projects, and a total of ${} research funding.         """
+            text_message = stats_message_tpl.format(    
+                result[-3],    
+                dkw,
+                "{:,}".format(result[-2]),
+                "{:,}".format(result[2]),
+                "{:,}".format(result[1]),
+                "{:,}".format(result[3]),
+                "{:,}".format(result[-1])
+            ).strip()
+        else:
+            text_message=None
 
-    return text_message.strip()
+    return text_message
 
 if __name__ == '__main__':
-    default_dkw = "Pancreatic Ducts"
+    default_dkw = "zxx"
     print(get_basic_Stats_text(default_dkw))
-    print(get_best_hospital_text(default_dkw))

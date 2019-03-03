@@ -27,7 +27,7 @@ class Message extends PureComponent {
     this._timer = setTimeout(function(){
       this.setState({visible: false});
       this._timer = null;
-    }.bind(this), 800);
+    }.bind(this), 1200);
   }
 
   componentWillUnmount() {

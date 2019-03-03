@@ -73,6 +73,20 @@ export function changeInputFieldHint(hint) {
   };
 }
 
+export function updateDkw(dkw) {
+  return {
+    type: actions.UPDATE_DKW,
+    dkw
+  };
+}
+
+export function updateHospitalCount(HospitalCount) {
+  return {
+    type: actions.UPDATE_HOSPITAL_COUNT,
+    HospitalCount
+  };
+}
+
 export function addUserMessage(text) {
   return {
     type: actions.ADD_NEW_USER_MESSAGE,

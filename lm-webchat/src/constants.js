@@ -77,7 +77,8 @@ export const PROP_TYPES = {
     sender: PropTypes.oneOf([
       MESSAGE_SENDER.CLIENT,
       MESSAGE_SENDER.RESPONSE
-    ])
+    ]),
+    submitCASE: PropTypes.func
   }),
 
   AGE: ImmutablePropTypes.contains({
@@ -261,10 +262,9 @@ export const PROP_TYPES = {
       MESSAGE_SENDER.CLIENT,
       MESSAGE_SENDER.RESPONSE
     ]),
-    submitDate: PropTypes.func,
+    submitDATE: PropTypes.func,
     toggleInputDisabled: PropTypes.func,
-    inputState: PropTypes.bool,
-    chosenDate: PropTypes.string
+    inputState: PropTypes.bool
   }),
 
   APPOINTMENT: ImmutablePropTypes.contains({
@@ -280,7 +280,7 @@ export const PROP_TYPES = {
       MESSAGE_SENDER.CLIENT,
       MESSAGE_SENDER.RESPONSE
     ]),
-    submitDATE: PropTypes.func,
+    submitAPPOINTMENT: PropTypes.func,
     toggleInputDisabled: PropTypes.func,
     inputState: PropTypes.bool,
     chosenDate: PropTypes.string

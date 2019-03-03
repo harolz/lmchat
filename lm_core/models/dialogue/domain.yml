@@ -25,6 +25,8 @@ actions:
 - utter_ask_service_type_answer
 - utter_ask_basic_knowledge_question
 - utter_ask_basic_knowledge_answer
+- utter_ask_lm_appointment_answer
+- utter_lm_app_instruction
 - utter_ask_cooperation
 - utter_ask_dkw_question_me
 - utter_ask_dkw_question_male
@@ -163,6 +165,7 @@ actions:
 - action_faqs
 - action_store_name
 - action_store_company
+- action_store_dkw
 - action_store_job
 - action_store_email
 - action_pause
@@ -202,6 +205,7 @@ config:
   store_entities_as_slots: true
 entities:
 - jobfunction
+- diagnosis
 - company
 - email
 - name
@@ -215,6 +219,7 @@ entities:
 - gender_value
 - service_type
 - basic_knowledge
+- lm_appointment
 - language
 - dkw
 - hospitals
@@ -438,6 +443,13 @@ slots:
     auto_fill: true
     initial_value: null
     type: rasa_core.slots.UnfeaturizedSlot
+  lm_appointment:
+    auto_fill: true
+    initial_value: null
+    type: rasa_core.slots.CategoricalSlot
+    values:
+    - lm_appointment_yes
+    - lm_appointment_no
   nlu_part:
     auto_fill: true
     initial_value: null
@@ -544,7 +556,7 @@ templates:
     - payload: /confirm_basic_knowledge{"basic_knowledge":"basic_knowledge_yes"}
       title: 'Yes'
     - payload: /confirm_basic_knowledge{"basic_knowledge":"basic_knowledge_yes"}
-      title: Bascially
+      title: Basically
     - payload: /confirm_basic_knowledge{"basic_knowledge":"basic_knowledge_no"}
       title: Not so much
     text: ''
@@ -684,8 +696,14 @@ templates:
   utter_ask_lm_appointment:
   - text: To keep you better informed of US hospitals by expertise, LINKMedicine™
       offers data science consultants to help interpret data regarding your diagnosis.
-      Please indicate your availbility for an appointment for such service and your
-      contact info.
+      Would you like to make an appointment for such service?
+  utter_ask_lm_appointment_answer:
+  - buttons:
+    - payload: /confirm_lm_appointment{"lm_appointment":"lm_appointment_yes"}
+      title: Yes, please.
+    - payload: /confirm_lm_appointment{"lm_appointment":"lm_appointment_no"}
+      title: No, thanks.
+    text: ''
   utter_ask_lm_consultant:
   - text: 请从下列选项中选择需要咨询的专家：
   utter_ask_medical_appointment_answer:
@@ -735,8 +753,8 @@ templates:
       title: Unclear, I need your expertise advice
     text: ''
   utter_ask_service_type_question:
-  - text: ' About the plan for overseas medicine, please choose among the following
-      options:'
+  - text: ' Please choose among the following options that best describes your medical
+      needs:'
   utter_ask_symptoms_answer:
   - elements:
     - buttons:
@@ -824,7 +842,7 @@ templates:
       \ component. So use that and annote your nlu data like it is described here:\
       \ https://rasa.com/docs/nlu/dataformat/ .\n"
   utter_data:
-  - text: LINKMedicine™ endeavors to keep all patients informed of the best expertise
+  - text: LINKMedicine™ strives to keep all patients informed of the best expertise
       each hospital has to provide. The moment you receive a serious medical diagnosis,
       the focus of life changes. LINKMedicine™ is here to find you the best hospital
       for your particular disease.
@@ -898,7 +916,8 @@ templates:
   - text: Awesome! 🎉
   utter_greet:
   - text: Hello, welcome to LINKMedicine™. Let's harness the power of data for your
-      health. Talk to AI and plan your best care now.
+      health. Talk to out contextual AI assistant now and plan for your best care
+      now.
   utter_handleinsult:
   - text: That’s not very nice 😢
   utter_have_you_used_rasa_before:
@@ -923,6 +942,9 @@ templates:
         url: http://linkmedicine.cn
       title: ''
     text: ''
+  utter_lm_app_instruction:
+  - text: Please indicate when you would like to shcedule your appointment and your
+      phone number.
   utter_lm_consultant:
   - elements:
     - buttons:
@@ -945,9 +967,9 @@ templates:
   utter_must_accept:
   - text: We can't speak until you accept.
   utter_need_expertise:
-  - text: It is a trying moment when seeking overseas medical assistance, especially
-      when choosing the best hospital by expertise. But do not worry, LINKMedicine™
-      is here to help you with that.
+  - text: It is a trying moment seeking best medical assistance in each individual
+      case, especially when choosing the best hospital by expertise. But do not worry,
+      LINKMedicine™ is here to help you with that.
   utter_nicetomeeyou:
   - text: Thank you. It is a pleasure to meet you as well!
   - text: It is nice to meet you too!
@@ -1009,7 +1031,7 @@ templates:
   utter_show_datareport:
   - elements:
     - buttons:
-      - title: ''
+      - title: '{dkw}'
         type: datareport
         url: http://linkmedicine.cn
       title:

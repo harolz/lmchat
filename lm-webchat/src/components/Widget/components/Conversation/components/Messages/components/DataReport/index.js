@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { PROP_TYPES } from 'constants';
 import './styles.scss';
-import Tabs from './Tabs';
 import HospitalMap from '../HospitalMap';
 import RankChart from '../RankChart';
-
-const DKW = JSON.stringify(localStorage.getItem('diagnosis_key_word'));
+import "react-tabs/style/react-tabs.css";
+import { connect } from 'react-redux';
 
 class DataReport extends Component {
 
@@ -18,26 +18,26 @@ class DataReport extends Component {
 
 
   render() {
+    const DKW = this.props.DKW;
+    const HOSPITAL_COUNT = this.props.HOSPITAL_COUNT;
     return (
       <div className="datareport">
-        {/* <h1>Tabs Demo</h1> */}
-        <Tabs>
-
-          <div label="Map-ALL">
-          Below is the geo-distribution of all hospitals for {DKW}
-            <HospitalMap maptype="all" />
-          </div>
-
-          <div label="Map-TOP">
-          Below is the geo-distribution of best hospitals for {DKW}
-            <HospitalMap maptype="top" />
-          </div>
-
-          <div label="Rank">
-          Below is the rank of best hospitals for {DKW}
+        <p>LINKMedicine™ here prepares for you the analytic results for hospitals that provide best expertise for {DKW}.</p>
+        <Tabs forceRenderTabPanel>
+          <TabList>
+            <Tab>Map-TOP</Tab>
+            <Tab>Map-ALL</Tab>
+            <Tab>Ranking</Tab>
+          </TabList>
+          <TabPanel>
+            <HospitalMap maptype="top" dkw={DKW} />
+          </TabPanel>
+          <TabPanel>
+            <HospitalMap maptype="all" dkw={DKW}/>
+          </TabPanel>
+          <TabPanel>
             <RankChart />
-          </div>
-
+          </TabPanel>
         </Tabs>
       </div>
     );
@@ -48,4 +48,10 @@ DataReport.propTypes = {
   message: PROP_TYPES.DATAREPORT
 };
 
-export default DataReport;
+const mapStateToProps = state => ({
+  DKW: state.behavior.get('DKW'),
+  HOSPITAL_COUNT: state.behavior.get('HOSPITAL_COUNT')
+});
+
+
+export default connect(mapStateToProps)(DataReport);

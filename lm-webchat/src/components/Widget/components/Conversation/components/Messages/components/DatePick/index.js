@@ -25,10 +25,7 @@ class DatePick extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    if (!this.props.inputState) {
-      // this.props.toggleInputDisabled();
-      // this.props.changeInputFieldHint(hint);
-    }
+    this.handleSkip = this.handleSkip.bind(this);
   }
   handleChange(date) {
     this.setState({
@@ -37,26 +34,32 @@ class DatePick extends Component {
   }
   handleClick() {
     const payload = '/comfirm_medical_appointment';
+    // const DATE = moment(this.state.startDate).format('MM DD YYYY');
     const DATE = this.state.startDate;
-    this.props.submitDATE(payload, DATE);
+    const MSG = 'My reply has been successfully submitted.';
+    this.props.submitDATE(payload, MSG);
+  }
+  handleSkip(event) {
+    // event.preventDefault();
+    const MSG = 'I do not currently have any appointment with a doctor.';
+    const payload = '/comfirm_medical_appointment';
+    this.props.submitDATE(payload, MSG);
   }
   render() {
     return (
       <div className={'client-side'}>
         { this.props.isLast && <div className="datepick">
           <div className="form-group">
-              <label htmlFor={'selectedTitle'} className="form-label">{ " Your Doctor's Appointment: "}</label>
-              <div>
-                <DatePicker
-                  inline
-                  showTimeSelect={false}
-                  timeCaption="时间"
-                  selected={this.state.startDate}
-                  onChange={this.handleChange}
-                  dateFormat="MMMM d, yyyy h:mm aa"
-                />
-              </div>
-            {/* locale="zh_cn" */}
+            <label htmlFor={'selectedTitle'} className="form-label">{ " Your Doctor's Appointment: "}</label>
+            <div>
+              <DatePicker
+                showTimeSelect={false}
+                selected={this.state.startDate}
+                onChange={this.handleChange}
+                dateFormat="MMMM d, yyyy"
+                placeholderText=""
+              />
+            </div>
           </div>
           <div>
             <Button
@@ -86,8 +89,7 @@ const mapDispatchToProps = dispatch => ({
   // toggleInputDisabled: _ => dispatch(toggleInputDisabled()),
   submitDATE: (payload, DATE) => {
     dispatch(emitUserMessage(payload));
-    dispatch(addUserMessage(moment(DATE).format('MMMM Do YYYY, h:mm:ss a')));
-    dispatch(toggleInputDisabled());
+    dispatch(addUserMessage(DATE));
   }
 });
 

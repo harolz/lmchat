@@ -2,18 +2,20 @@
 @import "common.scss";
 
 .messages-container {
-  // background-color: $white;
-  background-image: url("grid.png");
-  height: 50vh;
-  max-height: 425px;
-  padding-top: 10px;
+  background: transparent;
+  // background-image: url("grid.png");
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: -26px;
+  overflow: auto;
 }
 
 .full-screen {
 
   .messages-container {
     @include messages-container-fs;
-    overflow-y: auto;
   }
 }
 

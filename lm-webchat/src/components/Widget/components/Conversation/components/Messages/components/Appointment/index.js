@@ -5,27 +5,35 @@ import { PROP_TYPES } from 'constants';
 import Input from '../Medication/components/Input';
 import axios from 'axios';
 import Button from '../Medication/components/Button';
+import DatePicker from "react-datepicker";
 import './styles.scss';
 
 const buttonStyle = {
   margin: '10px 10px 10px 10px'
 };
-
+const pad2 = n => (n < 10 ? '0' + n : n);
 class Appointment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       newAppointment: {
         phone: '',
-        selected_date_time: ''
+        selected_date_time: null
       }
     };
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSkip = this.handleSkip.bind(this);
     this.handleDate = this.handleDate.bind(this);
     this.handlePhone = this.handlePhone.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleInput = this.handleInput.bind(this);
+  }
+  handleChange(datetime) {
+    this.setState(prevState => ({ newAppointment:
+      { ...prevState.newAppointment, selected_date_time: datetime
+      }
+      }), () => console.log(this.state.newAppointment));
   }
   handlePhone(e) {
     const value = e.target.value;
@@ -74,16 +82,20 @@ class Appointment extends Component {
       }
     });
   }
-  //http://app.linkmedicine.com/chatbot-appoint-email?email=FFFFssssss@gmail.com&firstname=rh&lastname=z&diagnosis=xxxxx&appointTime=201902151530
   handleSubmit(event) {
     event.preventDefault();
-    const APPOINTMENT = 'I have successfully made an appointment with LINKMedicine™ at' + this.state.newAppointment.selected_date_time;
+    const EMAIL = localStorage.getItem('EMAIL');
+    const FIRSTNAME = localStorage.getItem('FIRSTNAME');
+    const LASTNAME = localStorage.getItem('LASTNAME');
+    const DKW = localStorage.getItem('diagnosis_key_word');
+    const APPTIME = this.state.newAppointment.selected_date_time;
+    const appTime = APPTIME.getFullYear().toString() + pad2(APPTIME.getMonth() + 1) + pad2(APPTIME.getDate()) + pad2(APPTIME.getHours()) + pad2(APPTIME.getMinutes());
+    const APPOINTMENT = 'I have successfully made an appointment with LINKMedicine™ on ' + this.state.newAppointment.selected_date_time;
     const payload = '/comfirm_lm_appointment';
-    alert('https://app.linkmedicine.com/chatbot-appoint-email?email=' + JSON.stringify(localStorage.getItem('EMAIL')) + '&firstname=' + JSON.stringify(localStorage.getItem('FIRSTNAME')) + '&lastname=' + JSON.stringify(localStorage.getItem('LASTNAME')) + '&diagnosis=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&appointTime=' + this.state.newAppointment.selected_date_time);
+    this.props.submitAPPOINTMENT(payload, APPOINTMENT);
     axios
-    .get('https://app.linkmedicine.com/chatbot-appoint-email?email=' + JSON.stringify(localStorage.getItem('EMAIL')) + '&firstname=' + JSON.stringify(localStorage.getItem('FIRSTNAME')) + '&lastname=' + JSON.stringify(localStorage.getItem('LASTNAME')) + '&diagnosis=' + JSON.stringify(localStorage.getItem('diagnosis_key_word')) + '&appointTime=' + this.state.newAppointment.selected_date_time)
+    .get('https://app.linkmedicine.com/chatbot-appoint-email?email=' + EMAIL  + '&firstname=' + FIRSTNAME + '&lastname=' + LASTNAME + '&diagnosis=' + DKW + '&appointTime=' + appTime)
     .then((response) => {
-      this.props.submitAPPOINTMENT(payload, JSON.stringify(response));
     })
     .catch((error) => { console.log(error); });
   }
@@ -98,14 +110,19 @@ class Appointment extends Component {
       <div className="client-side">
         { this.props.isLast && <div className="appointment">
           <form className="container-fluid" onSubmit={this.handleSubmit}>
-            <Input
-              inputType={'datetime-local'}
-              title={'Schedule Your Appointment'}
-              name={'selected_date_time'}
-              value={this.state.newAppointment.selected_date_time}
-              placeholder={'MM-DD-YYYY'}
-              handleChange={this.handleInput}
-            />
+            <div className="form-group">
+              <label for="selected_date_time" className="form-label">Schedule Your Appointment:</label>
+              <br />
+              <DatePicker
+                selected={this.state.newAppointment.selected_date_time}
+                onChange={this.handleChange}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={30}
+                dateFormat="MMMM d, yyyy h:mm aa"
+                timeCaption="time"
+              />
+            </div>
             <Input
               inputType={'tel'}
               title={'Phone'}

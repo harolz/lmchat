@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import Messages from './components/Messages';
 import './style.scss';
+import Messages from './components/Messages';
+
 
 const Conversation = props =>
   <div className="conversation-container">
-    <Messages
-      profileAvatar={props.profileAvatar}
-      params={props.params}
-    />
+      <Messages
+        profileAvatar={props.profileAvatar}
+        params={props.params}
+      />
   </div>;
 
 Conversation.propTypes = {
