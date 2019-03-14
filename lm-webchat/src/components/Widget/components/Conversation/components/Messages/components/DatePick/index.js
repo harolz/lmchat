@@ -50,7 +50,7 @@ class DatePick extends Component {
       <div className={'client-side'}>
         { this.props.isLast && <div className="datepick">
           <div className="form-group">
-            <label htmlFor={'selectedTitle'} className="form-label">{ " Your Doctor's Appointment: "}</label>
+            <label htmlFor={'selectedTitle'} className="form-label">{ " Your Next Appointment with Your Doctor: "}</label>
             <div>
               <DatePicker
                 showTimeSelect={false}

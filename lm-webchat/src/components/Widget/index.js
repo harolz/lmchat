@@ -57,6 +57,7 @@ class Widget extends Component {
     socket.on('bot_uttered', (botUttered) => {
       this.messages.push(botUttered);
       console.log(botUttered);
+      console.log("*********************************");
     });
 
     this.props.dispatch(pullSession());

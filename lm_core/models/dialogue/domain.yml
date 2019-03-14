@@ -1,6 +1,7 @@
 %YAML 1.1
 ---
 actions:
+- fallback
 - utter_echo_dkw
 - utter_show_map
 - utter_show_rankchart
@@ -26,7 +27,7 @@ actions:
 - utter_ask_basic_knowledge_question
 - utter_ask_basic_knowledge_answer
 - utter_ask_lm_appointment_answer
-- utter_lm_app_instruction
+- utter_lm_appointment_instruction
 - utter_ask_cooperation
 - utter_ask_dkw_question_me
 - utter_ask_dkw_question_male
@@ -47,9 +48,8 @@ actions:
 - utter_ask_medical_appointment_question_female
 - utter_ask_medical_appointment_question_instruction
 - utter_ask_medical_appointment_answer
-- utter_ask_choose_med_app
 - utter_ask_lm_appointment
-- utter_lm_app
+- utter_lm_appointment
 - utter_ask_lm_consultant
 - utter_lm_consultant
 - utter_ask_email_question
@@ -230,6 +230,8 @@ forms:
 intents:
 - enter_data:
     use_entities: false
+- out_of_scope:
+    use_entities: true
 - mood_confirm:
     use_entities: true
 - contact_sales:
@@ -301,8 +303,6 @@ intents:
 - nicetomeeyou:
     use_entities: true
 - telljoke:
-    use_entities: true
-- out_of_scope:
     use_entities: true
 - thank:
     use_entities: true
@@ -569,8 +569,6 @@ templates:
   - text: One of the smart engineers at Rasa! 🧠
   utter_ask_businessmail:
   - text: What's your business email?
-  utter_ask_choose_med_app:
-  - text: 请在日期选择器中选择您的治疗日期。
   utter_ask_company:
   - text: What company do you work for?
   utter_ask_cooperation:
@@ -578,20 +576,17 @@ templates:
   utter_ask_current_medication_answer:
   - elements:
     - buttons:
-      - title: 提交
+      - title: ''
         type: medication
         url: http://linkmedicine.cn
       title: ''
     text: ''
   utter_ask_current_medication_question_female:
-  - text: Please briefly describe her current medication or the plan for treatment.
-  utter_ask_current_medication_question_instruction:
-  - text: Tab "Submit" when you are finished with the description for medication and
-      treatment; click "Unclear" if you don't have this information.
+  - text: 'What is her current treatment? '
   utter_ask_current_medication_question_male:
-  - text: Please briefly describe his current medication or the plan for treatment.
+  - text: 'What is his current treatment? '
   utter_ask_current_medication_question_me:
-  - text: Please briefly describe your current medication or the plan for treatment.
+  - text: 'What is your current treatment? '
   utter_ask_describe_problem:
   - text: Can you describe the problem you are having?
   utter_ask_diagnosis:
@@ -605,11 +600,11 @@ templates:
       title: ''
     text: ''
   utter_ask_dkw_question_female:
-  - text: What is her diagnosis?
+  - text: What is her primary diagnosis?
   utter_ask_dkw_question_male:
-  - text: What is his diagnosis?
+  - text: What is his primary diagnosis?
   utter_ask_dkw_question_me:
-  - text: What is your diagnosis?
+  - text: What is your primary diagnosis?
   utter_ask_email_answer:
   - elements:
     - buttons:
@@ -694,9 +689,7 @@ templates:
       I can answer you in.
   - text: I am in the process of learning, but at the moment I can only speak English.
   utter_ask_lm_appointment:
-  - text: To keep you better informed of US hospitals by expertise, LINKMedicine™
-      offers data science consultants to help interpret data regarding your diagnosis.
-      Would you like to make an appointment for such service?
+  - text: Would you like to make an appointment for data interpretation?
   utter_ask_lm_appointment_answer:
   - buttons:
     - payload: /confirm_lm_appointment{"lm_appointment":"lm_appointment_yes"}
@@ -709,24 +702,21 @@ templates:
   utter_ask_medical_appointment_answer:
   - elements:
     - buttons:
-      - title: 提交
+      - title: ''
         type: datepicker
         url: http://linkmedicine.cn
-      title: '请在日期选择器中选择您下一次appointment的日期:'
+      title: ''
     text: ''
   utter_ask_medical_appointment_question_female:
-  - text: Does she have any upcoming appointments or procedures? If yes, please indicate
-      the date.
+  - text: Does she have any upcoming appointments or procedures?
   utter_ask_medical_appointment_question_instruction:
   - text: "Again, please tab \"Submit\" after you select the date of your medical\
       \ appointment in the datepicker; click \"Unclear\" if currently you don't have\
       \ an active medical appointment. "
   utter_ask_medical_appointment_question_male:
-  - text: Does he have any upcoming appointments or procedures? If yes, please indicate
-      the date.
+  - text: Does he have any upcoming appointments or procedures?
   utter_ask_medical_appointment_question_me:
-  - text: Do you have any upcoming appointments or procedures? If yes, please indicate
-      the date.
+  - text: Do you have any upcoming appointments or procedures?
   utter_ask_migration:
   - text: Are you migrating from another tool?
   utter_ask_name:
@@ -749,12 +739,9 @@ templates:
       title: Make direct referal to expertise hospitals
     - payload: /confirm_service_type{"service_type":"xbm"}
       title: I am an international patient seeking medical care
-    - payload: /confirm_service_type{"service_type":"undecided"}
-      title: Unclear, I need your expertise advice
     text: ''
   utter_ask_service_type_question:
-  - text: ' Please choose among the following options that best describes your medical
-      needs:'
+  - text: Which of the following options best describes your medical needs?
   utter_ask_symptoms_answer:
   - elements:
     - buttons:
@@ -842,18 +829,15 @@ templates:
       \ component. So use that and annote your nlu data like it is described here:\
       \ https://rasa.com/docs/nlu/dataformat/ .\n"
   utter_data:
-  - text: LINKMedicine™ strives to keep all patients informed of the best expertise
-      each hospital has to provide. The moment you receive a serious medical diagnosis,
-      the focus of life changes. LINKMedicine™ is here to find you the best hospital
-      for your particular disease.
+  - text: We are here to find you the best hospital for your particular disease.
   utter_default:
-  - text: Sorry, I didn't get that 🤷🏻‍. Could you please rephrase?
-  - text: I didn't understand, could you rephrase that?
-  - text: I'm sorry, but I didn't understand you. Could you please rephrase what you
-      just said?
-  - text: I'm afraid I didn't get what you just said. Could you rephrase that?
-  - text: I didn't quite get that, could you rephrase your message?
-  - text: Could you rephrase your message? I didn't get it, I'm sorry.
+  - elements:
+    - buttons:
+      - title: ''
+        type: dkwcomplete
+        url: http://linkmedicine.cn
+      title: ''
+    text: Please input a valid DKW.
   utter_direct_install:
   - text: 'Alright, you can directly install it here: (link)'
   utter_direct_to_forum_for_help:
@@ -915,9 +899,8 @@ templates:
   - text: That's great! 🙌
   - text: Awesome! 🎉
   utter_greet:
-  - text: Hello, welcome to LINKMedicine™. Let's harness the power of data for your
-      health. Talk to out contextual AI assistant now and plan for your best care
-      now.
+  - text: Hello, welcome to LINKMedicine - harness the power of data for your health.
+      Let's plan your best care together.
   utter_handleinsult:
   - text: That’s not very nice 😢
   utter_have_you_used_rasa_before:
@@ -934,7 +917,7 @@ templates:
   utter_installation_with_pip:
   - text: Ok, install the Rasa Stack by executing 'pip install rasa_core' on your
       command line.
-  utter_lm_app:
+  utter_lm_appointment:
   - elements:
     - buttons:
       - title: ''
@@ -942,7 +925,7 @@ templates:
         url: http://linkmedicine.cn
       title: ''
     text: ''
-  utter_lm_app_instruction:
+  utter_lm_appointment_instruction:
   - text: Please indicate when you would like to shcedule your appointment and your
       phone number.
   utter_lm_consultant:
@@ -954,22 +937,16 @@ templates:
       title: ''
     text: ''
   utter_medical_record_created:
-  - text: The medicial record has been created by LINKMedicine™. Please resgister
-      by typing in your name and email. You should soon receive an email to confirm
-      your registration.
+  - text: Thank you. We've configured your hospital analysis. Please resgister to
+      start. You should soon receive an email to confirm your registration.
   utter_moreinformation:
   - text: Sure! Let's get to know each other first 😉
   utter_mso:
-  - text: LINKMedicine™ connects international patients with top hospitals in the
-      U.S. on merit of their expertise. A remote medical second opinion is a valuable
-      resource when patients are faced with difficult health circumstances or choices
-      regarding their treatment options.
+  - text: We are here to find you the best hospital for your particular disease.
   utter_must_accept:
   - text: We can't speak until you accept.
   utter_need_expertise:
-  - text: It is a trying moment seeking best medical assistance in each individual
-      case, especially when choosing the best hospital by expertise. But do not worry,
-      LINKMedicine™ is here to help you with that.
+  - text: We are here to find you the best hospital for your particular disease.
   utter_nicetomeeyou:
   - text: Thank you. It is a pleasure to meet you as well!
   - text: It is nice to meet you too!
@@ -1026,8 +1003,8 @@ templates:
   utter_search_bar:
   - text: Try using the search bar above for now.
   utter_sent_app_confirmation:
-  - text: We've sent a confirmation email of the appointment to ✉️{email}.Thanks a
-      bunch, we'll be in touch soon!
+  - text: We've sent a confirmation email of the appointment to ✉️:{email}.Thanks
+      a bunch, we'll be in touch soon!
   utter_show_datareport:
   - elements:
     - buttons:
@@ -1106,8 +1083,4 @@ templates:
   - text: Thank you for the information you provided. Your personalized service is
       being created.Please wait for a moment...🔥
   utter_xbm:
-  - text: LINKMedicine™ enpowers patients worldwide to recieve the best medical care
-      that is both personalized and professional. International patients seek treatment
-      in the United States to access medical services with high success rates and
-      good outcomes for surgeries and procedures that are not available in their country
-      of origin.
+  - text: We are here to find you the best hospital for your particular disease.

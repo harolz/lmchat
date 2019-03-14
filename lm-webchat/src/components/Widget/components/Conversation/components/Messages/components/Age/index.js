@@ -74,11 +74,9 @@ class Age extends Component {
   }
   handleChange1 = (selectedNumOption) => {
     this.setState({ selectedNumOption });
-    // console.log(`Option selected:`, selectedNumOption);
   }
   handleChange2 = (selectedTimeOption) => {
     this.setState({ selectedTimeOption });
-    // console.log(`Option selected:`, selectedTimeOption);
   }
 
   handleClick() {

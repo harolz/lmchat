@@ -22,7 +22,7 @@ class DataReport extends Component {
     const HOSPITAL_COUNT = this.props.HOSPITAL_COUNT;
     return (
       <div className="datareport">
-        <p>LINKMedicine™ here prepares for you the analytic results for hospitals that provide best expertise for {DKW}.</p>
+        <p>Your hospital analysis for <b>{DKW}</b> has been finished. Below is the preview of your data report.</p>
         <Tabs forceRenderTabPanel>
           <TabList>
             <Tab>Map-TOP</Tab>

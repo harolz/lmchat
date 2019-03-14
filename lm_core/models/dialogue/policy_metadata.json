@@ -2,12 +2,12 @@
   "action_fingerprints": {
     "action_listen": {
       "slots": [
-        "lm_appointment",
-        "feedback_value",
         "service_type",
-        "patient_value",
+        "lm_appointment",
         "gender_value",
-        "email"
+        "patient_value",
+        "email",
+        "feedback_value"
       ]
     },
     "action_store_email": {
@@ -56,6 +56,9 @@
     "utter_ask_feedback": {
       "slots": []
     },
+    "utter_nohelp": {
+      "slots": []
+    },
     "utter_bye": {
       "slots": []
     },
@@ -81,5 +84,5 @@
     "rasa_core.policies.memoization.MemoizationPolicy",
     "rasa_core.policies.form_policy.FormPolicy"
   ],
-  "trained_at": "20190227-174849"
+  "trained_at": "20190312-125131"
 }

@@ -266,6 +266,29 @@ class SimplePolicyEnsemble(PolicyEnsemble):
         is_augmented = best_policy_name.endswith(
             "_" + AugmentedMemoizationPolicy.__name__)
         return not (is_memo or is_augmented)
+    
+#     def probabilities_using_best_policy(self, tracker, domain):
+#         result = None
+#         max_confidence = -1
+#         best_policy_name = None
+
+        
+#         for p in self.policies:
+#             probabilities = p.predict_action_probabilities(tracker, domain)
+#             confidence = np.max(probabilities)
+#             if confidence > max_confidence:
+#                 max_confidence = confidence
+#                 result = probabilities
+# # 
+#         if (tracker.latest_message.intent["name"] == "out_of_scope" 
+#                 or (result and np.max(result) < 0.3)):
+#             # 0.3 is the probability cutoff for rasa core in this case
+#             # so if the trained policy returned the most likely action with
+#             # a probability of less than 0.3, we will run the fallback action
+#             # instead
+#             fallback_idx = domain.index_for_action("fallback")
+#             return utils.one_hot(fallback_idx, domain.num_actions)
+#         return result
 
     def probabilities_using_best_policy(self,
                                         tracker: DialogueStateTracker,

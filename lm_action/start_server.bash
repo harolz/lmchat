@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-python -m rasa_core_sdk.endpoint --actions bot
+python3 -m rasa_core_sdk.endpoint --actions bot

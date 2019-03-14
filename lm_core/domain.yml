@@ -24,6 +24,7 @@ entities:
 
 intents:
   - enter_data: {use_entities: false}
+  - out_of_scope
   - mood_confirm
   - contact_sales
   - signup_newsletter
@@ -263,15 +264,15 @@ templates:
   utter_switch_luis:
     - text: "We have a guide for migrating from LUIS here: http://rasa.com/docs/getting-started/luis/."
   utter_need_expertise:
-    - text: "It is a trying moment seeking best medical assistance in each individual case, especially when choosing the best hospital by expertise. But do not worry, LINKMedicine™ is here to help you with that."  
+    - text: "We are here to find you the best hospital for your particular disease."  
   utter_mso:
-    - text: "LINKMedicine™ connects international patients with top hospitals in the U.S. on merit of their expertise. A remote medical second opinion is a valuable resource when patients are faced with difficult health circumstances or choices regarding their treatment options."
+    - text: "We are here to find you the best hospital for your particular disease."
   utter_data:
-    - text: "LINKMedicine™ strives to keep all patients informed of the best expertise each hospital has to provide. The moment you receive a serious medical diagnosis, the focus of life changes. LINKMedicine™ is here to find you the best hospital for your particular disease."
+    - text: "We are here to find you the best hospital for your particular disease."
   utter_xbm:
-    - text: "LINKMedicine™ enpowers patients worldwide to recieve the best medical care that is both personalized and professional. International patients seek treatment in the United States to access medical services with high success rates and good outcomes for surgeries and procedures that are not available in their country of origin."
+    - text: "We are here to find you the best hospital for your particular disease."
   utter_greet:
-    - text: "Hello, welcome to LINKMedicine™. Let's harness the power of data for your health. Talk to out contextual AI assistant now and plan for your best care now." 
+    - text: "Hello, welcome to LINKMedicine - harness the power of data for your health. Let's plan your best care together." 
   utter_form:
     - text: ""
       elements:         
@@ -314,7 +315,7 @@ templates:
               url: "http://linkmedicine.cn"
               type: "age"
   utter_ask_service_type_question:    
-      - text: " Please choose among the following options that best describes your medical needs:" 
+      - text: "Which of the following options best describes your medical needs?" 
   utter_ask_service_type_answer:
     - text: ""
       buttons:
@@ -326,8 +327,6 @@ templates:
           payload: "/confirm_service_type{\"service_type\":\"undecided\"}"
         - title: "I am an international patient seeking medical care"
           payload: "/confirm_service_type{\"service_type\":\"xbm\"}"
-        - title: "Unclear, I need your expertise advice"
-          payload: "/confirm_service_type{\"service_type\":\"undecided\"}"
   utter_ask_basic_knowledge_question:
     - text: "Do you have knowledge of the patient's condition？" 
   utter_ask_basic_knowledge_answer:
@@ -342,11 +341,11 @@ templates:
   utter_ask_cooperation:
     - text: "Please answer following question to the best of your knowledge."
   utter_ask_dkw_question_me:
-    - text: "What is your diagnosis?"
+    - text: "What is your primary diagnosis?"
   utter_ask_dkw_question_male:
-    - text: "What is his diagnosis?"
+    - text: "What is his primary diagnosis?"
   utter_ask_dkw_question_female:
-    - text: "What is her diagnosis?"
+    - text: "What is her primary diagnosis?"
   utter_ask_dkw_answer:
     - text: ""
       elements:         
@@ -372,44 +371,40 @@ templates:
               url: "http://linkmedicine.cn"
               type: "symptom"
   utter_ask_current_medication_question_me:
-    - text: "Please briefly describe your current medication or the plan for treatment."
+    - text: "What is your current treatment? "
   utter_ask_current_medication_question_male:
-    - text: "Please briefly describe his current medication or the plan for treatment."
+    - text: "What is his current treatment? "
   utter_ask_current_medication_question_female:
-    - text: "Please briefly describe her current medication or the plan for treatment."
-  utter_ask_current_medication_question_instruction:
-    - text: "Tab \"Submit\" when you are finished with the description for medication and treatment; click \"Unclear\" if you don't have this information."
+    - text: "What is her current treatment? "
   utter_ask_current_medication_answer:
     - text: ""
       elements:         
         - title: ""
           buttons: 
-            - title: "提交"
+            - title: ""
               url: "http://linkmedicine.cn"
               type: "medication"
   utter_ask_diagnosis:
     - text: "你有准备好患者的诊断书和最近的治疗记录么？"
   utter_ask_medical_appointment_question_me:
-    - text: "Do you have any upcoming appointments or procedures? If yes, please indicate the date."
+    - text: "Do you have any upcoming appointments or procedures?"
   utter_ask_medical_appointment_question_male:
-    - text: "Does he have any upcoming appointments or procedures? If yes, please indicate the date."
+    - text: "Does he have any upcoming appointments or procedures?"
   utter_ask_medical_appointment_question_female:
-    - text: "Does she have any upcoming appointments or procedures? If yes, please indicate the date."
+    - text: "Does she have any upcoming appointments or procedures?"
   utter_ask_medical_appointment_answer:
     - text: ""
       elements:         
-        - title: "请在日期选择器中选择您下一次appointment的日期:"
+        - title: ""
           buttons: 
-            - title: "提交"
+            - title: ""
               url: "http://linkmedicine.cn"
               type: "datepicker"
   utter_ask_medical_appointment_question_instruction:
     - text: "Again, please tab \"Submit\" after you select the date of your medical appointment in the datepicker; click \"Unclear\" if currently you don't have an active medical appointment. "
-  utter_ask_choose_med_app:
-    - text: "请在日期选择器中选择您的治疗日期。"
   utter_ask_lm_consultant:
     - text: "请从下列选项中选择需要咨询的专家："
-  utter_lm_app_instruction:
+  utter_lm_appointment_instruction:
     - text: "Please indicate when you would like to shcedule your appointment and your phone number."
   utter_lm_consultant:
     - text: ""
@@ -420,7 +415,7 @@ templates:
               url: "http://linkmedicine.cn"
               type: "consultant"   
   utter_ask_lm_appointment:
-    - text: "To keep you better informed of US hospitals by expertise, LINKMedicine™ offers data science consultants to help interpret data regarding your diagnosis. Would you like to make an appointment for such service?"
+    - text: "Would you like to make an appointment for data interpretation?"
   utter_ask_lm_appointment_answer:
     - text: ""
       buttons:
@@ -428,7 +423,7 @@ templates:
           payload: "/confirm_lm_appointment{\"lm_appointment\":\"lm_appointment_yes\"}"
         - title: "No, thanks."
           payload: "/confirm_lm_appointment{\"lm_appointment\":\"lm_appointment_no\"}"
-  utter_lm_app:
+  utter_lm_appointment:
     - text: ""
       elements:         
         - title: ""
@@ -439,11 +434,11 @@ templates:
   utter_working_on_it:
     - text: "Thank you for the information you provided. Your personalized service is being created.Please wait for a moment...🔥"
   utter_medical_record_created:
-    - text: "The medicial record has been created by LINKMedicine™. Please resgister by typing in your name and email. You should soon receive an email to confirm your registration."
+    - text: "Thank you. We've configured your hospital analysis. Please resgister to start. You should soon receive an email to confirm your registration."
   utter_report_created:
   - text: "For {dkw}, here are the information about the hospitals that provided the best expertise."
   utter_sent_app_confirmation:
-    - text: "We've sent a confirmation email of the appointment to ✉️{email}.Thanks a bunch, we'll be in touch soon!"
+    - text: "We've sent a confirmation email of the appointment to ✉️:{email}.Thanks a bunch, we'll be in touch soon!"
   utter_confirmation_email:
     - text: "Thanks a bunch, we'll be in touch soon!"
   utter_inform_privacypolicy:
@@ -502,12 +497,13 @@ templates:
     - text: "Ciao!"
     - text: "Bye, was nice talking to you!"
   utter_default:
-    - text: "Sorry, I didn't get that 🤷🏻‍. Could you please rephrase?"
-    - text: "I didn't understand, could you rephrase that?"
-    - text: "I'm sorry, but I didn't understand you. Could you please rephrase what you just said?"
-    - text: "I'm afraid I didn't get what you just said. Could you rephrase that?"
-    - text: "I didn't quite get that, could you rephrase your message?"
-    - text: "Could you rephrase your message? I didn't get it, I'm sorry."
+    - text: "Please input a valid DKW."
+      elements:         
+        - title: ""
+          buttons: 
+            - title: ""
+              url: "http://linkmedicine.cn"
+              type: "dkwcomplete"
   utter_ask_feedback_question:
     - text: "How is this conversation going?"
   utter_ask_feedback:
@@ -702,6 +698,7 @@ templates:
     - text:  "Yes, that is possible! You can connect Rasa to any channel you like. Here you can find more informations."
 
 actions:
+  - fallback
   - utter_echo_dkw
   - utter_show_map
   - utter_show_rankchart
@@ -727,7 +724,7 @@ actions:
   - utter_ask_basic_knowledge_question
   - utter_ask_basic_knowledge_answer
   - utter_ask_lm_appointment_answer
-  - utter_lm_app_instruction
+  - utter_lm_appointment_instruction
   - utter_ask_cooperation
   - utter_ask_dkw_question_me
   - utter_ask_dkw_question_male
@@ -748,9 +745,8 @@ actions:
   - utter_ask_medical_appointment_question_female
   - utter_ask_medical_appointment_question_instruction
   - utter_ask_medical_appointment_answer
-  - utter_ask_choose_med_app
   - utter_ask_lm_appointment
-  - utter_lm_app
+  - utter_lm_appointment
   - utter_ask_lm_consultant
   - utter_lm_consultant
   - utter_ask_email_question

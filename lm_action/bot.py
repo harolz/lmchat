@@ -52,12 +52,10 @@ class ActionReplyHospitals(FormAction):
         return [SlotSet("hospitals", "{}".format(hospital_data))]
         # return [SlotSet("hospitals", "test")]
 
-class ActionDefaultFback(Action):
-    """Executes the fallback action and goes back to the previous state
-    of the dialogue"""
+class ActionFallback(Action):
 
-    def name(self) -> Text:
-        return "action_default_fallback"
+    def name(self):
+        return "fallback"
 
     def run(self, dispatcher, tracker, domain):
         from rasa_core.events import UserUtteranceReverted
@@ -66,6 +64,7 @@ class ActionDefaultFback(Action):
                                   silent_fail=True)
 
         return [UserUtteranceReverted()]
+        
 class ActionReplyStats(FormAction, Action):
     RANDOMIZE = True
 
@@ -83,10 +82,9 @@ class ActionReplyStats(FormAction, Action):
         # type: (Dispatcher, DialogueStateTracker, Domain) -> List[Event]
         dkw = tracker.get_slot('dkw')
         stats_data = get_basic_Stats_text(dkw)
-        if stats_data:
-            return [SlotSet("basic_stats", "{}".format(stats_data))]
-        else:
-            ActionDefaultFback.run(self, dispatcher, tracker, domain)
+
+        return [SlotSet("basic_stats", "{}".format(stats_data))]
+
 
 
 class ActionReplyEmail(FormAction):

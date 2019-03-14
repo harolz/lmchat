@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AsyncSelect from './select';
 import axios from 'axios';
 import { PROP_TYPES } from 'constants';
-import { emitUserMessage, toggleInputDisabled, addUserMessage, updateDkw } from 'actions';
+import { addResponseMessage, emitUserMessage, addUserMessage, updateDkw } from 'actions';
 import { connect } from 'react-redux';
 import Button from '../Medication/components/Button';
 import ReactDOM from 'react-dom';
@@ -82,17 +82,28 @@ class DkwComplete extends Component {
 
   handleSubmit() {
     const DKW = this.state.selectedTitle.label;
-    localStorage.setItem('diagnosis_key_word', `${DKW}`);
+    this.props.utterDKW(DKW);
     // const payload = '/confirm_dkw{\"dkw\":\"Pancreatic Ducts\"}'
-    const payload = '/confirm_dkw{\"dkw\":' + '\"' + DKW + '\"}';
+    let payload = '';
+    let dkwerr = true;
+    let DKWERR = 'Sorry, no results returned for' + `<b>${DKW}</b>` + '. Please check your diagnosis and try again.'
     axios
     .get('https://www.linksciences.com/getTopHospitals.do?dkw=' + DKW)
     .then((response) => {
       localStorage.setItem('TIMESTAMP', response.data.timestamp);
+      if (response.data.dkwDescription !== '') {
+        dkwerr = false;
+        payload = '/confirm_dkw{\"dkw\":' + '\"' + DKW + '\"}';
+        localStorage.setItem('diagnosis_key_word', `${DKW}`);
+        this.props.submitDKW(payload, DKW);
+      } else {
+        this.props.utterDKWERR(DKWERR)
+        this.props.submitDKW(payload, DKW);
+        // setTimeout(this.props.utterDKWERR(DKWERR), 10000);
+      }
     })
     .catch((error) => { console.log(error); });
     // alert(localStorage.getItem("TIMESTAMPE"));
-    this.props.submitDKW(payload, DKW);
   }
   render() {
     return (
@@ -109,6 +120,7 @@ class DkwComplete extends Component {
               loadOptions={this.debouncedsearchTitles}
               menuShouldScrollIntoView
               placeholder="Type in your diagnosis"
+              formatCreateLabel={userInput => `Search ${userInput}`}
               onChange={(property, value) => {
                 this.setState({ selectedTitle: property });
               }}
@@ -139,10 +151,10 @@ const mapStateToProps = state => ({
 });
   
 const mapDispatchToProps = dispatch => ({
-    toggleInputDisabled: _ => dispatch(toggleInputDisabled()),
+    utterDKWERR: (DKWERR) => dispatch(addResponseMessage(DKWERR)),
+    utterDKW: (DKW) => dispatch(addUserMessage(DKW)),
     submitDKW: (payload, DKW) => {
       dispatch(emitUserMessage(payload));
-      dispatch(addUserMessage(DKW));
       dispatch(updateDkw(DKW));
     }
 });
