@@ -7,8 +7,8 @@ import './styles.scss';
 
 const options = {
   title: 'test',
-  width: '100%',
-  height: '100%',
+  width: '275',
+  height: '180',
   region: 'US',
   displayMode: 'markers',
   resolution: 'provinces',

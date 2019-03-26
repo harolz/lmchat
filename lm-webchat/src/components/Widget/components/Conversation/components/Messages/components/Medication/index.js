@@ -163,7 +163,7 @@ class Medication extends Component {
               value={this.state.newUser.about}
               name={'currentPetInfo'}
               handleChange={this.handleTextArea}
-              placeholder={'Describe your current medication and therapy'}
+              placeholder={'Describe your current medication and therapy, e.g., prescriptions, over-the-counter, vitamins.'}
             />
             <Button
               action={this.handleSubmit}

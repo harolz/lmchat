@@ -262,9 +262,4 @@ hierarchy:
 | .videoFrame             | a container for sending video                                       |
 
 
-## Contributors
-[@PHLF](https://github.com/phlf)
-[@znat](https://github.com/znat)
-[@TheoTomalty](https://github.com/TheoTomalty)
-[@Hub4IT](https://github.com/Hub4IT)
-[@dliuproduction](https://github.com/dliuproduction)
+

@@ -13,7 +13,7 @@ const options = {
   curveType: 'function',
   legend: { position: 'bottom' },
   pageSize: 7,
-  width: 455,
+  width: 285,
   height: 485
 };
 class RankChart extends React.Component {
@@ -42,8 +42,8 @@ class RankChart extends React.Component {
         <p> Below is the rank for best hospitals of <b>{JSON.stringify(localStorage.getItem('diagnosis_key_word'))}</b> </p>
         <Chart
           chartType="Table"
-          width="455px"
-          height="485px"
+          // width="455px"
+          // height="485px"
           data={data}
           options={options}
         />
