@@ -70,7 +70,7 @@
     "timekit-booking": "^2.5.3",
     "ttf-loader": "^1.0.2",
     "uniqueid": "^1.0.0",
-    "validator": "^10.10.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
